@@ -24,21 +24,21 @@
         </template>
     </keep-alive>
 
-    <keep-alive include="reporte-anual">
+    <keep-alive include="taller-pantalla">
         <template v-if="menu==4">
             <taller-pantalla></taller-pantalla>
         </template>
     </keep-alive>
 
-    <keep-alive include="reporte-recorrido">
+    <keep-alive include="item-pantalla">
         <template v-if="menu==5">
-            <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
+            <item-pantalla></item-pantalla>
         </template>
     </keep-alive>
 
-    <keep-alive include="reporte-recorrido">
+    <keep-alive include="tipomanto-pantalla">
         <template v-if="menu==6">
-            <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
+            <tipomanto-pantalla></tipomanto-pantalla>
         </template>
     </keep-alive>
 

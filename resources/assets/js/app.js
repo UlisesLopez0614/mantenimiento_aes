@@ -23,6 +23,8 @@ Vue.component('principal-pantalla', require('./components/PrincipalPantalla.vue'
 Vue.component('supervisor-pantalla', require('./components/SupervisorPantalla.vue').default);
 Vue.component('unidmedida-pantalla', require('./components/UnidmedidaPantalla.vue').default);
 Vue.component('taller-pantalla', require('./components/TallerPantalla.vue').default);
+Vue.component('item-pantalla', require('./components/ItemPantalla.vue').default);
+Vue.component('tipomanto-pantalla', require('./components/TipomantoPantalla.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
