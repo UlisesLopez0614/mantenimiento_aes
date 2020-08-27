@@ -3,7 +3,7 @@
 @section('contenido')
 
     <template v-if="menu==0">
-        <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
+        <escritorio-pantalla></escritorio-pantalla>
     </template>
 
     <keep-alive include="principa-pantalla">
@@ -42,15 +42,17 @@
         </template>
     </keep-alive>
 
-    <keep-alive include="indicadores-globales">
+    <keep-alive include="empresa-catalogo-pantalla">
         <template v-if="menu==7">
-            <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
+            <empresa-catalogo-pantalla></empresa-catalogo-pantalla>
         </template>
     </keep-alive>
 
-    <template v-if="menu==8">
-        <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
-    </template>
+    <keep-alive include="empresa-asignacion-pantalla">
+        <template v-if="menu==8">
+            <empresa-asignacion-pantalla></empresa-asignacion-pantalla>
+        </template>
+    </keep-alive>
 
     <keep-alive include="indicadores-globales">
         <template v-if="menu==9">
@@ -72,9 +74,11 @@
         <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
     </template>
 
-    <template v-if="menu==13">
-        <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
-    </template>
+    <keep-alive include="acceso-users">
+        <template v-if="menu==13">
+            <acceso-users></acceso-users>
+        </template>
+    </keep-alive>
 
     <template v-if="menu==14">
         <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>

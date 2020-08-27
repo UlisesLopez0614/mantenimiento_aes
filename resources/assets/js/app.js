@@ -19,12 +19,16 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('escritorio-pantalla', require('./components/EscritorioPantalla.vue').default);
 Vue.component('principal-pantalla', require('./components/PrincipalPantalla.vue').default);
 Vue.component('supervisor-pantalla', require('./components/SupervisorPantalla.vue').default);
 Vue.component('unidmedida-pantalla', require('./components/UnidmedidaPantalla.vue').default);
 Vue.component('taller-pantalla', require('./components/TallerPantalla.vue').default);
 Vue.component('item-pantalla', require('./components/ItemPantalla.vue').default);
 Vue.component('tipomanto-pantalla', require('./components/TipomantoPantalla.vue').default);
+Vue.component('empresa-catalogo-pantalla', require('./components/EmpresaCatalogoPantalla.vue').default);
+Vue.component('empresa-asignacion-pantalla', require('./components/EmpresaAsignacionPantalla.vue').default);
+Vue.component('acceso-users', require('./components/AccesoUsers.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

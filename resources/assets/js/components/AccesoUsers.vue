@@ -11,14 +11,11 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header text-white bg-primary">
-                    <i class="fa fa-align-justify"></i> LISTADO DE TIPOS DE MANTENIMIENTO
+                    <i class="fa fa-align-justify"></i> LISTADO DE USUARIOS
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-success text-white">
-                                <i class="fa fa-file-excel-o"></i>&nbsp;EXCEL
-                            </button>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevo" title="NUEVO SUPERVISOR">
                                 <i class="fa fa-plus-circle"></i>&nbsp;NUEVO
                             </button>
@@ -29,10 +26,11 @@
                             <tr class="bg-primary">
                                 <th style="text-align: center;">OPCIONES</th>
                                 <th style="text-align: center;">NOMBRE</th>
-                                <th style="text-align: center;">CANTIDAD</th>
-                                <th style="text-align: center;">CORREO MANTENIMIENTO</th>
-                                <th style="text-align: center;">TELÉFONO</th>
-                                <th style="text-align: center;">% DE ALERTA</th>
+                                <th style="text-align: center;">NOMBRE COMPLETO</th>
+                                <th style="text-align: center;">CORREO</th>
+                                <th style="text-align: center;">ESTADO</th>
+                                <th style="text-align: center;">ROL</th>
+                                <th style="text-align: center;">ULTIMO LOGIN</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,7 +81,7 @@
             <div class="modal-dialog modal-primary modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">AGREGAR/EDITAR TIPOS DE MANTENIMIENTO</h4>
+                        <h4 class="modal-title">AGREGAR/EDITAR USUARIOS</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -91,19 +89,31 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TIPO DE MANTENIMIENTO:</label>
+                                <label class="col-md-3 form-control-label" for="email-input">NOMBRE:</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN NOMBRE PARA EL TIPO DE MANTENIMIENTO">
+                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN NOMBRE DE USUARIO">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">CANTIDAD:</label>
+                                <label class="col-md-3 form-control-label" for="email-input">NOMBRE COMPLETO:</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE LA CANTIDAD">
+                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE EL NOMBRE COMPLETO DEL USUARIO">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">UNIDAD DE MEDIDA:</label>
+                                <label class="col-md-3 form-control-label" for="email-input">CORREO:</label>
+                                <div class="col-md-9">
+                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE EL CORREO DEL USUARIO">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">PASSWORD:</label>
+                                <div class="col-md-9">
+                                    <input type="password" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE LA CLAVE DE ACCESO PARA EL USUARIO">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">ROL:</label>
                                 <div class="col-md-9">
                                     <select class="form-control">
                                         <option value="0">SELECCIONE UNA UNIDAD DE MEDIDA</option>
@@ -111,21 +121,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">CORREO CONTACTO:</label>
+                                <label class="col-md-3 form-control-label" for="email-input">ESTADO:</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN CORREO PARA EL TIPO DE MANTENIMIENTO">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TELÉFONO:</label>
-                                <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN TELÉFONO">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">% DE ALERTA:</label>
-                                <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN PORCENTAJE PARA ALERTA">
+                                    <select class="form-control">
+                                        <option value="0">SELECCIONE UN ESTADO</option>
+                                        <option value="0">ACTIVO</option>
+                                        <option value="0">INACTIVO</option>
+                                    </select>
                                 </div>
                             </div>
                         </form>

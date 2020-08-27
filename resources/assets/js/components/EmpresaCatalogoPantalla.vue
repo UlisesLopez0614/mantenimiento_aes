@@ -11,7 +11,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header text-white bg-primary">
-                    <i class="fa fa-align-justify"></i> LISTADO DE TIPOS DE MANTENIMIENTO
+                    <i class="fa fa-align-justify"></i> LISTADO DE EMPRESAS
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -29,10 +29,6 @@
                             <tr class="bg-primary">
                                 <th style="text-align: center;">OPCIONES</th>
                                 <th style="text-align: center;">NOMBRE</th>
-                                <th style="text-align: center;">CANTIDAD</th>
-                                <th style="text-align: center;">CORREO MANTENIMIENTO</th>
-                                <th style="text-align: center;">TELÉFONO</th>
-                                <th style="text-align: center;">% DE ALERTA</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,11 +39,6 @@
                                     </button> &nbsp;
                                 </td>
                                 <td style="text-align: center;" class="align-middle">Equipos</td>
-                                <td style="text-align: center;" class="align-middle">Dispositivos electrónicos</td>
-                                <td style="text-align: center;" class="align-middle"></td>
-                                <td style="text-align: center;" class="align-middle"></td>
-                                <td style="text-align: center;" class="align-middle"></td>
-                                <td style="text-align: center;" class="align-middle"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -83,7 +74,7 @@
             <div class="modal-dialog modal-primary modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">AGREGAR/EDITAR TIPOS DE MANTENIMIENTO</h4>
+                        <h4 class="modal-title">AGREGAR/EDITAR EMPRESA</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -91,41 +82,9 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TIPO DE MANTENIMIENTO:</label>
+                                <label class="col-md-3 form-control-label" for="email-input">NOMBRE:</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN NOMBRE PARA EL TIPO DE MANTENIMIENTO">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">CANTIDAD:</label>
-                                <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE LA CANTIDAD">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">UNIDAD DE MEDIDA:</label>
-                                <div class="col-md-9">
-                                    <select class="form-control">
-                                        <option value="0">SELECCIONE UNA UNIDAD DE MEDIDA</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">CORREO CONTACTO:</label>
-                                <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN CORREO PARA EL TIPO DE MANTENIMIENTO">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TELÉFONO:</label>
-                                <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN TELÉFONO">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">% DE ALERTA:</label>
-                                <div class="col-md-9">
-                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN PORCENTAJE PARA ALERTA">
+                                    <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN NOMBRE PARA LA EMPRESA">
                                 </div>
                             </div>
                         </form>
