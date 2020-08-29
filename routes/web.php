@@ -20,3 +20,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/roles', 'RolController@index');
+Route::get('/roles/selectRol', 'RolController@selectRol');
+
+Route::get('/talleres', 'TallerController@index');
+Route::get('/talleres/selectTaller', 'TallerController@selectTaller');
+Route::post('/talleres/registrar', 'TallerController@store');
+Route::put('/talleres/actualizar', 'TallerController@update');
+Route::put('/talleres/desactivar', 'TallerController@desactivar');
+Route::put('/talleres/activar', 'TallerController@activar');
