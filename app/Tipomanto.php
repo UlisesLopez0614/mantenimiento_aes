@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tipomanto extends Model
 {
     //Nombre de la table
-    protected $table = 'tipomantos';
+    protected $table = 'tb_tipo_mtto';
 
     //Llave primaria
     protected $primaryKey = 'id';

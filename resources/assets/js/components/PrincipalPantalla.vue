@@ -84,7 +84,7 @@
                                         <button @click="cambiar(0)" type="button" class="btn btn-primary btn-sm">
                                             <i class="icon-eye"></i>
                                         </button> &nbsp;
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
+                                        <button type="button" @click="abrirModal('mantenimiento', 'registrar')" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
                                             <i class="icon-plus"></i>
                                         </button> &nbsp;
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalInfo">
@@ -201,12 +201,12 @@
             <!-- Fin ejemplo de tabla Listado -->
         </div>
         <!--Inicio del modal agregar/actualizar-->
-        <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-primary modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">INGRESO DE ASIGNACIÓN DE MANTENIMIENTO A LOS VEHÍCULOS</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h4 class="modal-title" v-text="tituloModal"></h4>
+                        <button type="button" @click="cerrarModal()" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -221,81 +221,118 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">FECHA:</label>
-                                <div class="col-md-9">
-                                    <label class="col-md-3 form-control-label" for="text-input">26/08/2020</label>
+                                <div class="col-md-3">
+                                    <input type="date" v-model="fecha" class="form-control">
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">HORA:</label>
-                                <div class="col-md-9">
-                                    <label class="col-md-3 form-control-label" for="text-input">16:41 pm</label>
+                                <div class="col-md-3">
+                                    <label class="col-md-3 form-control-label" for="text-input" v-text="hora">16:41 pm</label>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">VEHÍCULO:</label>
-                                <div class="col-md-9">
-                                    <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <div class="col-md-3">
+                                    <label class="col-md-3 form-control-label" for="text-input" v-text="vehiculo"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">ODO SW INICIAL:</label>
-                                <div class="col-md-9">
-                                    <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <div class="col-md-3">
+                                    <label class="col-md-3 form-control-label" for="text-input" v-text="odoswinicial"></label>
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">ODO HW INICIAL:</label>
-                                <div class="col-md-9">
-                                    <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <div class="col-md-3">
+                                    <label class="col-md-3 form-control-label" for="text-input" v-text=odohwinicial></label>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">TALLER (*):</label>
                                 <div class="col-md-9">
-                                    <select class="form-control">
-                                        <option value="0">SELECCIONE UN TALLER</option>
-                                        
+                                    <select class="form-control" v-model="taller1">
+                                        <option value="">SELECCIONE UN TALLER</option>
+                                        <option v-for="taller in arrayTaller" :key="taller.id" :value="taller.nombre" v-text="taller.nombre"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">TIPO MANTENIMIENTO (*):</label>
                                 <div class="col-md-9">
-                                    <select class="form-control">
-                                        <option value="0">SELECCIONE UN TIPO DE MANTENIMIENTO</option>
-                                        
+                                    <select class="form-control" v-model="tipomanto1">
+                                        <option value="">SELECCIONE UN TIPO DE MANTENIMIENTO</option>
+                                        <option v-for="tipomanto in arrayTipomanto" :key="tipomanto.id" :value="tipomanto.nombre" v-text="tipomanto.nombre"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">CANTIDAD:</label>
-                                <div class="col-md-9">
-                                    <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <div class="col-md-3">
+                                    <label class="col-md-3 form-control-label" for="text-input" v-text="cantidad"></label>
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">UNIDAD DE MEDIDA:</label>
-                                <div class="col-md-9">
-                                    <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <div class="col-md-3">
+                                    <label class="col-md-3 form-control-label" for="text-input" v-text="umedida"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">CORREO ALERTA:</label>
                                 <div class="col-md-9">
-                                    <input type="email" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN CORREO PARA ALERTAS">
+                                    <input type="email" v-model="correoalerta" class="form-control" placeholder="INGRESE UN CORREO PARA ALERTAS">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">TELEFONO ALERTA:</label>
-                                <div class="col-md-9">
-                                    <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA NARANJA:</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="alertanaranja">
+                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="1">SI</option>
+                                        <option value="0">NO</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA PROXIMA A VENCER:</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="alertaproxima">
+                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="1">SI</option>
+                                        <option value="0">NO</option>
+                                    </select>
                                 </div>
                             </div>
-                            
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA ROJA (VENCIDO):</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="alertaroja">
+                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="1">SI</option>
+                                        <option value="0">NO</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (POR VENCERSE):</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="recordatorioporven">
+                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="1">SI</option>
+                                        <option value="0">NO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (VENCIDO):</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="recordatorioven">
+                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="1">SI</option>
+                                        <option value="0">NO</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-3 form-control-label" for="email-input">PORCENTAJE ALERTA POR VENCERSE:</label>
+                                <div class="col-md-3">
+                                    <input type="number" v-model="porcentajealerta" class="form-control" placeholder="INGRESE UN PORCENTAJE DE ALERTAS">
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+                        <button type="button" @click="cerrarModal()" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
                         <button type="button" class="btn btn-primary">GUARDAR</button>
                     </div>
                 </div>
@@ -305,7 +342,7 @@
         </div>
         <!--Fin del modal-->
         <!-- Inicio del modal Eliminar -->
-        <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <!--div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-primary" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -361,14 +398,14 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
                     </div>
-                </div>
+                </div-->
                 <!-- /.modal-content -->
-            </div>
+            <!--/div-->
             <!-- /.modal-dialog -->
-        </div>
+        <!--/div-->
         <!-- Fin del modal Eliminar -->
         <!-- Inicio del modal Detalle -->
-        <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <!--div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-primary" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -386,11 +423,11 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
                     </div>
-                </div>
+                </div-->
                 <!-- /.modal-content -->
-            </div>
+            <!--/div-->
             <!-- /.modal-dialog -->
-        </div>
+        <!--/div-->
         <!-- Fin del modal Eliminar -->
     </main>
     <!-- /Fin del contenido principal -->
@@ -405,7 +442,78 @@
 
                 tabla : 1,
                 prueba : '',
-                loading : true
+                loading : true,
+                arrayTaller : [],
+                arrayTipomanto : [],
+                fecha : '',
+                hora : '',
+                vehiculo : '',
+                odoswinicial : '',
+                odohwinicial : '',
+                taller1 : '',
+                tipomanto1 : '',
+                cantidad : '',
+                umedida : '',
+                correoalerta : '',
+                alertanaranja : '',
+                alertaproxima : '',
+                alertaroja : '',
+                recordatorioporven : '',
+                recordatorioven : '',
+                porcentajealerta:  '',
+                modal : 0,
+                tituloModal : '',
+                tipoAccion: 0,
+                errorMantenimiento : 0,
+                errorMostrarMsjMantenimiento : [],
+                pagination : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to' : 0,
+                },
+                offset : 3,
+                criterio : 'nombre',
+                buscar : ''
+
+            }
+
+        },
+
+        computed : {
+
+            isActived : function(){
+                return this.pagination.current_page;
+            },
+
+            pagesNumber: function() {
+
+                if(!this.pagination.to) {
+                    return [];
+                }
+
+                var from = this.pagination.current_page - this.offset;
+
+                if(from < 1) {
+                    from = 1;
+                }
+
+                var to = from + (this.offset * 2);
+
+                if(to >= this.pagination.last_page){
+                    to = this.pagination.last_page;
+                }
+
+                var pagesArray = [];
+
+                while(from <= to){
+                    pagesArray.push(from);
+                    from++;
+                }
+
+                return pagesArray;
 
             }
 
@@ -413,13 +521,96 @@
 
         methods : {
 
-            cambiar(){
-                let me = this;
-                
-                me.loading = false;
+            selectTaller(){
 
-                //me.$root.menu = 2;
-            }
+                let me = this;
+                var url = '/talleres/selectTaller';
+                
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayTaller = respuesta.talleres;
+                    console.log(response);
+
+                })
+                .catch(function (error) {
+                    
+                    console.log(error);
+
+                })
+
+            },
+
+            selectTipomanto(){
+
+                let me = this;
+                var url = '/tipomantos/selectTipomanto';
+                
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayTipomanto = respuesta.tipomantos;
+                    console.log(response);
+
+                })
+                .catch(function (error) {
+                    
+                    console.log(error);
+
+                })
+
+            },
+
+            abrirModal(modelo, accion, data = []){
+
+                this.selectTaller();
+                this.selectTipomanto();
+
+                switch (modelo) {
+
+                    case 'mantenimiento':
+                        
+                        {
+
+                            switch (accion) {
+                                
+                                case 'registrar':
+                                    {
+                                        this.modal = 1;
+                                        this.tituloModal = 'INGRESO DE ASIGNACIÓN DE MANTENIMIENTO A LOS VEHÍCULOS'
+                                        this.nombre = '';
+                                        this.email = '';
+                                        this.nombre_completo = '';
+                                        this.password = '';
+                                        this.tipoAccion = 1;
+                                        break;
+                                    }
+                            
+                            }
+
+                        }
+                        
+                }
+            },
+
+            cerrarModal(){
+
+                this.modal = 0;
+                this.tituloModal = '';
+                this.nombre = '';
+                this.nombre_completo = '';
+                this.email = '';
+                this.id_rol = 0;
+                this.password = '';
+                this.user_id = 0;
+                this.distribuidora = {
+                    id : 0,
+                    nombre : ''
+                };
+                this.arrayRol = [];
+                this.arrayDistribuidora = [];
+                this.distribuidoras = [];
+                this.errorUsuario = 0;
+                this.errorMostrarMsjUsuario = [];
+            },
 
         },
 
@@ -428,3 +619,61 @@
         }
     }
 </script>
+
+<style>
+
+    .modal-content{
+
+        width: 100% !important;
+        position: absolute !important;
+
+    }
+
+    .mostrar{
+
+        display: list-item !important;
+        opacity: 1 !important;
+        position: absolute !important;
+        background-color: #3c29297a !important;
+        overflow-y: auto;
+
+    }
+
+    .div-error{
+
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .text-error{
+        color: blue !important;
+        font-weight: bold;
+    }
+
+    .pagination > li > a{
+        background-color: white;
+        color: #20a8d8 !important;
+    }
+
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover{
+        color: #20a8d8 !important;
+        background-color: #eee !important;
+        border-color: #ddd !important;
+    }
+
+    .pagination > .active > a{
+        color: white !important;
+        background-color: #20a8d8 !important;
+        border: solid 1px #20a8d8 !important;
+    }
+
+    .pagination > .active > a:hover{
+        background-color: #20a8d8 !important;
+        border: solid 1px #20a8d8 !important;
+    }
+
+</style>

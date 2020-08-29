@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Taller extends Model
 {
     //Nombre de la table
-    protected $table = 'talleres';
+    protected $table = 'tb_talleres';
 
     //Llave primaria
     protected $primaryKey = 'id';

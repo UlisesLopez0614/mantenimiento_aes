@@ -13,24 +13,24 @@
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> CATÁLOGOS</a>
                 <ul class="nav-dropdown-items">
-                    <li @click="menu=2" class="nav-item">
+                    <!--li @click="menu=2" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-wallet"></i> Supervisores</a>
-                    </li>
+                    </li-->
                     <li @click="menu=3" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-notebook"></i> U. de Medida</a>
                     </li>
                     <li @click="menu=4" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-wallet"></i> Talleres</a>
                     </li>
-                    <li @click="menu=5" class="nav-item">
+                    <!--li @click="menu=5" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-notebook"></i> Items</a>
-                    </li>
+                    </li-->
                     <li @click="menu=6" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-wallet"></i> Tipos Manto.</a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item nav-dropdown">
+            <!--li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> EMPRESAS</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=7" class="nav-item">
@@ -40,7 +40,7 @@
                         <a class="nav-link" href="#"><i class="icon-notebook"></i> Asignación</a>
                     </li>
                 </ul>
-            </li>
+            </li-->
             <!--li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> BATERÍAS</a>
                 <ul class="nav-dropdown-items">
@@ -52,7 +52,7 @@
                     </li>
                 </ul>
             </li-->
-            <li class="nav-item nav-dropdown">
+            <!--li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> MANTENIMIENTO</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=11" class="nav-item">
@@ -62,7 +62,7 @@
                         <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Reportes</a>
                     </li>
                 </ul>
-            </li>
+            </li-->
             <li class="nav-title">
                 Configuración
             </li>

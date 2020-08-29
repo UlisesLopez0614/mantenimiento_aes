@@ -33,7 +33,7 @@ Route::put('/talleres/desactivar', 'TallerController@desactivar');
 Route::put('/talleres/activar', 'TallerController@activar');
 
 Route::get('/tipomantos', 'TipomantoController@index');
-Route::get('/tipomantos/selectTaller', 'TipomantoController@selectTaller');
+Route::get('/tipomantos/selectTipomanto', 'TipomantoController@selectTipomanto');
 Route::post('/tipomantos/registrar', 'TipomantoController@store');
 Route::put('/tipomantos/actualizar', 'TipomantoController@update');
 Route::put('/tipomantos/desactivar', 'TipomantoController@desactivar');
