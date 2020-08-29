@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Taller extends Model
+class Tipomanto extends Model
 {
     //Nombre de la table
-    protected $table = 'talleres';
+    protected $table = 'tipomantos';
 
     //Llave primaria
     protected $primaryKey = 'id';
@@ -18,7 +18,7 @@ class Taller extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'descripcion', 'nit', 'nombrecontacto', 'telefono'
+        'nombre', 'cantidad', 'umedida', 'porcentajealerta'
     ];
 
     public function setNombreAttribute($value) 
@@ -26,14 +26,9 @@ class Taller extends Model
         $this->attributes['nombre'] = strtoupper($value);
     }
 
-    public function setDescripcionAttribute($value) 
+    public function setUmedidaAttribute($value) 
     {
-        $this->attributes['descripcion'] = strtoupper($value);
-    }
-
-    public function setNombrecontactoAttribute($value) 
-    {
-        $this->attributes['nombrecontacto'] = strtoupper($value);
+        $this->attributes['umedida'] = strtoupper($value);
     }
 
 }

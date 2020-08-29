@@ -13,8 +13,13 @@ class CreateTiposmantoTable extends Migration
      */
     public function up()
     {
-        Schema::create('tiposmanto', function (Blueprint $table) {
+        Schema::create('tipomantos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->integer('cantidad');
+            $table->string('umedida');
+            $table->integer('porcentajealerta');
+            $table->boolean('condicion')->default(true);
             $table->timestamps();
         });
     }
