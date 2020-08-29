@@ -3158,6 +3158,9 @@ __webpack_require__.r(__webpack_exports__);
       fecha: '',
       hora: '',
       vehiculo: '',
+      nombre: '',
+      placa: '',
+      idAVL: '',
       odoswinicial: '',
       odohwinicial: '',
       taller1: '',
@@ -3260,20 +3263,50 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    fechaActual2: function fechaActual2() {
+      var hoy = new Date();
+      var dd = hoy.getDate();
+      var mm = hoy.getMonth() + 1;
+      var yyyy = hoy.getFullYear();
+      var hh = hoy.getHours();
+      var min = hoy.getMinutes();
+
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+
+      if (hh < 10) {
+        hh = '0' + hh;
+      }
+
+      if (min < 10) {
+        min = '0' + min;
+      }
+
+      this.fecha = yyyy + '-' + mm + '-' + dd;
+      this.hora = hh + ':' + min;
+    },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
       this.selectTaller();
       this.selectTipomanto();
+      this.fechaActual2();
 
       switch (modelo) {
-        case 'mantenimiento':
+        case 'principal':
           {
             switch (accion) {
               case 'registrar':
                 {
                   this.modal = 1;
                   this.tituloModal = 'INGRESO DE ASIGNACIÓN DE MANTENIMIENTO A LOS VEHÍCULOS';
-                  this.nombre = '';
+                  this.nombre = data['vehiculo'].Name;
+                  this.placa = data['vehiculo'].Plate;
+                  this.idAVL = data['vehiculo'].idAVL;
                   this.email = '';
                   this.nombre_completo = '';
                   this.password = '';
@@ -3288,20 +3321,17 @@ __webpack_require__.r(__webpack_exports__);
       this.modal = 0;
       this.tituloModal = '';
       this.nombre = '';
-      this.nombre_completo = '';
-      this.email = '';
-      this.id_rol = 0;
-      this.password = '';
-      this.user_id = 0;
-      this.distribuidora = {
-        id: 0,
-        nombre: ''
-      };
+      this.placa = '';
+      this.idAVL = '';
       this.arrayRol = [];
       this.arrayDistribuidora = [];
       this.distribuidoras = [];
       this.errorUsuario = 0;
       this.errorMostrarMsjUsuario = [];
+    },
+    cambiar: function cambiar() {
+      var me = this;
+      me.loading = false; //me.$root.menu = 2;
     }
   },
   mounted: function mounted() {
@@ -42711,8 +42741,9 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           return _vm.abrirModal(
-                                            "mantenimiento",
-                                            "registrar"
+                                            "principal",
+                                            "registrar",
+                                            principal
                                           )
                                         }
                                       }
@@ -43029,7 +43060,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date" },
+                          attrs: { type: "text" },
                           domProps: { value: _vm.fecha },
                           on: {
                             input: function($event) {
@@ -43074,11 +43105,15 @@ var render = function() {
                         [_vm._v("VEHÍCULO:")]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "col-md-9" }, [
                         _c("label", {
-                          staticClass: "col-md-3 form-control-label",
+                          staticClass: "col-md-9 form-control-label",
                           attrs: { for: "text-input" },
-                          domProps: { textContent: _vm._s(_vm.vehiculo) }
+                          domProps: {
+                            textContent: _vm._s(
+                              _vm.nombre + "-" + _vm.placa + "-" + _vm.idAVL
+                            )
+                          }
                         })
                       ])
                     ]),

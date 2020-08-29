@@ -82,7 +82,7 @@
                                         <button @click="cambiar(0)" type="button" class="btn btn-primary btn-sm">
                                             <i class="icon-eye"></i>
                                         </button> &nbsp;
-                                        <button type="button" @click="abrirModal('mantenimiento', 'registrar')" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
+                                        <button type="button" @click="abrirModal('principal', 'registrar', principal)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
                                             <i class="icon-plus"></i>
                                         </button> &nbsp;
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalInfo">
@@ -214,7 +214,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">FECHA:</label>
                                 <div class="col-md-3">
-                                    <input type="date" v-model="fecha" class="form-control">
+                                    <input type="text" v-model="fecha" class="form-control">
                                 </div>
                                 <label class="col-md-3 form-control-label" for="text-input">HORA:</label>
                                 <div class="col-md-3">
@@ -223,8 +223,8 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">VEHÍCULO:</label>
-                                <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="vehiculo"></label>
+                                <div class="col-md-9">
+                                    <label class="col-md-9 form-control-label" for="text-input" v-text="nombre + '-' + placa + '-' + idAVL"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -275,7 +275,7 @@
                                 <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA NARANJA:</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="alertanaranja">
-                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -283,7 +283,7 @@
                                 <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA PROXIMA A VENCER:</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="alertaproxima">
-                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -293,7 +293,7 @@
                                 <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA ROJA (VENCIDO):</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="alertaroja">
-                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -301,7 +301,7 @@
                                 <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (POR VENCERSE):</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="recordatorioporven">
-                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -311,7 +311,7 @@
                                 <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (VENCIDO):</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="recordatorioven">
-                                        <option value="">SELECCIONE UNA OPCIÓN</option>
+                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -441,6 +441,9 @@
                 fecha : '',
                 hora : '',
                 vehiculo : '',
+                nombre : '',
+                placa : '',
+                idAVL : '',
                 odoswinicial : '',
                 odohwinicial : '',
                 taller1 : '',
@@ -580,14 +583,46 @@
 
             },
 
+            fechaActual2(){
+                
+                let hoy = new Date();
+
+                let dd = hoy.getDate();
+                let mm = hoy.getMonth()+1;
+                let yyyy = hoy.getFullYear();
+                let hh = hoy.getHours();
+                let min = hoy.getMinutes();
+
+                if(dd < 10){
+                    dd = '0'+dd;
+                }
+
+                if(mm < 10){
+                    mm = '0'+mm;
+                }
+
+                if(hh < 10){
+                    hh = '0'+hh;
+                }
+
+                if(min < 10){
+                    min = '0'+min;
+                }
+        
+                this.fecha = yyyy + '-' + mm + '-' + dd;
+                this.hora = hh + ':' + min;
+
+            },
+
             abrirModal(modelo, accion, data = []){
 
                 this.selectTaller();
                 this.selectTipomanto();
+                this.fechaActual2();
 
                 switch (modelo) {
 
-                    case 'mantenimiento':
+                    case 'principal':
                         
                         {
 
@@ -596,8 +631,10 @@
                                 case 'registrar':
                                     {
                                         this.modal = 1;
-                                        this.tituloModal = 'INGRESO DE ASIGNACIÓN DE MANTENIMIENTO A LOS VEHÍCULOS'
-                                        this.nombre = '';
+                                        this.tituloModal = 'INGRESO DE ASIGNACIÓN DE MANTENIMIENTO A LOS VEHÍCULOS';
+                                        this.nombre = data['vehiculo'].Name;
+                                        this.placa = data['vehiculo'].Plate;
+                                        this.idAVL = data['vehiculo'].idAVL;
                                         this.email = '';
                                         this.nombre_completo = '';
                                         this.password = '';
@@ -617,21 +654,22 @@
                 this.modal = 0;
                 this.tituloModal = '';
                 this.nombre = '';
-                this.nombre_completo = '';
-                this.email = '';
-                this.id_rol = 0;
-                this.password = '';
-                this.user_id = 0;
-                this.distribuidora = {
-                    id : 0,
-                    nombre : ''
-                };
+                this.placa = '';
+                this.idAVL = '';
                 this.arrayRol = [];
                 this.arrayDistribuidora = [];
                 this.distribuidoras = [];
                 this.errorUsuario = 0;
                 this.errorMostrarMsjUsuario = [];
             },
+
+            cambiar(){
+                let me = this;
+                
+                me.loading = false;
+
+                //me.$root.menu = 2;
+            }
 
         },
 

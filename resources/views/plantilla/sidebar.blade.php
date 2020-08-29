@@ -16,9 +16,9 @@
                     <!--li @click="menu=2" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-wallet"></i> Supervisores</a>
                     </li-->
-                    <li @click="menu=3" class="nav-item">
+                    <!--li @click="menu=3" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-notebook"></i> U. de Medida</a>
-                    </li>
+                    </li-->
                     <li @click="menu=4" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-wallet"></i> Talleres</a>
                     </li>
