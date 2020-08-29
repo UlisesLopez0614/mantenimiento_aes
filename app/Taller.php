@@ -36,4 +36,9 @@ class Taller extends Model
         $this->attributes['nombrecontacto'] = strtoupper($value);
     }
 
+    public function mantenimientos()
+    {
+        return $this->hasMany(Mantenimiento::class, 'FK_taller');
+    }
+
 }

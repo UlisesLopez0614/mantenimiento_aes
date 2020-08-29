@@ -3146,14 +3146,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3162,6 +3154,7 @@ __webpack_require__.r(__webpack_exports__);
       loading: true,
       arrayTaller: [],
       arrayTipomanto: [],
+      arrayPrincipal: [],
       fecha: '',
       hora: '',
       vehiculo: '',
@@ -3228,6 +3221,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    listarPrincipal: function listarPrincipal(page, buscar, criterio) {
+      var me = this;
+      var url = '/principales?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayPrincipal = respuesta.principales.data;
+        me.pagination = respuesta.pagination;
+        console.log(respuesta);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+      var me = this;
+      me.pagination.current_page = page;
+      me.listarPrincipal(page, buscar, criterio);
+    },
     selectTaller: function selectTaller() {
       var me = this;
       var url = '/talleres/selectTaller';
@@ -3295,7 +3305,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.listarPrincipal(1, this.buscar, this.criterio);
   }
 });
 
@@ -8842,7 +8852,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n    overflow-y: auto;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n\n", ""]);
+exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n    overflow-y: auto;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.sizeOpcion{\n    width: 170px;\n}\n\n", ""]);
 
 // exports
 
@@ -42659,118 +42669,248 @@ var render = function() {
                     [
                       _vm._m(5),
                       _vm._v(" "),
-                      _c("tbody", [
-                        _c("tr", [
-                          _c(
-                            "td",
-                            {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" }
-                            },
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.arrayPrincipal, function(principal) {
+                          return _c(
+                            "tr",
+                            { key: principal.id },
                             [
                               _c(
-                                "button",
+                                "td",
                                 {
-                                  staticClass: "btn btn-primary btn-sm",
-                                  attrs: { type: "button" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.cambiar(0)
-                                    }
+                                  staticClass: "align-middle",
+                                  staticStyle: { "text-align": "center" }
+                                },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary btn-sm",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.cambiar(0)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-eye" })]
+                                  ),
+                                  _vm._v(
+                                    "  \n                                    "
+                                  ),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-success btn-sm",
+                                      attrs: {
+                                        type: "button",
+                                        "data-toggle": "modal",
+                                        "data-target": "#modalNuevo"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.abrirModal(
+                                            "mantenimiento",
+                                            "registrar"
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "icon-plus" })]
+                                  ),
+                                  _vm._v(
+                                    "  \n                                    "
+                                  ),
+                                  _vm._m(6, true)
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "align-middle",
+                                  staticStyle: { "text-align": "center" },
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      principal.vehiculo.idAVL
+                                    )
                                   }
                                 },
-                                [_c("i", { staticClass: "icon-eye" })]
+                                [_vm._v("Equipos")]
                               ),
-                              _vm._v(
-                                "  \n                                    "
-                              ),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(principal.vehiculo.Name)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(principal.vehiculo.Plate)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(principal.vehiculo.Fleet)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" }
+                              }),
+                              _vm._v(" "),
+                              principal.mantenimiento != null
+                                ? [
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          principal.mantenimiento.tipomanto
+                                            .nombre
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          principal.mantenimiento.taller.nombre
+                                        )
+                                      }
+                                    })
+                                  ]
+                                : [
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" }
+                                    })
+                                  ]
+                            ],
+                            2
+                          )
+                        }),
+                        0
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("nav", [
+                    _c("span", { staticClass: "page-stats" }, [
+                      _vm._v(
+                        "Del " +
+                          _vm._s(_vm.pagination.from) +
+                          " al " +
+                          _vm._s(_vm.pagination.to) +
+                          " de un total de  " +
+                          _vm._s(_vm.pagination.total) +
+                          " registros."
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      { staticClass: "pagination" },
+                      [
+                        _vm.pagination.current_page > 1
+                          ? _c("li", { staticClass: "page-item" }, [
                               _c(
-                                "button",
+                                "a",
                                 {
-                                  staticClass: "btn btn-success btn-sm",
-                                  attrs: {
-                                    type: "button",
-                                    "data-toggle": "modal",
-                                    "data-target": "#modalNuevo"
-                                  },
+                                  staticClass: "page-link",
+                                  attrs: { href: "#" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.abrirModal(
-                                        "mantenimiento",
-                                        "registrar"
+                                      $event.preventDefault()
+                                      return _vm.cambiarPagina(
+                                        _vm.pagination.current_page - 1,
+                                        _vm.buscar,
+                                        _vm.criterio
                                       )
                                     }
                                   }
                                 },
-                                [_c("i", { staticClass: "icon-plus" })]
-                              ),
-                              _vm._v(
-                                "  \n                                    "
-                              ),
-                              _vm._m(6)
+                                [_vm._v("Ant")]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm._l(_vm.pagesNumber, function(page) {
+                          return _c(
+                            "li",
+                            {
+                              key: page,
+                              staticClass: "page-item",
+                              class: [page == _vm.isActived ? "active" : ""]
+                            },
+                            [
+                              _c("a", {
+                                staticClass: "page-link",
+                                attrs: { href: "#" },
+                                domProps: { textContent: _vm._s(page) },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.cambiarPagina(
+                                      page,
+                                      _vm.buscar,
+                                      _vm.criterio
+                                    )
+                                  }
+                                }
+                              })
                             ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" }
-                            },
-                            [_vm._v("Equipos")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" }
-                            },
-                            [_vm._v("Dispositivos electrónicos")]
-                          ),
-                          _vm._v(" "),
-                          _vm._m(7),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "align-middle",
-                            staticStyle: { "text-align": "center" }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "align-middle",
-                            staticStyle: { "text-align": "center" }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "align-middle",
-                            staticStyle: { "text-align": "center" }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "align-middle",
-                            staticStyle: { "text-align": "center" }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "align-middle",
-                            staticStyle: { "text-align": "center" }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "align-middle",
-                            staticStyle: { "text-align": "center" }
-                          }),
-                          _vm._v(" "),
-                          _c("td", {
-                            staticClass: "align-middle",
-                            staticStyle: { "text-align": "center" }
-                          })
-                        ])
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(8)
+                          )
+                        }),
+                        _vm._v(" "),
+                        _vm.pagination.current_page < _vm.pagination.last_page
+                          ? _c("li", { staticClass: "page-item" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "page-link",
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.cambiarPagina(
+                                        _vm.pagination.current_page + 1,
+                                        _vm.buscar,
+                                        _vm.criterio
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Sig")]
+                              )
+                            ])
+                          : _vm._e()
+                      ],
+                      2
+                    )
+                  ])
                 ]
               : [
                   _c("div", { staticClass: "form-group row" }, [
@@ -42793,9 +42933,9 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(9),
+                  _vm._m(7),
                   _vm._v(" "),
-                  _vm._m(10)
+                  _vm._m(8)
                 ]
           ],
           2
@@ -42866,7 +43006,7 @@ var render = function() {
                     }
                   },
                   [
-                    _vm._m(11),
+                    _vm._m(9),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
@@ -43654,7 +43794,7 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", { staticClass: "bg-primary" }, [
         _c("th", { staticStyle: { "text-align": "center" } }, [
-          _vm._v("OPCIONES")
+          _c("div", { staticClass: "sizeOpcion" }, [_vm._v("OPCIONES")])
         ]),
         _vm._v(" "),
         _c("th", { staticStyle: { "text-align": "center" } }, [
@@ -43671,14 +43811,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticStyle: { "text-align": "center" } }, [
           _vm._v("FLOTA")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticStyle: { "text-align": "center" } }, [
-          _vm._v("MODELO")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticStyle: { "text-align": "center" } }, [
-          _vm._v("COLOR")
         ]),
         _vm._v(" "),
         _c("th", { staticStyle: { "text-align": "center" } }, [
@@ -43715,60 +43847,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "icon-trash" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "td",
-      { staticClass: "align-middle", staticStyle: { "text-align": "center" } },
-      [_c("span", { staticClass: "badge badge-success" }, [_vm._v("Activo")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", [
-      _c("ul", { staticClass: "pagination" }, [
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("Ant")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item active" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("1")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("2")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("3")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("4")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("Sig")
-          ])
-        ])
-      ])
-    ])
   },
   function() {
     var _vm = this

@@ -31,4 +31,9 @@ class Tipomanto extends Model
         $this->attributes['umedida'] = strtoupper($value);
     }
 
+    public function mantenimientos()
+    {
+        return $this->hasMany(Mantenimiento::class, 'FK_tipoMtto');
+    }
+
 }

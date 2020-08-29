@@ -38,3 +38,5 @@ Route::post('/tipomantos/registrar', 'TipomantoController@store');
 Route::put('/tipomantos/actualizar', 'TipomantoController@update');
 Route::put('/tipomantos/desactivar', 'TipomantoController@desactivar');
 Route::put('/tipomantos/activar', 'TipomantoController@activar');
+
+Route::get('/principales', 'PrincipalController@index');

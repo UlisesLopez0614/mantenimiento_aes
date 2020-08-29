@@ -65,13 +65,11 @@
                         <table class="table table-responsive table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th style="text-align: center;">OPCIONES</th>
+                                    <th style="text-align: center;"><div class="sizeOpcion">OPCIONES</div></th>
                                     <th style="text-align: center;">ID AVL</th>
                                     <th style="text-align: center;">NOMBRE</th>
                                     <th style="text-align: center;">PLACA</th>
                                     <th style="text-align: center;">FLOTA</th>
-                                    <th style="text-align: center;">MODELO</th>
-                                    <th style="text-align: center;">COLOR</th>
                                     <th style="text-align: center;">ODO. ACTUAL</th>
                                     <th style="text-align: center;">ODO. ALERTA</th>
                                     <th style="text-align: center;">TIPO MANTO.</th>
@@ -79,7 +77,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr v-for="principal in arrayPrincipal" :key="principal.id">
                                     <td style="text-align: center;" class="align-middle">
                                         <button @click="cambiar(0)" type="button" class="btn btn-primary btn-sm">
                                             <i class="icon-eye"></i>
@@ -91,40 +89,34 @@
                                             <i class="icon-trash"></i>
                                         </button>
                                     </td>
-                                    <td style="text-align: center;" class="align-middle">Equipos</td>
-                                    <td style="text-align: center;" class="align-middle">Dispositivos electrónicos</td>
-                                    <td style="text-align: center;" class="align-middle">
-                                        <span class="badge badge-success">Activo</span>
-                                    </td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.idAVL">Equipos</td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Name"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Plate"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>
                                     <td style="text-align: center;" class="align-middle"></td>
                                     <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
+                                    <template v-if="principal.mantenimiento != null">
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.tipomanto.nombre"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
+                                    </template>
+                                    <template v-else>
+                                        <td style="text-align: center;" class="align-middle"></td>
+                                        <td style="text-align: center;" class="align-middle"></td>
+                                    </template>
                                 </tr>
                             </tbody>
                         </table>
                         <nav>
+                            <span class="page-stats">Del {{pagination.from}} al {{pagination.to}} de un total de  {{pagination.total}} registros.</span>
                             <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Ant</a>
+                                <li class="page-item" v-if="pagination.current_page > 1">
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio)">Ant</a>
                                 </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
+                                <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio)" v-text="page"></a>
                                 </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Sig</a>
+                                <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio)">Sig</a>
                                 </li>
                             </ul>
                         </nav>
@@ -445,6 +437,7 @@
                 loading : true,
                 arrayTaller : [],
                 arrayTipomanto : [],
+                arrayPrincipal : [],
                 fecha : '',
                 hora : '',
                 vehiculo : '',
@@ -520,6 +513,34 @@
         },
 
         methods : {
+
+            listarPrincipal(page, buscar, criterio){
+
+                let me = this;
+                var url = '/principales?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayPrincipal = respuesta.principales.data;
+                    me.pagination = respuesta.pagination;
+                    console.log(respuesta);
+                })
+                .catch(function (error) {
+                    
+                    console.log(error);
+
+                })
+
+            },
+
+            cambiarPagina(page, buscar, criterio){
+                
+                let me = this;
+
+                me.pagination.current_page = page;
+                me.listarPrincipal(page, buscar, criterio);
+
+            },
 
             selectTaller(){
 
@@ -615,7 +636,9 @@
         },
 
         mounted() {
-            console.log('Component mounted.')
+            
+            this.listarPrincipal(1, this.buscar, this.criterio);
+
         }
     }
 </script>
@@ -674,6 +697,10 @@
     .pagination > .active > a:hover{
         background-color: #20a8d8 !important;
         border: solid 1px #20a8d8 !important;
+    }
+
+    .sizeOpcion{
+        width: 170px;
     }
 
 </style>
