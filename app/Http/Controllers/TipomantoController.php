@@ -147,4 +147,11 @@ class TipomantoController extends Controller
         
     }
 
+    public function info(Request $request)
+    {
+        $tipomanto = Tipomanto::findOrFail($request->id_tipomanto);
+        //dd($tipomanto);
+        return ['tipomantos' => $tipomanto];
+    }
+
 }

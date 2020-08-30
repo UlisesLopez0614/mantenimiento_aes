@@ -79,27 +79,27 @@
                             <tbody>
                                 <tr v-for="principal in arrayPrincipal" :key="principal.id">
                                     <td style="text-align: center;" class="align-middle">
-                                        <button @click="cambiar(0)" type="button" class="btn btn-primary btn-sm">
+                                        <button @click="cambiar(principal)" type="button" class="btn btn-primary btn-sm">
                                             <i class="icon-eye"></i>
                                         </button> &nbsp;
                                         <button type="button" @click="abrirModal('principal', 'registrar', principal)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
                                             <i class="icon-plus"></i>
                                         </button> &nbsp;
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalInfo">
-                                            <i class="icon-trash"></i>
-                                        </button>
                                     </td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.idAVL">Equipos</td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Name"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Plate"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>      
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.kms_inicial"></td>
                                     <template v-if="principal.mantenimiento != null">
+                                        <td v-if="principal.vehiculo.kms_inicial < principal.mantenimiento.kms_goal" style="text-align: center;" class="align-middle bg-success" v-text="principal.mantenimiento.kms_goal"></td>
+                                        <td v-else-if="principal.vehiculo.kms_inicial >= principal.mantenimiento.kms_goal && principal.vehiculo.kms_inicial <= (principal.mantenimiento.kms_goal * 1.15)" style="text-align: center;" class="align-middle bg-warning" v-text="principal.mantenimiento.kms_goal"></td>
+                                        <td v-else style="text-align: center;" class="align-middle bg-danger" v-text="principal.mantenimiento.kms_goal"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.tipomanto.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
                                     </template>
                                     <template v-else>
+                                        <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
                                     </template>
@@ -124,69 +124,29 @@
                     <template v-else>
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <button @click="loading=true" class="btn btn-primary"><i class="fa fa-back"></i> VOLVER</button>
+                                <button @click="cambiar2" class="btn btn-primary"><i class="fa fa-back"></i> VOLVER</button>
                             </div>
                         </div>
                         <table class="table table-responsive table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th style="text-align: center;">OPCIONES</th>
                                     <th style="text-align: center;">ESTADO</th>
                                     <th style="text-align: center;">MANTENIMIENTO ASIGNADO</th>
                                     <th style="text-align: center;">CANTIDAD</th>
                                     <th style="text-align: center;">UNIDAD DE MEDIDA</th>
                                     <th style="text-align: center;">ASIGNADO</th>
-                                    <th style="text-align: center;">TRAB EXTRA</th>
-                                    <th style="text-align: center;">TRAB NORMAL</th>
-                                    <th style="text-align: center;">TOTAL</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td style="text-align: center;" class="align-middle">
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                            <i class="icon-plus"></i>
-                                        </button> &nbsp;
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalDetalle">
-                                            <i class="icon-info"></i>
-                                        </button> &nbsp;
-                                    </td>
-                                    <td style="text-align: center;" class="align-middle">Equipos</td>
-                                    <td style="text-align: center;" class="align-middle">Dispositivos electrónicos</td>
-                                    <td style="text-align: center;" class="align-middle">
-                                        <span class="badge badge-success">Activo</span>
-                                    </td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    
+                                <tr v-for="historial in arrayHistorial" :key="historial.id">
+                                    <td style="text-align: center;" class="align-middle">FINALIZADO</td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.nombre"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.cantidad"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.umedida"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.date"></td>                
                                 </tr>
                             </tbody>
                         </table>
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Ant</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Sig</a>
-                                </li>
-                            </ul>
-                        </nav>
                     </template>
                 </div>
             </div>
@@ -242,16 +202,16 @@
                                 <div class="col-md-9">
                                     <select class="form-control" v-model="taller1">
                                         <option value="">SELECCIONE UN TALLER</option>
-                                        <option v-for="taller in arrayTaller" :key="taller.id" :value="taller.nombre" v-text="taller.nombre"></option>
+                                        <option v-for="taller in arrayTaller" :key="taller.id" :value="taller.id" v-text="taller.nombre"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">TIPO MANTENIMIENTO (*):</label>
                                 <div class="col-md-9">
-                                    <select class="form-control" v-model="tipomanto1">
+                                    <select class="form-control" v-model="tipomanto1" @change="obtenerInfoTipomanto(tipomanto1)">
                                         <option value="">SELECCIONE UN TIPO DE MANTENIMIENTO</option>
-                                        <option v-for="tipomanto in arrayTipomanto" :key="tipomanto.id" :value="tipomanto.nombre" v-text="tipomanto.nombre"></option>
+                                        <option v-for="tipomanto in arrayTipomanto" :key="tipomanto.id" :value="tipomanto.id" v-text="tipomanto.nombre"></option>
                                     </select>
                                 </div>
                             </div>
@@ -275,7 +235,6 @@
                                 <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA NARANJA:</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="alertanaranja">
-                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -283,7 +242,6 @@
                                 <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA PROXIMA A VENCER:</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="alertaproxima">
-                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -293,7 +251,6 @@
                                 <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA ROJA (VENCIDO):</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="alertaroja">
-                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -301,7 +258,6 @@
                                 <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (POR VENCERSE):</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="recordatorioporven">
-                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
@@ -311,21 +267,27 @@
                                 <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (VENCIDO):</label>
                                 <div class="col-md-3">
                                     <select class="form-control" v-model="recordatorioven">
-                                        <option value="">SELECCIONE UNA</option>
                                         <option value="1">SI</option>
                                         <option value="0">NO</option>
                                     </select>
                                 </div>
                                 <label class="col-md-3 form-control-label" for="email-input">PORCENTAJE ALERTA POR VENCERSE:</label>
                                 <div class="col-md-3">
-                                    <input type="number" v-model="porcentajealerta" class="form-control" placeholder="INGRESE UN PORCENTAJE DE ALERTAS">
+                                    <input type="number" v-model="porcentajealerta" class="form-control" placeholder="PORCENTAJE">
+                                </div>
+                            </div>
+                            <div v-show="errorMantenimiento" class="form-group row div-error">
+                                <div class="text-center text-error">
+                                    <div v-for="error in errorMostrarMsjMantenimiento" :key="error" v-text="error">
+
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" @click="cerrarModal()" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
-                        <button type="button" class="btn btn-primary">GUARDAR</button>
+                        <button type="button" @click="registrarMantenimiento()" class="btn btn-primary">GUARDAR</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -438,6 +400,7 @@
                 arrayTaller : [],
                 arrayTipomanto : [],
                 arrayPrincipal : [],
+                arrayHistorial : [],
                 fecha : '',
                 hora : '',
                 vehiculo : '',
@@ -451,11 +414,11 @@
                 cantidad : '',
                 umedida : '',
                 correoalerta : '',
-                alertanaranja : '',
-                alertaproxima : '',
-                alertaroja : '',
-                recordatorioporven : '',
-                recordatorioven : '',
+                alertanaranja : 1,
+                alertaproxima : 1,
+                alertaroja : 1,
+                recordatorioporven : 1,
+                recordatorioven : 1,
                 porcentajealerta:  '',
                 modal : 0,
                 tituloModal : '',
@@ -536,12 +499,91 @@
 
             },
 
+            listarHistorial(vehiculo, buscar, criterio){
+
+                let me = this;
+                var url = '/mantenimientos?vehiculo=' + vehiculo + '&buscar=' + buscar + '&criterio=' + criterio;
+                
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayHistorial = respuesta.mantenimientos;
+                    console.log(respuesta);
+                })
+                .catch(function (error) {
+                    
+                    console.log(error);
+
+                })
+
+            },
+
             cambiarPagina(page, buscar, criterio){
                 
                 let me = this;
 
                 me.pagination.current_page = page;
                 me.listarPrincipal(page, buscar, criterio);
+
+            },
+
+            registrarMantenimiento(){
+
+                if(this.validarMantenimiento()){
+
+                    return;
+                    
+                }
+
+                let me = this;
+
+                axios.post('/mantenimientos/registrar', {
+
+                    'vehiculo': this.vehiculo,
+                    'fecha': this.fecha,
+                    'hora' : this.hora,
+                    'odohwinicial' : this.odohwinicial,
+                    'cantidad' : this.cantidad,
+                    'taller' : this.taller1,
+                    'tipomanto' : this.tipomanto1,
+                    'correoalerta' : this.correoalerta,
+                    'alertaroja' : this.alertaroja,
+                    'alertanaranja' : this.alertanaranja,
+                    'alertaproxima' : this.alertaproxima,
+                    'recordatorioporven' : this.recordatorioporven,
+                    'recordatorioven' : this.recordatorioven,
+                    'porcentajealerta' : this.porcentajealerta
+
+                }).then(function (response) {
+
+                    me.listarPrincipal(1, '', 'codigo_comb');
+                    me.cerrarModal();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'MANTENIMIENTO INGRESADO CON ÉXITO!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }).catch(function (error) {
+
+                    console.log(error);
+
+                });
+
+            },
+
+            validarMantenimiento(){
+                
+                this.errorMantenimiento = 0;
+                this.errorMostrarMsjMantenimiento = [];
+
+                if(!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
+                if(!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
+                if(!this.porcentajealerta) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN PORCENTAJE DE ALERTA");
+                if(this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
+
+                return this.errorMantenimiento;
 
             },
 
@@ -632,9 +674,11 @@
                                     {
                                         this.modal = 1;
                                         this.tituloModal = 'INGRESO DE ASIGNACIÓN DE MANTENIMIENTO A LOS VEHÍCULOS';
+                                        this.vehiculo = data['vehiculo'].id;
                                         this.nombre = data['vehiculo'].Name;
                                         this.placa = data['vehiculo'].Plate;
                                         this.idAVL = data['vehiculo'].idAVL;
+                                        this.odohwinicial = data['vehiculo'].kms_inicial;
                                         this.email = '';
                                         this.nombre_completo = '';
                                         this.password = '';
@@ -653,22 +697,68 @@
 
                 this.modal = 0;
                 this.tituloModal = '';
+                this.arrayTaller = [];
+                this.arrayTipomanto = [];
+                this.fecha = '';
+                this.hora = '';
+                this.vehiculo = '';
                 this.nombre = '';
                 this.placa = '';
                 this.idAVL = '';
-                this.arrayRol = [];
-                this.arrayDistribuidora = [];
-                this.distribuidoras = [];
-                this.errorUsuario = 0;
-                this.errorMostrarMsjUsuario = [];
+                this.odoswinicial = '';
+                this.odohwinicial = '';
+                this.taller1 = '';
+                this.tipomanto1 = '';
+                this.cantidad = '';
+                this.umedida = '';
+                this.correoalerta = '';
+                this.alertanaranja = 1;
+                this.alertaproxima = 1;
+                this.alertaroja = 1;
+                this.recordatorioporven = 1;
+                this.recordatorioven = 1;
+                this.porcentajealerta =  '';
+                this.errorMantenimiento = 0;
+                this.errorMostrarMsjMantenimiento = [];
             },
 
-            cambiar(){
+            cambiar(p){
                 let me = this;
                 
                 me.loading = false;
 
+                me.listarHistorial(p.vehiculo.id, me.buscar, me.criterio);
+
                 //me.$root.menu = 2;
+            },
+
+            cambiar2(){
+                let me = this;
+                
+                me.loading = true;
+                me.arrayHistorial = [];
+
+                //me.$root.menu = 2;
+            },
+
+            obtenerInfoTipomanto(r){
+                console.log(r);
+                let me = this;
+                var url = '/tipomantos/info?id_tipomanto=' + r;
+                
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.cantidad = respuesta.tipomantos.cantidad;
+                    me.umedida = respuesta.tipomantos.umedida;
+                    console.log(response);
+
+                })
+                .catch(function (error) {
+                    
+                    console.log(error);
+
+                })
+
             }
 
         },

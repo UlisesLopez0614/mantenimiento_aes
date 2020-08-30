@@ -34,9 +34,12 @@ Route::put('/talleres/activar', 'TallerController@activar');
 
 Route::get('/tipomantos', 'TipomantoController@index');
 Route::get('/tipomantos/selectTipomanto', 'TipomantoController@selectTipomanto');
+Route::get('/tipomantos/info', 'TipomantoController@info');
 Route::post('/tipomantos/registrar', 'TipomantoController@store');
 Route::put('/tipomantos/actualizar', 'TipomantoController@update');
 Route::put('/tipomantos/desactivar', 'TipomantoController@desactivar');
 Route::put('/tipomantos/activar', 'TipomantoController@activar');
 
 Route::get('/principales', 'PrincipalController@index');
+Route::get('/mantenimientos', 'MantenimientoController@index');
+Route::post('/mantenimientos/registrar', 'MantenimientoController@store');

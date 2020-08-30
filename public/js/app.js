@@ -3108,44 +3108,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3155,6 +3117,7 @@ __webpack_require__.r(__webpack_exports__);
       arrayTaller: [],
       arrayTipomanto: [],
       arrayPrincipal: [],
+      arrayHistorial: [],
       fecha: '',
       hora: '',
       vehiculo: '',
@@ -3168,11 +3131,11 @@ __webpack_require__.r(__webpack_exports__);
       cantidad: '',
       umedida: '',
       correoalerta: '',
-      alertanaranja: '',
-      alertaproxima: '',
-      alertaroja: '',
-      recordatorioporven: '',
-      recordatorioven: '',
+      alertanaranja: 1,
+      alertaproxima: 1,
+      alertaroja: 1,
+      recordatorioporven: 1,
+      recordatorioven: 1,
       porcentajealerta: '',
       modal: 0,
       tituloModal: '',
@@ -3236,10 +3199,65 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    listarHistorial: function listarHistorial(vehiculo, buscar, criterio) {
+      var me = this;
+      var url = '/mantenimientos?vehiculo=' + vehiculo + '&buscar=' + buscar + '&criterio=' + criterio;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayHistorial = respuesta.mantenimientos;
+        console.log(respuesta);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     cambiarPagina: function cambiarPagina(page, buscar, criterio) {
       var me = this;
       me.pagination.current_page = page;
       me.listarPrincipal(page, buscar, criterio);
+    },
+    registrarMantenimiento: function registrarMantenimiento() {
+      if (this.validarMantenimiento()) {
+        return;
+      }
+
+      var me = this;
+      axios.post('/mantenimientos/registrar', {
+        'vehiculo': this.vehiculo,
+        'fecha': this.fecha,
+        'hora': this.hora,
+        'odohwinicial': this.odohwinicial,
+        'cantidad': this.cantidad,
+        'taller': this.taller1,
+        'tipomanto': this.tipomanto1,
+        'correoalerta': this.correoalerta,
+        'alertaroja': this.alertaroja,
+        'alertanaranja': this.alertanaranja,
+        'alertaproxima': this.alertaproxima,
+        'recordatorioporven': this.recordatorioporven,
+        'recordatorioven': this.recordatorioven,
+        'porcentajealerta': this.porcentajealerta
+      }).then(function (response) {
+        me.listarPrincipal(1, '', 'codigo_comb');
+        me.cerrarModal();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'MANTENIMIENTO INGRESADO CON ÉXITO!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    validarMantenimiento: function validarMantenimiento() {
+      this.errorMantenimiento = 0;
+      this.errorMostrarMsjMantenimiento = [];
+      if (!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
+      if (!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
+      if (!this.porcentajealerta) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN PORCENTAJE DE ALERTA");
+      if (this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
+      return this.errorMantenimiento;
     },
     selectTaller: function selectTaller() {
       var me = this;
@@ -3304,9 +3322,11 @@ __webpack_require__.r(__webpack_exports__);
                 {
                   this.modal = 1;
                   this.tituloModal = 'INGRESO DE ASIGNACIÓN DE MANTENIMIENTO A LOS VEHÍCULOS';
+                  this.vehiculo = data['vehiculo'].id;
                   this.nombre = data['vehiculo'].Name;
                   this.placa = data['vehiculo'].Plate;
                   this.idAVL = data['vehiculo'].idAVL;
+                  this.odohwinicial = data['vehiculo'].kms_inicial;
                   this.email = '';
                   this.nombre_completo = '';
                   this.password = '';
@@ -3320,18 +3340,52 @@ __webpack_require__.r(__webpack_exports__);
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = '';
+      this.arrayTaller = [];
+      this.arrayTipomanto = [];
+      this.fecha = '';
+      this.hora = '';
+      this.vehiculo = '';
       this.nombre = '';
       this.placa = '';
       this.idAVL = '';
-      this.arrayRol = [];
-      this.arrayDistribuidora = [];
-      this.distribuidoras = [];
-      this.errorUsuario = 0;
-      this.errorMostrarMsjUsuario = [];
+      this.odoswinicial = '';
+      this.odohwinicial = '';
+      this.taller1 = '';
+      this.tipomanto1 = '';
+      this.cantidad = '';
+      this.umedida = '';
+      this.correoalerta = '';
+      this.alertanaranja = 1;
+      this.alertaproxima = 1;
+      this.alertaroja = 1;
+      this.recordatorioporven = 1;
+      this.recordatorioven = 1;
+      this.porcentajealerta = '';
+      this.errorMantenimiento = 0;
+      this.errorMostrarMsjMantenimiento = [];
     },
-    cambiar: function cambiar() {
+    cambiar: function cambiar(p) {
       var me = this;
-      me.loading = false; //me.$root.menu = 2;
+      me.loading = false;
+      me.listarHistorial(p.vehiculo.id, me.buscar, me.criterio); //me.$root.menu = 2;
+    },
+    cambiar2: function cambiar2() {
+      var me = this;
+      me.loading = true;
+      me.arrayHistorial = []; //me.$root.menu = 2;
+    },
+    obtenerInfoTipomanto: function obtenerInfoTipomanto(r) {
+      console.log(r);
+      var me = this;
+      var url = '/tipomantos/info?id_tipomanto=' + r;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.cantidad = respuesta.tipomantos.cantidad;
+        me.umedida = respuesta.tipomantos.umedida;
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   mounted: function mounted() {
@@ -42720,7 +42774,7 @@ var render = function() {
                                       attrs: { type: "button" },
                                       on: {
                                         click: function($event) {
-                                          return _vm.cambiar(0)
+                                          return _vm.cambiar(principal)
                                         }
                                       }
                                     },
@@ -42750,10 +42804,7 @@ var render = function() {
                                     },
                                     [_c("i", { staticClass: "icon-plus" })]
                                   ),
-                                  _vm._v(
-                                    "  \n                                    "
-                                  ),
-                                  _vm._m(6, true)
+                                  _vm._v("  \n                                ")
                                 ]
                               ),
                               _vm._v(" "),
@@ -42797,16 +42848,59 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", {
                                 staticClass: "align-middle",
-                                staticStyle: { "text-align": "center" }
-                              }),
-                              _vm._v(" "),
-                              _c("td", {
-                                staticClass: "align-middle",
-                                staticStyle: { "text-align": "center" }
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    principal.vehiculo.kms_inicial
+                                  )
+                                }
                               }),
                               _vm._v(" "),
                               principal.mantenimiento != null
                                 ? [
+                                    principal.vehiculo.kms_inicial <
+                                    principal.mantenimiento.kms_goal
+                                      ? _c("td", {
+                                          staticClass:
+                                            "align-middle bg-success",
+                                          staticStyle: {
+                                            "text-align": "center"
+                                          },
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              principal.mantenimiento.kms_goal
+                                            )
+                                          }
+                                        })
+                                      : principal.vehiculo.kms_inicial >=
+                                          principal.mantenimiento.kms_goal &&
+                                        principal.vehiculo.kms_inicial <=
+                                          principal.mantenimiento.kms_goal *
+                                            1.15
+                                      ? _c("td", {
+                                          staticClass:
+                                            "align-middle bg-warning",
+                                          staticStyle: {
+                                            "text-align": "center"
+                                          },
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              principal.mantenimiento.kms_goal
+                                            )
+                                          }
+                                        })
+                                      : _c("td", {
+                                          staticClass: "align-middle bg-danger",
+                                          staticStyle: {
+                                            "text-align": "center"
+                                          },
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              principal.mantenimiento.kms_goal
+                                            )
+                                          }
+                                        }),
+                                    _vm._v(" "),
                                     _c("td", {
                                       staticClass: "align-middle",
                                       staticStyle: { "text-align": "center" },
@@ -42829,6 +42923,11 @@ var render = function() {
                                     })
                                   ]
                                 : [
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" }
+                                    }),
+                                    _vm._v(" "),
                                     _c("td", {
                                       staticClass: "align-middle",
                                       staticStyle: { "text-align": "center" }
@@ -42950,11 +43049,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              _vm.loading = true
-                            }
-                          }
+                          on: { click: _vm.cambiar2 }
                         },
                         [
                           _c("i", { staticClass: "fa fa-back" }),
@@ -42964,9 +43059,65 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _vm._m(8)
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-responsive table-bordered table-striped table-sm"
+                    },
+                    [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.arrayHistorial, function(historial) {
+                          return _c("tr", { key: historial.id }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" }
+                              },
+                              [_vm._v("FINALIZADO")]
+                            ),
+                            _vm._v(" "),
+                            _c("td", {
+                              staticClass: "align-middle",
+                              staticStyle: { "text-align": "center" },
+                              domProps: {
+                                textContent: _vm._s(historial.tipomanto.nombre)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              staticClass: "align-middle",
+                              staticStyle: { "text-align": "center" },
+                              domProps: {
+                                textContent: _vm._s(
+                                  historial.tipomanto.cantidad
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              staticClass: "align-middle",
+                              staticStyle: { "text-align": "center" },
+                              domProps: {
+                                textContent: _vm._s(historial.tipomanto.umedida)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              staticClass: "align-middle",
+                              staticStyle: { "text-align": "center" },
+                              domProps: { textContent: _vm._s(historial.date) }
+                            })
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
                 ]
           ],
           2
@@ -43037,7 +43188,7 @@ var render = function() {
                     }
                   },
                   [
-                    _vm._m(9),
+                    _vm._m(7),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
@@ -43202,7 +43353,7 @@ var render = function() {
                               return _c("option", {
                                 key: taller.id,
                                 domProps: {
-                                  value: taller.nombre,
+                                  value: taller.id,
                                   textContent: _vm._s(taller.nombre)
                                 }
                               })
@@ -43237,19 +43388,27 @@ var render = function() {
                             ],
                             staticClass: "form-control",
                             on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.tipomanto1 = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.tipomanto1 = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                                function($event) {
+                                  return _vm.obtenerInfoTipomanto(
+                                    _vm.tipomanto1
+                                  )
+                                }
+                              ]
                             }
                           },
                           [
@@ -43261,7 +43420,7 @@ var render = function() {
                               return _c("option", {
                                 key: tipomanto.id,
                                 domProps: {
-                                  value: tipomanto.nombre,
+                                  value: tipomanto.id,
                                   textContent: _vm._s(tipomanto.nombre)
                                 }
                               })
@@ -43386,10 +43545,6 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("SELECCIONE UNA OPCIÓN")
-                            ]),
-                            _vm._v(" "),
                             _c("option", { attrs: { value: "1" } }, [
                               _vm._v("SI")
                             ]),
@@ -43440,10 +43595,6 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("SELECCIONE UNA OPCIÓN")
-                            ]),
-                            _vm._v(" "),
                             _c("option", { attrs: { value: "1" } }, [
                               _vm._v("SI")
                             ]),
@@ -43496,10 +43647,6 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("SELECCIONE UNA OPCIÓN")
-                            ]),
-                            _vm._v(" "),
                             _c("option", { attrs: { value: "1" } }, [
                               _vm._v("SI")
                             ]),
@@ -43550,10 +43697,6 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("SELECCIONE UNA OPCIÓN")
-                            ]),
-                            _vm._v(" "),
                             _c("option", { attrs: { value: "1" } }, [
                               _vm._v("SI")
                             ]),
@@ -43606,10 +43749,6 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("SELECCIONE UNA OPCIÓN")
-                            ]),
-                            _vm._v(" "),
                             _c("option", { attrs: { value: "1" } }, [
                               _vm._v("SI")
                             ]),
@@ -43641,10 +43780,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: {
-                            type: "number",
-                            placeholder: "INGRESE UN PORCENTAJE DE ALERTAS"
-                          },
+                          attrs: { type: "number", placeholder: "PORCENTAJE" },
                           domProps: { value: _vm.porcentajealerta },
                           on: {
                             input: function($event) {
@@ -43656,7 +43792,37 @@ var render = function() {
                           }
                         })
                       ])
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errorMantenimiento,
+                            expression: "errorMantenimiento"
+                          }
+                        ],
+                        staticClass: "form-group row div-error"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "text-center text-error" },
+                          _vm._l(_vm.errorMostrarMsjMantenimiento, function(
+                            error
+                          ) {
+                            return _c("div", {
+                              key: error,
+                              domProps: { textContent: _vm._s(error) }
+                            })
+                          }),
+                          0
+                        )
+                      ]
+                    )
                   ]
                 )
               ]),
@@ -43678,7 +43844,15 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.registrarMantenimiento()
+                      }
+                    }
+                  },
                   [_vm._v("GUARDAR")]
                 )
               ])
@@ -43870,208 +44044,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-danger btn-sm",
-        attrs: {
-          type: "button",
-          "data-toggle": "modal",
-          "data-target": "#modalInfo"
-        }
-      },
-      [_c("i", { staticClass: "icon-trash" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "table",
-      {
-        staticClass:
-          "table table-responsive table-bordered table-striped table-sm"
-      },
-      [
-        _c("thead", [
-          _c("tr", { staticClass: "bg-primary" }, [
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("OPCIONES")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("ESTADO")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("MANTENIMIENTO ASIGNADO")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("CANTIDAD")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("UNIDAD DE MEDIDA")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("ASIGNADO")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("TRAB EXTRA")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("TRAB NORMAL")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticStyle: { "text-align": "center" } }, [
-              _vm._v("TOTAL")
-            ])
-          ])
+    return _c("thead", [
+      _c("tr", { staticClass: "bg-primary" }, [
+        _c("th", { staticStyle: { "text-align": "center" } }, [
+          _vm._v("ESTADO")
         ]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c(
-              "td",
-              {
-                staticClass: "align-middle",
-                staticStyle: { "text-align": "center" }
-              },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success btn-sm",
-                    attrs: {
-                      type: "button",
-                      "data-toggle": "modal",
-                      "data-target": "#modalEliminar"
-                    }
-                  },
-                  [_c("i", { staticClass: "icon-plus" })]
-                ),
-                _vm._v("  \n                                    "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-sm",
-                    attrs: {
-                      type: "button",
-                      "data-toggle": "modal",
-                      "data-target": "#modalDetalle"
-                    }
-                  },
-                  [_c("i", { staticClass: "icon-info" })]
-                ),
-                _vm._v("  \n                                ")
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              {
-                staticClass: "align-middle",
-                staticStyle: { "text-align": "center" }
-              },
-              [_vm._v("Equipos")]
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              {
-                staticClass: "align-middle",
-                staticStyle: { "text-align": "center" }
-              },
-              [_vm._v("Dispositivos electrónicos")]
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              {
-                staticClass: "align-middle",
-                staticStyle: { "text-align": "center" }
-              },
-              [
-                _c("span", { staticClass: "badge badge-success" }, [
-                  _vm._v("Activo")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("td", {
-              staticClass: "align-middle",
-              staticStyle: { "text-align": "center" }
-            }),
-            _vm._v(" "),
-            _c("td", {
-              staticClass: "align-middle",
-              staticStyle: { "text-align": "center" }
-            }),
-            _vm._v(" "),
-            _c("td", {
-              staticClass: "align-middle",
-              staticStyle: { "text-align": "center" }
-            }),
-            _vm._v(" "),
-            _c("td", {
-              staticClass: "align-middle",
-              staticStyle: { "text-align": "center" }
-            }),
-            _vm._v(" "),
-            _c("td", {
-              staticClass: "align-middle",
-              staticStyle: { "text-align": "center" }
-            })
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", [
-      _c("ul", { staticClass: "pagination" }, [
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("Ant")
-          ])
+        _c("th", { staticStyle: { "text-align": "center" } }, [
+          _vm._v("MANTENIMIENTO ASIGNADO")
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "page-item active" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("1")
-          ])
+        _c("th", { staticStyle: { "text-align": "center" } }, [
+          _vm._v("CANTIDAD")
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("2")
-          ])
+        _c("th", { staticStyle: { "text-align": "center" } }, [
+          _vm._v("UNIDAD DE MEDIDA")
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("3")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("4")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("Sig")
-          ])
+        _c("th", { staticStyle: { "text-align": "center" } }, [
+          _vm._v("ASIGNADO")
         ])
       ])
     ])

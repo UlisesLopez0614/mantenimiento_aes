@@ -18,8 +18,10 @@ class Mantenimiento extends Model
      * @var array
      */
     protected $fillable = [
-        'FK_idVehicle', 'FK_tipoMtto', 'FK_taller', 'kms_ini', 'kms_goal', 'date', 'time'
+        'FK_idVehicle', 'FK_tipoMtto', 'FK_taller', 'kms_ini', 'kms_goal', 'date', 'time', 'alerta_naranja', 'alerta_prox_vencer', 'alerta_roja', 'recordatorio_diario_vencido', 'recordatorio_diario_por_vencerse', 'porcentaje_alerta_por_vencerse'
     ];
+
+    public $timestamps = false;
 
     public function vehiculo()
     {
