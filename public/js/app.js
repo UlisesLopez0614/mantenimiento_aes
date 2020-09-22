@@ -3325,8 +3325,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.vehiculo = data['vehiculo'].id;
                   this.nombre = data['vehiculo'].Name;
                   this.placa = data['vehiculo'].Plate;
-                  this.idAVL = data['vehiculo'].idAVL;
-                  this.odohwinicial = data['vehiculo'].kms_inicial;
+                  this.idAVL = data['vehiculo'].idAVL; //this.odohwinicial = data['vehiculo'].kms_inicial;
+
                   this.email = '';
                   this.nombre_completo = '';
                   this.password = '';
@@ -3382,6 +3382,19 @@ __webpack_require__.r(__webpack_exports__);
         var respuesta = response.data;
         me.cantidad = respuesta.tipomantos.cantidad;
         me.umedida = respuesta.tipomantos.umedida;
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    refrescarOdometro: function refrescarOdometro(vehiculo, fecha) {
+      console.log(vehiculo);
+      var me = this;
+      var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.odohwinicial = respuesta.distancia; //me.arrayTaller = respuesta.talleres;
+
         console.log(response);
       })["catch"](function (error) {
         console.log(error);
@@ -43188,7 +43201,33 @@ var render = function() {
                     }
                   },
                   [
-                    _vm._m(7),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "col-md-4" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.refrescarOdometro(
+                                  _vm.vehiculo,
+                                  _vm.fecha
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "icon-refresh" }),
+                            _vm._v("    REFRESCAR ODÓMETRO")
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" })
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
@@ -43211,7 +43250,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text" },
+                          attrs: { type: "date" },
                           domProps: { value: _vm.fecha },
                           on: {
                             input: function($event) {
@@ -43234,15 +43273,27 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-3" }, [
-                        _c(
-                          "label",
-                          {
-                            staticClass: "col-md-3 form-control-label",
-                            attrs: { for: "text-input" },
-                            domProps: { textContent: _vm._s(_vm.hora) }
-                          },
-                          [_vm._v("16:41 pm")]
-                        )
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.hora,
+                              expression: "hora"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "time" },
+                          domProps: { value: _vm.hora },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.hora = $event.target.value
+                            }
+                          }
+                        })
                       ])
                     ]),
                     _vm._v(" "),
@@ -44066,27 +44117,6 @@ var staticRenderFns = [
           _vm._v("ASIGNADO")
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "col-md-4" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "button" } },
-          [
-            _c("i", { staticClass: "icon-refresh" }),
-            _vm._v("    REFRESCAR ODÓMETRO")
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" })
     ])
   }
 ]

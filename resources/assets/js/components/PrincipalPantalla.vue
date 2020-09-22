@@ -167,18 +167,18 @@
                             <div class="form-group row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
-                                    <button type="button" class="btn btn-primary"><i class="icon-refresh"></i>  &nbsp; REFRESCAR ODÓMETRO</button>
+                                    <button type="button" class="btn btn-primary" @click="refrescarOdometro(vehiculo, fecha)"><i class="icon-refresh"></i>  &nbsp; REFRESCAR ODÓMETRO</button>
                                 </div>
                                 <div class="col-md-4"></div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">FECHA:</label>
                                 <div class="col-md-3">
-                                    <input type="text" v-model="fecha" class="form-control">
+                                    <input type="date" v-model="fecha" class="form-control">
                                 </div>
                                 <label class="col-md-3 form-control-label" for="text-input">HORA:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="hora">16:41 pm</label>
+                                    <input type="time" v-model="hora" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -194,7 +194,7 @@
                                 </div>
                                 <label class="col-md-3 form-control-label" for="text-input">ODO HW INICIAL:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text=odohwinicial></label>
+                                    <label class="col-md-3 form-control-label" for="text-input" v-text="odohwinicial"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -678,7 +678,7 @@
                                         this.nombre = data['vehiculo'].Name;
                                         this.placa = data['vehiculo'].Plate;
                                         this.idAVL = data['vehiculo'].idAVL;
-                                        this.odohwinicial = data['vehiculo'].kms_inicial;
+                                        //this.odohwinicial = data['vehiculo'].kms_inicial;
                                         this.email = '';
                                         this.nombre_completo = '';
                                         this.password = '';
@@ -759,8 +759,26 @@
 
                 })
 
-            }
+            },
 
+            refrescarOdometro(vehiculo, fecha){
+                console.log(vehiculo);
+                let me = this;
+                var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
+                
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.odohwinicial = respuesta.distancia
+                    //me.arrayTaller = respuesta.talleres;
+                    console.log(response);
+
+                })
+                .catch(function (error) {
+                    
+                    console.log(error);
+
+                })
+            },
         },
 
         mounted() {

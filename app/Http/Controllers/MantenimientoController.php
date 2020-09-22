@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Mantenimiento;
 use App\Principal;
+use App\HistorialVehiculo;
 
 class MantenimientoController extends Controller
 {
@@ -84,4 +85,31 @@ class MantenimientoController extends Controller
         $principal->save();
 
     }
+
+
+    public function refrescarOdometro(Request $request)
+    {
+        //dd($request->all());
+        
+        $historial = HistorialVehiculo::select('vehiculo_id', 'distance', 'date_history')
+                                        ->where('vehiculo_id', $request->vehiculo)
+                                        ->where('date_history', '<=', $request->fecha)
+                                        ->get();
+
+        //dd($historial);
+
+        $distancia = 0;
+
+        foreach($historial as $item){
+            $distancia = $distancia + $item->distance;
+        }
+
+        //dd($distancia);
+
+        return [
+            'distancia' => $distancia
+        ];
+
+    }
+
 }

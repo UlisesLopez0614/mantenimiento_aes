@@ -43,3 +43,5 @@ Route::put('/tipomantos/activar', 'TipomantoController@activar');
 Route::get('/principales', 'PrincipalController@index');
 Route::get('/mantenimientos', 'MantenimientoController@index');
 Route::post('/mantenimientos/registrar', 'MantenimientoController@store');
+
+Route::get('/vehiculos/historial', 'MantenimientoController@refrescarOdometro');
