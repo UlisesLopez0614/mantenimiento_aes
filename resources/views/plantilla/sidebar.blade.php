@@ -66,17 +66,17 @@
             <li class="nav-title">
                 Configuración
             </li>
-            <li class="nav-item nav-dropdown">
+            <!--li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> ACCESO</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=13" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-user"></i> Usuarios</a>
                     </li>
-                    <!--li @click="menu=14" class="nav-item">
+                    <li @click="menu=14" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-user-following"></i> ROLES</a>
-                    </li-->
+                    </li>
                 </ul>
-            </li>
+            </li-->
             <li @click="menu=15" class="nav-item">
                 <a class="nav-link"><i class="icon-book-open"></i> CONFIGURACIÓN <span class="badge badge-danger">PDF</span></a>
             </li>

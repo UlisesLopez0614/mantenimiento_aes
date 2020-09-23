@@ -54,7 +54,7 @@
         </template>
     </keep-alive>
 
-    <keep-alive include="indicadores-globales">
+    <!--keep-alive include="indicadores-globales">
         <template v-if="menu==9">
             <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
         </template>
@@ -74,7 +74,7 @@
         <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
     </template>
 
-    <keep-alive include="acceso-users">
+    <!--keep-alive include="acceso-users">
         <template v-if="menu==13">
             <acceso-users></acceso-users>
         </template>
@@ -86,6 +86,6 @@
 
     <template v-if="menu==15">
         <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
-    </template>
+    </template-->
 
 @endsection
