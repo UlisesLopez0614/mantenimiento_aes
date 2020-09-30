@@ -28,11 +28,31 @@ class PrincipalController extends Controller
         $buscar = $request->buscar;
         $criterio = $request->criterio;
 
-        if($buscar == ''){
-            $principales = Principal::with('vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller')->paginate(5);
-            //dd($principales[41]);
-        }else{
-            //$talleres = Taller::where($criterio, 'like', '%' . $buscar . '%')->orderBy('nombre', 'asc')->paginate(5);
+        if($buscar == null ){
+            $principales = Principal::with('vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller')->paginate(15);
+            /*$principales = Principal::join('tb_vehicles', 'tb_vehicles.id', '=', 'tb_principal.FK_idVehicle')
+                                    ->rightjoin('tb_mtto_history', 'tb_mtto_history.id', '=', 'tb_principal.FK_idMtto')
+                                    ->join('tb_tipo_mttos', 'tb_tipo_mttos.id', '=', 'tb_mtto_history.FK_tipoMtto')
+                                    ->join('tb_talleres', 'tb_talleres.id', '=', 'tb_mtto_history.FK_taller')
+                                    ->paginate(15);*/
+        }elseif($buscar != null){
+            //dd($buscar);
+            $vehicles = Vehiculo::where($criterio, 'like', '%' . $buscar . '%')->get();
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with([
+                                        'vehiculo', 
+                                        'mantenimiento', 
+                                        'mantenimiento.tipomanto', 
+                                        'mantenimiento.taller'
+                                    ])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+                                    //dd($principales);
         }
 
         return [

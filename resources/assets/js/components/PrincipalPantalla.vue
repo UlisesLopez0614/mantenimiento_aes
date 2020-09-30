@@ -18,15 +18,13 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <select class="form-control col-md-3" id="opcion" name="opcion">
-                                        <option value="idavl">ID AVL</option>
-                                        <option value="nombre">NOMBRE</option>
-                                        <option value="placa">PLACA</option>
-                                        <option value="modelo">MODELO</option>
-                                        <option value="color">COLOR</option>
+                                    <select class="form-control col-md-3" v-model="criterio">
+                                        <option value="idAVL">ID AVL</option>
+                                        <option value="Name">NOMBRE</option>
+                                        <option value="Plate">PLACA</option>
+                                        <option value="Fleet">MODELO</option>
                                     </select>
-                                    <input type="text" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio)" class="form-control" placeholder="Texto a buscar">
                                 </div>
                             </div>
                         </div>
@@ -65,15 +63,16 @@
                         <table class="table table-responsive table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th style="text-align: center;"><div class="sizeOpcion">OPCIONES</div></th>
-                                    <th style="text-align: center;">ID AVL</th>
-                                    <th style="text-align: center;">NOMBRE</th>
-                                    <th style="text-align: center;">PLACA</th>
-                                    <th style="text-align: center;">FLOTA</th>
-                                    <th style="text-align: center;">ODO. ACTUAL</th>
-                                    <th style="text-align: center;">ODO. ALERTA</th>
-                                    <th style="text-align: center;">TIPO MANTO.</th>
-                                    <th style="text-align: center;">TALLER</th>
+                                    <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">OPCIONES</div></th>
+                                    <th style="text-align: center;" class="align-middle">ID AVL</th>
+                                    <th style="text-align: center;" class="align-middle">NOMBRE</th>
+                                    <th style="text-align: center;" class="align-middle">PLACA</th>
+                                    <th style="text-align: center;" class="align-middle">FLOTA</th>
+                                    <th style="text-align: center;" class="align-middle">ODO. ACTUAL</th>
+                                    <th style="text-align: center;" class="align-middle">ODO. ALERTA</th>
+                                    <th style="text-align: center;" class="align-middle">TIPO MANTO.</th>
+                                    <th style="text-align: center;" class="align-middle">TALLER</th>
+                                    <th style="text-align: center;" class="align-middle">ULTO. MTTO.</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,8 +96,10 @@
                                         <td v-else style="text-align: center;" class="align-middle bg-danger" v-text="principal.mantenimiento.kms_goal"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.tipomanto.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.date"></td>
                                     </template>
                                     <template v-else>
+                                        <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
@@ -846,7 +847,7 @@
     }
 
     .sizeOpcion{
-        width: 170px;
+        width: 100px;
     }
 
 </style>
