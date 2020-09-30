@@ -3109,6 +3109,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3152,8 +3154,16 @@ __webpack_require__.r(__webpack_exports__);
         'to': 0
       },
       offset: 3,
-      criterio: 'nombre',
-      buscar: ''
+      criterio: 'Name',
+      criterio2: 'tb_vehicles.kms_inicial',
+      buscar: '',
+      desde: '',
+      hasta: '',
+      minimo_desde: '',
+      minimo_hasta: '',
+      maximo_desde: '',
+      select_taller: '',
+      select_tipomanto: ''
     };
   },
   computed: {
@@ -3188,9 +3198,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    listarPrincipal: function listarPrincipal(page, buscar, criterio) {
+    listarPrincipal: function listarPrincipal(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto) {
       var me = this;
-      var url = '/principales?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+      var url = '/principales?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio + '&criterio2=' + criterio2 + '&desde=' + desde + '&hasta=' + hasta + '&select_taller=' + select_taller + '&select_tipomanto=' + select_tipomanto;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayPrincipal = respuesta.principales.data;
@@ -3211,10 +3221,10 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+    cambiarPagina: function cambiarPagina(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto) {
       var me = this;
       me.pagination.current_page = page;
-      me.listarPrincipal(page, buscar, criterio);
+      me.listarPrincipal(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto);
     },
     registrarMantenimiento: function registrarMantenimiento() {
       if (this.validarMantenimiento()) {
@@ -3238,7 +3248,7 @@ __webpack_require__.r(__webpack_exports__);
         'recordatorioven': this.recordatorioven,
         'porcentajealerta': this.porcentajealerta
       }).then(function (response) {
-        me.listarPrincipal(1, '', 'codigo_comb');
+        me.listarPrincipal(1, '', 'Name', '', 'tb_vehicles.kms_inicial', '', '');
         me.cerrarModal();
         Swal.fire({
           position: 'top-end',
@@ -3400,10 +3410,38 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    cambiarKmDesde: function cambiarKmDesde() {
+      if (this.desde == '' && this.hasta != '') {
+        this.desde = this.hasta;
+        this.maximo_desde = this.hasta;
+      } else if (this.hasta == '') {
+        this.desde = '';
+      } else {
+        this.maximo_desde = this.hasta;
+      }
+
+      this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
+    },
+    cambiarKmHasta: function cambiarKmHasta() {
+      if (this.hasta == '' && this.desde != '') {
+        this.hasta = this.desde;
+        this.minimo_hasta = this.desde;
+        this.maximo_desde = this.hasta;
+      } else if (this.desde == '') {
+        this.hasta = '';
+      } else {
+        this.maximo_desde = this.hasta;
+        this.minimo_hasta = this.desde;
+      }
+
+      this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
     }
   },
   mounted: function mounted() {
-    this.listarPrincipal(1, this.buscar, this.criterio);
+    this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
+    this.selectTaller();
+    this.selectTipomanto();
   }
 });
 
@@ -8950,7 +8988,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n    overflow-y: auto;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.sizeOpcion{\n    width: 100px;\n}\n\n", ""]);
+exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n    overflow-y: auto;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.sizeOpcion{\n    width: 90px;\n}\n\n", ""]);
 
 // exports
 
@@ -42797,7 +42835,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("option", { attrs: { value: "Fleet" } }, [
-                              _vm._v("MODELO")
+                              _vm._v("FLOTA")
                             ])
                           ]
                         ),
@@ -42822,7 +42860,12 @@ var render = function() {
                               return _vm.listarPrincipal(
                                 1,
                                 _vm.buscar,
-                                _vm.criterio
+                                _vm.criterio,
+                                _vm.criterio2,
+                                _vm.desde,
+                                _vm.hasta,
+                                _vm.select_taller,
+                                _vm.select_tipomanto
                               )
                             },
                             input: function($event) {
@@ -42837,9 +42880,282 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(2),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("div", { staticClass: "col-md-10" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group input-daterange" },
+                        [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.criterio2,
+                                  expression: "criterio2"
+                                }
+                              ],
+                              staticClass: "form-control col-md-6",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.criterio2 = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { value: "tb_vehicles.kms_inicial" } },
+                                [_vm._v("ODÓMETRO ACTUAL")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "option",
+                                {
+                                  attrs: { value: "tb_mtto_history.kms_goal" }
+                                },
+                                [_vm._v("ODÓMETRO ALERTA")]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "input-group-addon bg-primary" },
+                            [_vm._v("DESDE")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.desde,
+                                expression: "desde"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              min: _vm.minimo_desde,
+                              max: _vm.maximo_desde
+                            },
+                            domProps: { value: _vm.desde },
+                            on: {
+                              change: function($event) {
+                                return _vm.cambiarKmHasta()
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.desde = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "input-group-addon bg-primary" },
+                            [_vm._v("HASTA")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.hasta,
+                                expression: "hasta"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "number", min: _vm.minimo_hasta },
+                            domProps: { value: _vm.hasta },
+                            on: {
+                              change: function($event) {
+                                return _vm.cambiarKmDesde()
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.hasta = $event.target.value
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _vm._m(3),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group input-daterange" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "input-group-addon bg-primary" },
+                            [_vm._v("TIPO MANTO")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.select_tipomanto,
+                                  expression: "select_tipomanto"
+                                }
+                              ],
+                              staticClass: "form-control col-md-8",
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.select_tipomanto = $event.target
+                                      .multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  function($event) {
+                                    return _vm.listarPrincipal(
+                                      1,
+                                      _vm.buscar,
+                                      _vm.criterio,
+                                      _vm.criterio2,
+                                      _vm.desde,
+                                      _vm.hasta,
+                                      _vm.select_taller,
+                                      _vm.select_tipomanto
+                                    )
+                                  }
+                                ]
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("TODOS")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.arrayTipomanto, function(
+                                nombreTipomanto
+                              ) {
+                                return _c("option", {
+                                  key: nombreTipomanto.id,
+                                  domProps: {
+                                    value: nombreTipomanto.id,
+                                    textContent: _vm._s(nombreTipomanto.nombre)
+                                  }
+                                })
+                              })
+                            ],
+                            2
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group input-daterange" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "input-group-addon bg-primary" },
+                            [_vm._v("TALLER")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.select_taller,
+                                  expression: "select_taller"
+                                }
+                              ],
+                              staticClass: "form-control col-md-8",
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.select_taller = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  function($event) {
+                                    return _vm.listarPrincipal(
+                                      1,
+                                      _vm.buscar,
+                                      _vm.criterio,
+                                      _vm.criterio2,
+                                      _vm.desde,
+                                      _vm.hasta,
+                                      _vm.select_taller,
+                                      _vm.select_tipomanto
+                                    )
+                                  }
+                                ]
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("TODOS")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.arrayTaller, function(nombreTaller) {
+                                return _c("option", {
+                                  key: nombreTaller.id,
+                                  domProps: {
+                                    value: nombreTaller.id,
+                                    textContent: _vm._s(nombreTaller.nombre)
+                                  }
+                                })
+                              })
+                            ],
+                            2
+                          )
+                        ]
+                      )
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c(
                     "table",
@@ -42848,7 +43164,7 @@ var render = function() {
                         "table table-responsive table-bordered table-striped table-sm"
                     },
                     [
-                      _vm._m(4),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -43089,7 +43405,10 @@ var render = function() {
                                       return _vm.cambiarPagina(
                                         _vm.pagination.current_page - 1,
                                         _vm.buscar,
-                                        _vm.criterio
+                                        _vm.criterio,
+                                        _vm.criterio2,
+                                        _vm.select_taller,
+                                        _vm.select_tipomanto
                                       )
                                     }
                                   }
@@ -43118,7 +43437,12 @@ var render = function() {
                                     return _vm.cambiarPagina(
                                       page,
                                       _vm.buscar,
-                                      _vm.criterio
+                                      _vm.criterio,
+                                      _vm.criterio2,
+                                      _vm.desde,
+                                      _vm.hasta,
+                                      _vm.select_taller,
+                                      _vm.select_tipomanto
                                     )
                                   }
                                 }
@@ -43140,7 +43464,12 @@ var render = function() {
                                       return _vm.cambiarPagina(
                                         _vm.pagination.current_page + 1,
                                         _vm.buscar,
-                                        _vm.criterio
+                                        _vm.criterio,
+                                        _vm.criterio2,
+                                        _vm.desde,
+                                        _vm.hasta,
+                                        _vm.select_taller,
+                                        _vm.select_tipomanto
                                       )
                                     }
                                   }
@@ -43178,7 +43507,7 @@ var render = function() {
                         "table table-responsive table-bordered table-striped table-sm"
                     },
                     [
-                      _vm._m(5),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -44041,70 +44370,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "col-md-10" }, [
-        _c("div", { staticClass: "input-group input-daterange" }, [
-          _c("select", { staticClass: "form-control col-md-6" }, [
-            _c("option", [_vm._v("ODÓMETRO ACTUAL")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("ODÓMETRO ALERTA")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-group-addon bg-primary" }, [
-            _vm._v("DESDE")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "number" }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-group-addon bg-primary" }, [
-            _vm._v("HASTA")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "number" }
-          })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "input-group input-daterange" }, [
-          _c("div", { staticClass: "input-group-addon bg-primary" }, [
-            _vm._v("TIPO MANTO")
-          ]),
-          _vm._v(" "),
-          _c("select", { staticClass: "form-control col-md-8" }, [
-            _c("option", { attrs: { value: "" } }, [_vm._v("TODOS")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "input-group input-daterange" }, [
-          _c("div", { staticClass: "input-group-addon bg-primary" }, [
-            _vm._v("TALLER")
-          ]),
-          _vm._v(" "),
-          _c("select", { staticClass: "form-control col-md-8" }, [
-            _c("option", { attrs: { value: "" } }, [_vm._v("TODOS")])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "bg-primary" }, [
         _c(
@@ -44194,7 +44459,7 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("ULTO. MTTO.")]
+          [_c("div", { staticClass: "sizeOpcion" }, [_vm._v("ULTO. MTTO.")])]
         )
       ])
     ])

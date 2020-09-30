@@ -22,23 +22,23 @@
                                         <option value="idAVL">ID AVL</option>
                                         <option value="Name">NOMBRE</option>
                                         <option value="Plate">PLACA</option>
-                                        <option value="Fleet">MODELO</option>
+                                        <option value="Fleet">FLOTA</option>
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio)" class="form-control" placeholder="Texto a buscar">
+                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)" class="form-control" placeholder="Texto a buscar">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-10">
                                 <div class="input-group input-daterange">
-                                    <select class="form-control col-md-6">
-                                        <option>ODÓMETRO ACTUAL</option>
-                                        <option>ODÓMETRO ALERTA</option>
+                                    <select class="form-control col-md-6" v-model="criterio2">
+                                        <option value="tb_vehicles.kms_inicial">ODÓMETRO ACTUAL</option>
+                                        <option value="tb_mtto_history.kms_goal">ODÓMETRO ALERTA</option>
                                     </select>                            
                                     <div class="input-group-addon bg-primary">DESDE</div>
-                                    <input type="number" class="form-control">
+                                    <input type="number" v-model="desde" @change="cambiarKmHasta()" :min="minimo_desde" :max="maximo_desde" class="form-control">
                                     <div class="input-group-addon bg-primary">HASTA</div>
-                                    <input type="number" class="form-control">
+                                    <input type="number" v-model="hasta" @change="cambiarKmDesde()" :min="minimo_hasta" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -46,16 +46,18 @@
                             <div class="col-md-6">
                                 <div class="input-group input-daterange">
                                     <div class="input-group-addon bg-primary">TIPO MANTO</div>
-                                    <select class="form-control col-md-8">
+                                    <select class="form-control col-md-8" v-model="select_tipomanto" @change="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">
                                         <option value="">TODOS</option>
+                                        <option v-for="nombreTipomanto in arrayTipomanto" :key="nombreTipomanto.id" :value="nombreTipomanto.id" v-text="nombreTipomanto.nombre"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group input-daterange">
                                     <div class="input-group-addon bg-primary">TALLER</div>
-                                    <select class="form-control col-md-8">
+                                    <select class="form-control col-md-8" v-model="select_taller" @change="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">
                                         <option value="">TODOS</option>
+                                        <option v-for="nombreTaller in arrayTaller" :key="nombreTaller.id" :value="nombreTaller.id" v-text="nombreTaller.nombre"></option>
                                     </select>
                                 </div>
                             </div>
@@ -72,7 +74,7 @@
                                     <th style="text-align: center;" class="align-middle">ODO. ALERTA</th>
                                     <th style="text-align: center;" class="align-middle">TIPO MANTO.</th>
                                     <th style="text-align: center;" class="align-middle">TALLER</th>
-                                    <th style="text-align: center;" class="align-middle">ULTO. MTTO.</th>
+                                    <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">ULTO. MTTO.</div></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,13 +113,13 @@
                             <span class="page-stats">Del {{pagination.from}} al {{pagination.to}} de un total de  {{pagination.total}} registros.</span>
                             <ul class="pagination">
                                 <li class="page-item" v-if="pagination.current_page > 1">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio)">Ant</a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio, criterio2, select_taller, select_tipomanto)">Ant</a>
                                 </li>
                                 <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio)" v-text="page"></a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)" v-text="page"></a>
                                 </li>
                                 <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio)">Sig</a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">Sig</a>
                                 </li>
                             </ul>
                         </nav>
@@ -435,8 +437,16 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'nombre',
-                buscar : ''
+                criterio : 'Name',
+                criterio2 : 'tb_vehicles.kms_inicial',
+                buscar : '',
+                desde : '',
+                hasta : '',
+                minimo_desde : '',
+                minimo_hasta : '',
+                maximo_desde : '',
+                select_taller : '',
+                select_tipomanto : ''
 
             }
 
@@ -481,10 +491,10 @@
 
         methods : {
 
-            listarPrincipal(page, buscar, criterio){
+            listarPrincipal(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto){
 
                 let me = this;
-                var url = '/principales?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/principales?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio + '&criterio2=' + criterio2 + '&desde=' + desde + '&hasta=' + hasta + '&select_taller=' + select_taller + '&select_tipomanto=' + select_tipomanto;
                 
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
@@ -518,12 +528,12 @@
 
             },
 
-            cambiarPagina(page, buscar, criterio){
+            cambiarPagina(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto){
                 
                 let me = this;
 
                 me.pagination.current_page = page;
-                me.listarPrincipal(page, buscar, criterio);
+                me.listarPrincipal(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto);
 
             },
 
@@ -556,7 +566,7 @@
 
                 }).then(function (response) {
 
-                    me.listarPrincipal(1, '', 'codigo_comb');
+                    me.listarPrincipal(1, '', 'Name', '', 'tb_vehicles.kms_inicial', '', '');
                     me.cerrarModal();
                     Swal.fire({
                         position: 'top-end',
@@ -763,6 +773,7 @@
             },
 
             refrescarOdometro(vehiculo, fecha){
+
                 console.log(vehiculo);
                 let me = this;
                 var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
@@ -780,11 +791,47 @@
 
                 })
             },
+
+            cambiarKmDesde(){
+
+                if(this.desde == '' && this.hasta != ''){
+                    this.desde = this.hasta;
+                    this.maximo_desde = this.hasta;
+                }else if(this.hasta == ''){
+                    this.desde = '';
+                }else{
+                    this.maximo_desde = this.hasta;
+                }
+
+                this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
+                
+            },
+
+            cambiarKmHasta(){
+
+                if(this.hasta == '' && this.desde != ''){
+
+                    this.hasta = this.desde;
+                    this.minimo_hasta = this.desde;
+                    this.maximo_desde = this.hasta;
+
+                }else if(this.desde == ''){
+                    this.hasta = '';
+                }else{
+                    this.maximo_desde = this.hasta;
+                    this.minimo_hasta = this.desde;
+                }
+
+                this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);             
+            },
+
         },
 
         mounted() {
             
-            this.listarPrincipal(1, this.buscar, this.criterio);
+            this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
+            this.selectTaller();
+            this.selectTipomanto();
 
         }
     }
@@ -847,7 +894,7 @@
     }
 
     .sizeOpcion{
-        width: 100px;
+        width: 90px;
     }
 
 </style>

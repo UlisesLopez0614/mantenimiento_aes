@@ -27,16 +27,16 @@ class PrincipalController extends Controller
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
+        $criterio2 = $request->criterio2;
+        $desde = $request->desde;
+        $hasta = $request->hasta;
+        $select_taller = $request->select_taller;
+        $select_tipomanto = $request->select_tipomanto;
 
-        if($buscar == null ){
+        if($buscar == null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto == null){
             $principales = Principal::with('vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller')->paginate(15);
-            /*$principales = Principal::join('tb_vehicles', 'tb_vehicles.id', '=', 'tb_principal.FK_idVehicle')
-                                    ->rightjoin('tb_mtto_history', 'tb_mtto_history.id', '=', 'tb_principal.FK_idMtto')
-                                    ->join('tb_tipo_mttos', 'tb_tipo_mttos.id', '=', 'tb_mtto_history.FK_tipoMtto')
-                                    ->join('tb_talleres', 'tb_talleres.id', '=', 'tb_mtto_history.FK_taller')
-                                    ->paginate(15);*/
-        }elseif($buscar != null){
-            //dd($buscar);
+        }elseif($buscar != null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto == null){
+            
             $vehicles = Vehiculo::where($criterio, 'like', '%' . $buscar . '%')->get();
             $arreglo_vehiculos = array();
 
@@ -44,15 +44,235 @@ class PrincipalController extends Controller
                 $arreglo_vehiculos[] = $item->id;
             }
 
-            $principales = Principal::with([
-                                        'vehiculo', 
-                                        'mantenimiento', 
-                                        'mantenimiento.tipomanto', 
-                                        'mantenimiento.taller'
-                                    ])
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
                                     ->paginate(15);
-                                    //dd($principales);
+                                    
+        }elseif($buscar == null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto == null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar == null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto == null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->join('tb_talleres', 'tb_talleres.id', '=', 'tb_mtto_history.FK_taller')
+                                ->where('tb_talleres.id', $select_taller)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar == null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto != null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->join('tb_tipo_mttos', 'tb_tipo_mttos.id', '=', 'tb_mtto_history.FK_tipoMtto')
+                                ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar != null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto == null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->where($criterio, 'like', '%' . $buscar . '%')
+                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar != null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto == null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->where($criterio, 'like', '%' . $buscar . '%')
+                                ->where('tb_talleres.id', $select_taller)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar != null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto != null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->where($criterio, 'like', '%' . $buscar . '%')
+                                ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar == null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto == null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->where('tb_talleres.id', $select_taller)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar == null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto != null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar == null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto != null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->where('tb_talleres.id', $select_taller)
+                                ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar != null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto == null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->where($criterio, 'like', '%' . $buscar . '%')
+                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->where('tb_talleres.id', $select_taller)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar != null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto != null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->where($criterio, 'like', '%' . $buscar . '%')
+                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }elseif($buscar == null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto != null){
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->where('tb_talleres.id', $select_taller)
+                                ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
+        }else{
+            
+            $vehicles = Vehiculo::select('tb_vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+                                ->where($criterio, 'like', '%' . $buscar . '%')
+                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->where('tb_talleres.id', $select_taller)
+                                ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->get();
+
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
+                                    ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->paginate(15);
         }
 
         return [
