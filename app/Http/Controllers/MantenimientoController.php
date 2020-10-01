@@ -71,6 +71,8 @@ class MantenimientoController extends Controller
             $mantenimiento->kms_goal = $kms_goal;
             $mantenimiento->date = $request->fecha;
             $mantenimiento->time = $request->hora;
+            $mantenimiento->correo = $request->correoalerta;
+            $mantenimiento->costo = $request->costo;
             $mantenimiento->alerta_naranja = $request->alertanaranja;
             $mantenimiento->alerta_roja = $request->alertaroja;
             $mantenimiento->alerta_prox_vencer = $request->alertaproxima;

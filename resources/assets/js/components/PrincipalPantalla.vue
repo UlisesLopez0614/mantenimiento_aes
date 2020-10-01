@@ -229,6 +229,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">COSTO MANTENIMIENTO:</label>
+                                <div class="col-md-9">
+                                    <input type="number" step="0.01" v-model="costo" class="form-control" placeholder="INGRESE EL COSTO DEL MANTENIMIENTO">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">CORREO ALERTA:</label>
                                 <div class="col-md-9">
                                     <input type="email" v-model="correoalerta" class="form-control" placeholder="INGRESE UN CORREO PARA ALERTAS">
@@ -417,6 +423,7 @@
                 cantidad : '',
                 umedida : '',
                 correoalerta : '',
+                costo : '',
                 alertanaranja : 1,
                 alertaproxima : 1,
                 alertaroja : 1,
@@ -557,6 +564,7 @@
                     'taller' : this.taller1,
                     'tipomanto' : this.tipomanto1,
                     'correoalerta' : this.correoalerta,
+                    'costo' : this.costo,
                     'alertaroja' : this.alertaroja,
                     'alertanaranja' : this.alertanaranja,
                     'alertaproxima' : this.alertaproxima,
@@ -689,10 +697,8 @@
                                         this.nombre = data['vehiculo'].Name;
                                         this.placa = data['vehiculo'].Plate;
                                         this.idAVL = data['vehiculo'].idAVL;
+                                        this.correoalerta = data['vehiculo'].correo;
                                         //this.odohwinicial = data['vehiculo'].kms_inicial;
-                                        this.email = '';
-                                        this.nombre_completo = '';
-                                        this.password = '';
                                         this.tipoAccion = 1;
                                         break;
                                     }

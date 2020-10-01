@@ -3111,6 +3111,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3134,6 +3140,7 @@ __webpack_require__.r(__webpack_exports__);
       cantidad: '',
       umedida: '',
       correoalerta: '',
+      costo: '',
       alertanaranja: 1,
       alertaproxima: 1,
       alertaroja: 1,
@@ -3241,6 +3248,7 @@ __webpack_require__.r(__webpack_exports__);
         'taller': this.taller1,
         'tipomanto': this.tipomanto1,
         'correoalerta': this.correoalerta,
+        'costo': this.costo,
         'alertaroja': this.alertaroja,
         'alertanaranja': this.alertanaranja,
         'alertaproxima': this.alertaproxima,
@@ -3336,11 +3344,9 @@ __webpack_require__.r(__webpack_exports__);
                   this.vehiculo = data['vehiculo'].id;
                   this.nombre = data['vehiculo'].Name;
                   this.placa = data['vehiculo'].Plate;
-                  this.idAVL = data['vehiculo'].idAVL; //this.odohwinicial = data['vehiculo'].kms_inicial;
+                  this.idAVL = data['vehiculo'].idAVL;
+                  this.correoalerta = data['vehiculo'].correo; //this.odohwinicial = data['vehiculo'].kms_inicial;
 
-                  this.email = '';
-                  this.nombre_completo = '';
-                  this.password = '';
                   this.tipoAccion = 1;
                   break;
                 }
@@ -43942,6 +43948,45 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" },
                           domProps: { textContent: _vm._s(_vm.umedida) }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "email-input" }
+                        },
+                        [_vm._v("COSTO MANTENIMIENTO:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.costo,
+                              expression: "costo"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            step: "0.01",
+                            placeholder: "INGRESE EL COSTO DEL MANTENIMIENTO"
+                          },
+                          domProps: { value: _vm.costo },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.costo = $event.target.value
+                            }
+                          }
                         })
                       ])
                     ]),
