@@ -91,22 +91,32 @@ class MantenimientoController extends Controller
 
     public function refrescarOdometro(Request $request)
     {
-        //dd($request->all());
-        
+
+        $ulto_manto = Principal::select('tb_principal.*')
+                                ->join('tb_vehicles', 'tb_vehicles.id', '=', 'tb_principal.FK_idVehicle')
+                                ->where('tb_principal.FK_idVehicle', $request->vehiculo)
+                                ->first();
+
+        if($ulto_manto == null){
+            
+            $distancia = 0;
+            
+        }else{
+
+            $mantenimiento = Mantenimiento::findOrFail($ulto_manto->FK_idMtto);
+
+            $distancia = $mantenimiento->kms_ini;
+        }
+
         $historial = HistorialVehiculo::select('vehiculo_id', 'distance', 'date_history')
                                         ->where('vehiculo_id', $request->vehiculo)
                                         ->where('date_history', '<=', $request->fecha)
                                         ->get();
 
-        //dd($historial);
-
-        $distancia = 0;
-
         foreach($historial as $item){
             $distancia = $distancia + $item->distance;
         }
 
-        //dd($distancia);
 
         return [
             'distancia' => $distancia

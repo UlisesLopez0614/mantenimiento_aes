@@ -3117,6 +3117,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3345,7 +3347,11 @@ __webpack_require__.r(__webpack_exports__);
                   this.nombre = data['vehiculo'].Name;
                   this.placa = data['vehiculo'].Plate;
                   this.idAVL = data['vehiculo'].idAVL;
-                  this.correoalerta = data['vehiculo'].correo; //this.odohwinicial = data['vehiculo'].kms_inicial;
+                  this.correoalerta = data['vehiculo'].correo;
+                  this.taller1 = data['mantenimiento'].taller.id;
+                  this.tipomanto1 = data['mantenimiento'].tipomanto.id;
+                  this.cantidad = data['mantenimiento'].tipomanto.cantidad;
+                  this.umedida = data['mantenimiento'].tipomanto.umedida; //this.odohwinicial = data['vehiculo'].kms_inicial;
 
                   this.tipoAccion = 1;
                   break;
@@ -43325,6 +43331,16 @@ var render = function() {
                                       staticStyle: { "text-align": "center" },
                                       domProps: {
                                         textContent: _vm._s(
+                                          principal.mantenimiento.kms_ini
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(
                                           principal.mantenimiento.tipomanto
                                             .nombre
                                         )
@@ -44478,6 +44494,15 @@ var staticRenderFns = [
             staticStyle: { "text-align": "center" }
           },
           [_vm._v("ODO. ALERTA")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "align-middle",
+            staticStyle: { "text-align": "center" }
+          },
+          [_vm._v("ODO. ULTO MTTO")]
         ),
         _vm._v(" "),
         _c(

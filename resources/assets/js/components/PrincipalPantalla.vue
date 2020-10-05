@@ -72,6 +72,7 @@
                                     <th style="text-align: center;" class="align-middle">FLOTA</th>
                                     <th style="text-align: center;" class="align-middle">ODO. ACTUAL</th>
                                     <th style="text-align: center;" class="align-middle">ODO. ALERTA</th>
+                                    <th style="text-align: center;" class="align-middle">ODO. ULTO MTTO</th>
                                     <th style="text-align: center;" class="align-middle">TIPO MANTO.</th>
                                     <th style="text-align: center;" class="align-middle">TALLER</th>
                                     <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">ULTO. MTTO.</div></th>
@@ -96,6 +97,7 @@
                                         <td v-if="principal.vehiculo.kms_inicial < principal.mantenimiento.kms_goal" style="text-align: center;" class="align-middle bg-success" v-text="principal.mantenimiento.kms_goal"></td>
                                         <td v-else-if="principal.vehiculo.kms_inicial >= principal.mantenimiento.kms_goal && principal.vehiculo.kms_inicial <= (principal.mantenimiento.kms_goal * 1.15)" style="text-align: center;" class="align-middle bg-warning" v-text="principal.mantenimiento.kms_goal"></td>
                                         <td v-else style="text-align: center;" class="align-middle bg-danger" v-text="principal.mantenimiento.kms_goal"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_ini"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.tipomanto.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.date"></td>
@@ -698,6 +700,10 @@
                                         this.placa = data['vehiculo'].Plate;
                                         this.idAVL = data['vehiculo'].idAVL;
                                         this.correoalerta = data['vehiculo'].correo;
+                                        this.taller1 = data['mantenimiento'].taller.id;
+                                        this.tipomanto1 = data['mantenimiento'].tipomanto.id;
+                                        this.cantidad = data['mantenimiento'].tipomanto.cantidad;
+                                        this.umedida = data['mantenimiento'].tipomanto.umedida;
                                         //this.odohwinicial = data['vehiculo'].kms_inicial;
                                         this.tipoAccion = 1;
                                         break;
