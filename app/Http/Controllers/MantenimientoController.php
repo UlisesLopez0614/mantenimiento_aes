@@ -108,9 +108,9 @@ class MantenimientoController extends Controller
             $distancia = $mantenimiento->kms_ini;
         }
 
-        $historial = HistorialVehiculo::select('vehiculo_id', 'distance', 'date_history')
-                                        ->where('vehiculo_id', $request->vehiculo)
-                                        ->where('date_history', '<=', $request->fecha)
+        $historial = HistorialVehiculo::select('FK_idVehicle', 'distance', 'Date')
+                                        ->where('FK_idVehicle', $request->vehiculo)
+                                        ->where('Date', '<=', $request->fecha)
                                         ->get();
 
         foreach($historial as $item){

@@ -3119,6 +3119,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3130,6 +3131,7 @@ __webpack_require__.r(__webpack_exports__);
       arrayPrincipal: [],
       arrayHistorial: [],
       fecha: '',
+      fecha_minima: '',
       hora: '',
       vehiculo: '',
       nombre: '',
@@ -3351,7 +3353,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.taller1 = data['mantenimiento'].taller.id;
                   this.tipomanto1 = data['mantenimiento'].tipomanto.id;
                   this.cantidad = data['mantenimiento'].tipomanto.cantidad;
-                  this.umedida = data['mantenimiento'].tipomanto.umedida; //this.odohwinicial = data['vehiculo'].kms_inicial;
+                  this.umedida = data['mantenimiento'].tipomanto.umedida;
+                  this.fecha_minima = data['mantenimiento'].date; //this.odohwinicial = data['vehiculo'].kms_inicial;
 
                   this.tipoAccion = 1;
                   break;
@@ -43386,6 +43389,11 @@ var render = function() {
                                     _c("td", {
                                       staticClass: "align-middle",
                                       staticStyle: { "text-align": "center" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" }
                                     })
                                   ]
                             ],
@@ -43700,7 +43708,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date" },
+                          attrs: { type: "date", min: _vm.fecha_minima },
                           domProps: { value: _vm.fecha },
                           on: {
                             input: function($event) {

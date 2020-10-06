@@ -107,6 +107,7 @@
                                         <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
+                                        <td style="text-align: center;" class="align-middle"></td>
                                     </template>
                                 </tr>
                             </tbody>
@@ -179,7 +180,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">FECHA:</label>
                                 <div class="col-md-3">
-                                    <input type="date" v-model="fecha" class="form-control">
+                                    <input type="date" v-model="fecha" :min="fecha_minima" class="form-control">
                                 </div>
                                 <label class="col-md-3 form-control-label" for="text-input">HORA:</label>
                                 <div class="col-md-3">
@@ -413,6 +414,7 @@
                 arrayPrincipal : [],
                 arrayHistorial : [],
                 fecha : '',
+                fecha_minima : '',
                 hora : '',
                 vehiculo : '',
                 nombre : '',
@@ -704,6 +706,7 @@
                                         this.tipomanto1 = data['mantenimiento'].tipomanto.id;
                                         this.cantidad = data['mantenimiento'].tipomanto.cantidad;
                                         this.umedida = data['mantenimiento'].tipomanto.umedida;
+                                        this.fecha_minima = data['mantenimiento'].date;
                                         //this.odohwinicial = data['vehiculo'].kms_inicial;
                                         this.tipoAccion = 1;
                                         break;

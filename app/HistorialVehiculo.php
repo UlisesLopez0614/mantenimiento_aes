@@ -8,7 +8,7 @@ class HistorialVehiculo extends Model
 {
     //
     //Nombre de la table
-    protected $table = 'tb_history';
+    protected $table = 'tb_summary';
 
     //Llave primaria
     protected $primaryKey = 'registro_id';
