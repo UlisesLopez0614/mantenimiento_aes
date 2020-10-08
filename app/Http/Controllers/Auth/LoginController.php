@@ -4,37 +4,53 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\User;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function showLoginForm()
     {
-        $this->middleware('guest')->except('logout');
+        return view('auth.login');
+    }
+
+    public function login(Request $request)
+    {
+        
+        $this->validateLogin($request);
+
+        if(Auth::attempt(['nombre' => $request->usuario, 'password' => $request->password, 'condicion' => 1])){
+            
+            $user = User::findOrFail(Auth::user()->id);
+            $user->ultimo_login = \Carbon\Carbon::now();
+            $user->save();
+            
+            return redirect()->route('main');
+        }
+
+        return back()
+                ->withErrors(['usuario' => trans('auth.failed')])
+                ->withInput(request(['usuario']));
+
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            'usuario' => 'required|string',
+            'password' => 'required|string'
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }

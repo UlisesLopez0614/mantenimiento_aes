@@ -34,10 +34,19 @@ class PrincipalController extends Controller
         $select_tipomanto = $request->select_tipomanto;
 
         if($buscar == null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto == null){
-            $principales = Principal::with('vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller')->paginate(15);
+            
+            $vehicles = Vehiculo::where('estado', true)->get();
+            $arreglo_vehiculos = array();
+
+            foreach($vehicles as $item){
+                $arreglo_vehiculos[] = $item->id;
+            }
+
+            $principales = Principal::with('vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller')->whereIn('FK_idVehicle', $arreglo_vehiculos)->paginate(15);
+
         }elseif($buscar != null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto == null){
             
-            $vehicles = Vehiculo::where($criterio, 'like', '%' . $buscar . '%')->get();
+            $vehicles = Vehiculo::where($criterio, 'like', '%' . $buscar . '%')->where('estado', true)->get();
             $arreglo_vehiculos = array();
 
             foreach($vehicles as $item){
@@ -53,6 +62,7 @@ class PrincipalController extends Controller
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->whereBetween($criterio2, [$desde, $hasta])
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -70,6 +80,7 @@ class PrincipalController extends Controller
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->join('tb_talleres', 'tb_talleres.id', '=', 'tb_mtto_history.FK_taller')
                                 ->where('tb_talleres.id', $select_taller)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -87,6 +98,7 @@ class PrincipalController extends Controller
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->join('tb_tipo_mttos', 'tb_tipo_mttos.id', '=', 'tb_mtto_history.FK_tipoMtto')
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -104,6 +116,7 @@ class PrincipalController extends Controller
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->whereBetween($criterio2, [$desde, $hasta])
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -121,6 +134,7 @@ class PrincipalController extends Controller
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->where('tb_talleres.id', $select_taller)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -138,6 +152,7 @@ class PrincipalController extends Controller
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -155,6 +170,7 @@ class PrincipalController extends Controller
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->whereBetween($criterio2, [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -172,6 +188,7 @@ class PrincipalController extends Controller
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->whereBetween($criterio2, [$desde, $hasta])
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -189,6 +206,7 @@ class PrincipalController extends Controller
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -207,6 +225,7 @@ class PrincipalController extends Controller
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->whereBetween($criterio2, [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -225,6 +244,7 @@ class PrincipalController extends Controller
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->whereBetween($criterio2, [$desde, $hasta])
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -243,6 +263,7 @@ class PrincipalController extends Controller
                                 ->whereBetween($criterio2, [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
@@ -262,6 +283,7 @@ class PrincipalController extends Controller
                                 ->whereBetween($criterio2, [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
+                                ->where('estado', true)
                                 ->get();
 
             $arreglo_vehiculos = array();
