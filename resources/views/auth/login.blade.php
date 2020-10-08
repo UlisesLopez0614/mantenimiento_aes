@@ -35,6 +35,7 @@
                 <div class="card-body text-center">
                     <div>
                         <h2>MANTENIMIENTO PREVENTIVO Y RENDIMIENTO</h2>
+                        <p>Versión 1.1</p>
                     </div>
                 </div>
             </div>
