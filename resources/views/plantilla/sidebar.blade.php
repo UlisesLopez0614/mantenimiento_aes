@@ -78,7 +78,7 @@
                 </ul>
             </li-->
             <li @click="menu=15" class="nav-item">
-                <a class="nav-link"><i class="icon-book-open"></i> CONFIGURACIÓN <span class="badge badge-danger">PDF</span></a>
+                <a class="nav-link"><i class="icon-book-open"></i> CONFIGURACIÓN H<span class="badge badge-danger">PDF</span></a>
             </li>
         </ul>
     </nav>
