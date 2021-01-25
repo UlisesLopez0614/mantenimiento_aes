@@ -115,7 +115,7 @@ class PrincipalController extends Controller
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
-                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('estado', true)
                                 ->get();
 
@@ -168,7 +168,7 @@ class PrincipalController extends Controller
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
-                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('estado', true)
                                 ->get();
@@ -186,7 +186,7 @@ class PrincipalController extends Controller
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
-                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
                                 ->where('estado', true)
                                 ->get();
@@ -223,7 +223,7 @@ class PrincipalController extends Controller
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
-                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('estado', true)
                                 ->get();
@@ -242,7 +242,7 @@ class PrincipalController extends Controller
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
-                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
                                 ->where('estado', true)
                                 ->get();
@@ -260,7 +260,7 @@ class PrincipalController extends Controller
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
-                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
                                 ->where('estado', true)
@@ -280,7 +280,7 @@ class PrincipalController extends Controller
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
-                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
                                 ->where('estado', true)

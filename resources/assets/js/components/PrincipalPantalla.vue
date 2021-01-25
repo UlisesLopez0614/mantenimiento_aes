@@ -76,17 +76,22 @@
                         <table class="table table-responsive table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
+                                    <th style="text-align: center;" class="align-middle"></th>
+                                    <th style="text-align: center;" class="align-middle" colspan="4">VEHÍCULO</th>
+                                    <th style="text-align: center;" class="align-middle" colspan="6">MANTENIMIENTO</th>
+                                </tr>
+                                <tr class="bg-primary">
                                     <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">OPCIONES</div></th>
-                                    <th style="text-align: center;" class="align-middle">ID AVL</th>
                                     <th style="text-align: center;" class="align-middle">NOMBRE</th>
                                     <th style="text-align: center;" class="align-middle">PLACA</th>
                                     <th style="text-align: center;" class="align-middle">FLOTA</th>
-                                    <th style="text-align: center;" class="align-middle">ODO. ACTUAL</th>
-                                    <th style="text-align: center;" class="align-middle">ODO. ALERTA</th>
-                                    <th style="text-align: center;" class="align-middle">ODO. ULTO MTTO</th>
-                                    <th style="text-align: center;" class="align-middle">TIPO MANTO.</th>
+                                    <th style="text-align: center;" class="align-middle">KM ACTUAL</th>
+                                    <th style="text-align: center;" class="align-middle">ANTERIOR</th>
+                                    <th style="text-align: center;" class="align-middle">PROXIMO</th>
+                                    <th style="text-align: center;" class="align-middle">QUEDAN</th>
+                                    <th style="text-align: center;" class="align-middle">TIPO</th>
                                     <th style="text-align: center;" class="align-middle">TALLER</th>
-                                    <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">ULTO. MTTO.</div></th>
+                                    <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">FECHA</div></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,17 +104,15 @@
                                             <i class="icon-plus"></i>
                                         </button> &nbsp;
                                     </td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.idAVL">Equipos</td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Name"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Plate"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>      
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.kms_inicial"></td>
                                     <template v-if="principal.mantenimiento != null">
-                                        <td v-if="principal.vehiculo.kms_inicial < principal.mantenimiento.kms_goal" style="text-align: center;" class="align-middle bg-success" v-text="principal.mantenimiento.kms_goal"></td>
-                                        <td v-else-if="principal.vehiculo.kms_inicial >= principal.mantenimiento.kms_goal && principal.vehiculo.kms_inicial <= (principal.mantenimiento.kms_goal * 1.15)" style="text-align: center;" class="align-middle bg-warning" v-text="principal.mantenimiento.kms_goal"></td>
-                                        <td v-else style="text-align: center;" class="align-middle bg-danger" v-text="principal.mantenimiento.kms_goal"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_ini"></td>
-                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.tipomanto.nombre"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.tipomanto.cantidad"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.date"></td>
                                     </template>
@@ -243,7 +246,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">COSTO MANTENIMIENTO:</label>
+                                <label class="col-md-3 form-control-label" for="email-input">COSTO MANTENIMIENTO (*):</label>
                                 <div class="col-md-9">
                                     <input type="number" step="0.01" v-model="costo" class="form-control" placeholder="INGRESE EL COSTO DEL MANTENIMIENTO">
                                 </div>
@@ -444,7 +447,7 @@
                 alertaroja : 1,
                 recordatorioporven : 1,
                 recordatorioven : 1,
-                porcentajealerta:  '',
+                porcentajealerta:  5,
                 modal : 0,
                 tituloModal : '',
                 tipoAccion: 0,
@@ -615,6 +618,7 @@
                 this.errorMostrarMsjMantenimiento = [];
 
                 if(!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
+                if(!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE");
                 if(!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
                 if(!this.porcentajealerta) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN PORCENTAJE DE ALERTA");
                 if(this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
@@ -756,7 +760,7 @@
                 this.alertaroja = 1;
                 this.recordatorioporven = 1;
                 this.recordatorioven = 1;
-                this.porcentajealerta =  '';
+                this.porcentajealerta =  5;
                 this.errorMantenimiento = 0;
                 this.errorMostrarMsjMantenimiento = [];
             },

@@ -3131,6 +3131,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3161,7 +3164,7 @@ __webpack_require__.r(__webpack_exports__);
       alertaroja: 1,
       recordatorioporven: 1,
       recordatorioven: 1,
-      porcentajealerta: '',
+      porcentajealerta: 5,
       modal: 0,
       tituloModal: '',
       tipoAccion: 0,
@@ -3290,6 +3293,7 @@ __webpack_require__.r(__webpack_exports__);
       this.errorMantenimiento = 0;
       this.errorMostrarMsjMantenimiento = [];
       if (!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
+      if (!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE");
       if (!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
       if (!this.porcentajealerta) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN PORCENTAJE DE ALERTA");
       if (this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
@@ -3399,7 +3403,7 @@ __webpack_require__.r(__webpack_exports__);
       this.alertaroja = 1;
       this.recordatorioporven = 1;
       this.recordatorioven = 1;
-      this.porcentajealerta = '';
+      this.porcentajealerta = 5;
       this.errorMantenimiento = 0;
       this.errorMostrarMsjMantenimiento = [];
     },
@@ -43249,20 +43253,6 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  staticClass: "align-middle",
-                                  staticStyle: { "text-align": "center" },
-                                  domProps: {
-                                    textContent: _vm._s(
-                                      principal.vehiculo.idAVL
-                                    )
-                                  }
-                                },
-                                [_vm._v("Equipos")]
-                              ),
-                              _vm._v(" "),
                               _c("td", {
                                 staticClass: "align-middle",
                                 staticStyle: { "text-align": "center" },
@@ -43299,49 +43289,6 @@ var render = function() {
                               _vm._v(" "),
                               principal.mantenimiento != null
                                 ? [
-                                    principal.vehiculo.kms_inicial <
-                                    principal.mantenimiento.kms_goal
-                                      ? _c("td", {
-                                          staticClass:
-                                            "align-middle bg-success",
-                                          staticStyle: {
-                                            "text-align": "center"
-                                          },
-                                          domProps: {
-                                            textContent: _vm._s(
-                                              principal.mantenimiento.kms_goal
-                                            )
-                                          }
-                                        })
-                                      : principal.vehiculo.kms_inicial >=
-                                          principal.mantenimiento.kms_goal &&
-                                        principal.vehiculo.kms_inicial <=
-                                          principal.mantenimiento.kms_goal *
-                                            1.15
-                                      ? _c("td", {
-                                          staticClass:
-                                            "align-middle bg-warning",
-                                          staticStyle: {
-                                            "text-align": "center"
-                                          },
-                                          domProps: {
-                                            textContent: _vm._s(
-                                              principal.mantenimiento.kms_goal
-                                            )
-                                          }
-                                        })
-                                      : _c("td", {
-                                          staticClass: "align-middle bg-danger",
-                                          staticStyle: {
-                                            "text-align": "center"
-                                          },
-                                          domProps: {
-                                            textContent: _vm._s(
-                                              principal.mantenimiento.kms_goal
-                                            )
-                                          }
-                                        }),
-                                    _vm._v(" "),
                                     _c("td", {
                                       staticClass: "align-middle",
                                       staticStyle: { "text-align": "center" },
@@ -43357,8 +43304,29 @@ var render = function() {
                                       staticStyle: { "text-align": "center" },
                                       domProps: {
                                         textContent: _vm._s(
+                                          principal.mantenimiento.kms_goal
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          principal.mantenimiento.kms_goal -
+                                            principal.vehiculo.kms_inicial
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(
                                           principal.mantenimiento.tipomanto
-                                            .nombre
+                                            .cantidad
                                         )
                                       }
                                     }),
@@ -43996,7 +43964,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "email-input" }
                         },
-                        [_vm._v("COSTO MANTENIMIENTO:")]
+                        [_vm._v("COSTO MANTENIMIENTO (*):")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -44454,6 +44422,33 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "bg-primary" }, [
+        _c("th", {
+          staticClass: "align-middle",
+          staticStyle: { "text-align": "center" }
+        }),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "align-middle",
+            staticStyle: { "text-align": "center" },
+            attrs: { colspan: "4" }
+          },
+          [_vm._v("VEHÍCULO")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "align-middle",
+            staticStyle: { "text-align": "center" },
+            attrs: { colspan: "6" }
+          },
+          [_vm._v("MANTENIMIENTO")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("tr", { staticClass: "bg-primary" }, [
         _c(
           "th",
           {
@@ -44461,15 +44456,6 @@ var staticRenderFns = [
             staticStyle: { "text-align": "center" }
           },
           [_c("div", { staticClass: "sizeOpcion" }, [_vm._v("OPCIONES")])]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "align-middle",
-            staticStyle: { "text-align": "center" }
-          },
-          [_vm._v("ID AVL")]
         ),
         _vm._v(" "),
         _c(
@@ -44505,7 +44491,7 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("ODO. ACTUAL")]
+          [_vm._v("KM ACTUAL")]
         ),
         _vm._v(" "),
         _c(
@@ -44514,7 +44500,7 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("ODO. ALERTA")]
+          [_vm._v("ANTERIOR")]
         ),
         _vm._v(" "),
         _c(
@@ -44523,7 +44509,7 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("ODO. ULTO MTTO")]
+          [_vm._v("PROXIMO")]
         ),
         _vm._v(" "),
         _c(
@@ -44532,7 +44518,16 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("TIPO MANTO.")]
+          [_vm._v("QUEDAN")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "align-middle",
+            staticStyle: { "text-align": "center" }
+          },
+          [_vm._v("TIPO")]
         ),
         _vm._v(" "),
         _c(
@@ -44550,7 +44545,7 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_c("div", { staticClass: "sizeOpcion" }, [_vm._v("ULTO. MTTO.")])]
+          [_c("div", { staticClass: "sizeOpcion" }, [_vm._v("FECHA")])]
         )
       ])
     ])
