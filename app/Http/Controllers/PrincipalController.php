@@ -61,7 +61,7 @@ class PrincipalController extends Controller
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
-                                ->whereBetween($criterio2, [$desde, $hasta])
+                                ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('estado', true)
                                 ->get();
 

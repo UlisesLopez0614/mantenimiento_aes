@@ -3120,6 +3120,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3168,13 +3179,15 @@ __webpack_require__.r(__webpack_exports__);
       criterio: 'Name',
       criterio2: 'tb_vehicles.kms_inicial',
       buscar: '',
-      desde: '',
-      hasta: '',
       minimo_desde: '',
       minimo_hasta: '',
       maximo_desde: '',
       select_taller: '',
-      select_tipomanto: ''
+      select_tipomanto: '',
+      desde: '',
+      hasta: '',
+      fechaMaxima: '',
+      fechaActual: ''
     };
   },
   computed: {
@@ -3451,6 +3464,46 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
+    },
+    cambiarDesde: function cambiarDesde() {
+      var me = this;
+
+      if (this.desde == '' && this.hasta != '') {
+        this.desde = this.hasta;
+        this.fechaMaxima = this.hasta;
+      } else if (this.hasta == '') {
+        this.desde = '';
+        this.fechaActual2();
+      } else {
+        this.fechaMaxima = this.hasta;
+      }
+
+      this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
+    },
+    cambiarHasta: function cambiarHasta() {
+      var me = this;
+
+      if (this.hasta == '' && this.desde != '') {
+        var hoy = new Date();
+        var dd = hoy.getDate();
+        var mm = hoy.getMonth() + 1;
+        var yyyy = hoy.getFullYear();
+
+        if (dd < 10) {
+          dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+          mm = '0' + mm;
+        }
+
+        this.hasta = yyyy + '-' + mm + '-' + dd;
+      } else if (this.desde == '') {
+        this.hasta = '';
+        this.fechaActual2();
+      }
+
+      this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
     }
   },
   mounted: function mounted() {
@@ -42896,55 +42949,15 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group row" }, [
-                    _c("div", { staticClass: "col-md-10" }, [
+                    _c("div", { staticClass: "col-md-8" }, [
                       _c(
                         "div",
                         { staticClass: "input-group input-daterange" },
                         [
                           _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.criterio2,
-                                  expression: "criterio2"
-                                }
-                              ],
-                              staticClass: "form-control col-md-6",
-                              on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.criterio2 = $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "option",
-                                { attrs: { value: "tb_vehicles.kms_inicial" } },
-                                [_vm._v("ODÓMETRO ACTUAL")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  attrs: { value: "tb_mtto_history.kms_goal" }
-                                },
-                                [_vm._v("ODÓMETRO ALERTA")]
-                              )
-                            ]
+                            "div",
+                            { staticClass: "input-group-addon bg-primary" },
+                            [_vm._v("ACTIVIDAD")]
                           ),
                           _vm._v(" "),
                           _c(
@@ -42963,15 +42976,11 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: {
-                              type: "number",
-                              min: _vm.minimo_desde,
-                              max: _vm.maximo_desde
-                            },
+                            attrs: { type: "date", max: _vm.fechaMaxima },
                             domProps: { value: _vm.desde },
                             on: {
                               change: function($event) {
-                                return _vm.cambiarKmHasta()
+                                return _vm.cambiarHasta()
                               },
                               input: function($event) {
                                 if ($event.target.composing) {
@@ -42998,11 +43007,15 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "number", min: _vm.minimo_hasta },
+                            attrs: {
+                              type: "date",
+                              max: _vm.fechaActual,
+                              min: _vm.desde
+                            },
                             domProps: { value: _vm.hasta },
                             on: {
                               change: function($event) {
-                                return _vm.cambiarKmDesde()
+                                return _vm.cambiarDesde()
                               },
                               input: function($event) {
                                 if ($event.target.composing) {

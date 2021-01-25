@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!--div class="form-group row">
                             <div class="col-md-10">
                                 <div class="input-group input-daterange">
                                     <select class="form-control col-md-6" v-model="criterio2">
@@ -39,6 +39,17 @@
                                     <input type="number" v-model="desde" @change="cambiarKmHasta()" :min="minimo_desde" :max="maximo_desde" class="form-control">
                                     <div class="input-group-addon bg-primary">HASTA</div>
                                     <input type="number" v-model="hasta" @change="cambiarKmDesde()" :min="minimo_hasta" class="form-control">
+                                </div>
+                            </div>
+                        </div-->
+                        <div class="form-group row">
+                        <div class="col-md-8">
+                            <div class="input-group input-daterange">
+                                <div class="input-group-addon bg-primary">ACTIVIDAD</div>                         
+                                <div class="input-group-addon bg-primary">DESDE</div>
+                                <input type="date" v-model="desde" @change="cambiarHasta()" :max="fechaMaxima" class="form-control">
+                                <div class="input-group-addon bg-primary">HASTA</div>
+                                <input type="date" v-model="hasta" @change="cambiarDesde()" :max="fechaActual" :min="desde" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -451,13 +462,15 @@
                 criterio : 'Name',
                 criterio2 : 'tb_vehicles.kms_inicial',
                 buscar : '',
-                desde : '',
-                hasta : '',
                 minimo_desde : '',
                 minimo_hasta : '',
                 maximo_desde : '',
                 select_taller : '',
-                select_tipomanto : ''
+                select_tipomanto : '',
+                desde : '',
+                hasta : '',
+                fechaMaxima : '',
+                fechaActual : ''
 
             }
 
@@ -838,6 +851,55 @@
                 }
 
                 this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);             
+            },
+
+            cambiarDesde(){
+
+                let me = this;
+
+                if(this.desde == '' && this.hasta != ''){
+                    this.desde = this.hasta;
+                    this.fechaMaxima = this.hasta;
+                }else if(this.hasta == ''){
+                    this.desde = '';
+                    this.fechaActual2();
+                }else{
+                    this.fechaMaxima = this.hasta;
+                }
+
+                this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
+                
+            },
+
+            cambiarHasta(){
+
+                let me = this;
+
+                if(this.hasta == '' && this.desde != ''){
+
+                    let hoy = new Date();
+
+                    let dd = hoy.getDate();
+                    let mm = hoy.getMonth()+1;
+                    let yyyy = hoy.getFullYear();
+
+                    if(dd < 10){
+                        dd = '0'+dd;
+                    }
+
+                    if(mm < 10){
+                        mm = '0'+mm;
+                    }
+            
+                    this.hasta = yyyy + '-' + mm + '-' + dd;
+
+                }else if(this.desde == ''){
+                    this.hasta = '';
+                    this.fechaActual2();
+                }
+
+                this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
+                
             },
 
         },
