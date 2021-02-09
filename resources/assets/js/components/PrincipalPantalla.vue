@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table class="table table-responsive table-bordered table-striped table-sm">
+                        <table id="mi-tabla" class="table table-responsive table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
                                     <th style="text-align: center;" class="align-middle"></th>
@@ -111,12 +111,21 @@
                                     <template v-if="principal.mantenimiento != null">
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_ini"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal"></td>
-                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
+                                        <template v-if="((principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial) <= ((principal.mantenimiento.tipomanto.cantidad * principal.mantenimiento.porcentaje_alerta_por_vencerse) / 100)) && (principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial) >0">
+                                            <td style="text-align: center;" class="align-middle bg-warning" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
+                                        </template>
+                                        <template v-else-if="(principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial) <= 0">
+                                            <td style="text-align: center;" class="align-middle bg-danger" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
+                                        </template>
+                                        <template v-else>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
+                                        </template>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.tipomanto.cantidad"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.date"></td>
                                     </template>
                                     <template v-else>
+                                        <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
                                         <td style="text-align: center;" class="align-middle"></td>
@@ -143,8 +152,20 @@
                     </template>
                     <template v-else>
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <button @click="cambiar2" class="btn btn-primary"><i class="fa fa-back"></i> VOLVER</button>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="text-input">NOMBRE:</label>
+                                <label class="form-control-label" for="text-input" v-text="nombre"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-control-label" for="text-input">PLACA:</label>
+                                <label class="form-control-label" for="text-input" v-text="placa"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">FLOTA:</label>
+                                <label class="form-control-label" for="text-input" v-text="flota"></label>
                             </div>
                         </div>
                         <table class="table table-responsive table-bordered table-striped table-sm">
@@ -414,6 +435,7 @@
 </template>
 
 <script>
+
     export default {
 
         data (){
@@ -766,9 +788,14 @@
             },
 
             cambiar(p){
+
                 let me = this;
+                console.log(p);
                 
                 me.loading = false;
+                me.placa = p.vehiculo.Plate;
+                me.nombre = p.vehiculo.Name;
+                me.flota = p.vehiculo.Fleet;
 
                 me.listarHistorial(p.vehiculo.id, me.buscar, me.criterio);
 
@@ -779,6 +806,8 @@
                 let me = this;
                 
                 me.loading = true;
+                me.placa = '';
+
                 me.arrayHistorial = [];
 
                 //me.$root.menu = 2;
@@ -916,6 +945,7 @@
 
         }
     }
+
 </script>
 
 <style>
@@ -923,7 +953,7 @@
     .modal-content{
 
         width: 100% !important;
-        position: absolute !important;
+        position: fixed !important;
 
     }
 
@@ -931,7 +961,7 @@
 
         display: list-item !important;
         opacity: 1 !important;
-        position: absolute !important;
+        position: fixed !important;
         background-color: #3c29297a !important;
         overflow-y: auto;
 

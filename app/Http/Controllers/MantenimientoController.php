@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Mantenimiento;
 use App\Principal;
+use App\Vehiculo;
 use App\HistorialVehiculo;
 
 class MantenimientoController extends Controller
@@ -81,10 +82,6 @@ class MantenimientoController extends Controller
             $mantenimiento->porcentaje_alerta_por_vencerse = $request->porcentajealerta;
 
         $mantenimiento->save();
-
-        $principal = Principal::where('FK_idVehicle', $request->vehiculo)->first();
-        $principal->FK_idMtto = $mantenimiento->id;
-        $principal->save();
 
     }
 

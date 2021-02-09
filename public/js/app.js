@@ -3134,6 +3134,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3409,12 +3430,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     cambiar: function cambiar(p) {
       var me = this;
+      console.log(p);
       me.loading = false;
+      me.placa = p.vehiculo.Plate;
+      me.nombre = p.vehiculo.Name;
+      me.flota = p.vehiculo.Fleet;
       me.listarHistorial(p.vehiculo.id, me.buscar, me.criterio); //me.$root.menu = 2;
     },
     cambiar2: function cambiar2() {
       var me = this;
       me.loading = true;
+      me.placa = '';
       me.arrayHistorial = []; //me.$root.menu = 2;
     },
     obtenerInfoTipomanto: function obtenerInfoTipomanto(r) {
@@ -9060,7 +9086,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n    overflow-y: auto;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.sizeOpcion{\n    width: 90px;\n}\n\n", ""]);
+exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: fixed !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: fixed !important;\n    background-color: #3c29297a !important;\n    overflow-y: auto;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.sizeOpcion{\n    width: 90px;\n}\n\n", ""]);
 
 // exports
 
@@ -9079,7 +9105,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n\n", ""]);
+exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: fixed !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: fixed !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n\n", ""]);
 
 // exports
 
@@ -9098,7 +9124,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n\n", ""]);
+exports.push([module.i, "\n.modal-content{\n\n    width: 100% !important;\n    position: fixed !important;\n}\n.mostrar{\n\n    display: list-item !important;\n    opacity: 1 !important;\n    position: fixed !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: blue !important;\n    font-weight: bold;\n}\n.pagination > li > a{\n    background-color: white;\n    color: #20a8d8 !important;\n}\n.pagination > li > a:focus,\n.pagination > li > a:hover,\n.pagination > li > span:focus,\n.pagination > li > span:hover{\n    color: #20a8d8 !important;\n    background-color: #eee !important;\n    border-color: #ddd !important;\n}\n.pagination > .active > a{\n    color: white !important;\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n.pagination > .active > a:hover{\n    background-color: #20a8d8 !important;\n    border: solid 1px #20a8d8 !important;\n}\n\n", ""]);
 
 // exports
 
@@ -43193,7 +43219,8 @@ var render = function() {
                     "table",
                     {
                       staticClass:
-                        "table table-responsive table-bordered table-striped table-sm"
+                        "table table-responsive table-bordered table-striped table-sm",
+                      attrs: { id: "mi-tabla" }
                     },
                     [
                       _vm._m(2),
@@ -43309,16 +43336,66 @@ var render = function() {
                                       }
                                     }),
                                     _vm._v(" "),
-                                    _c("td", {
-                                      staticClass: "align-middle",
-                                      staticStyle: { "text-align": "center" },
-                                      domProps: {
-                                        textContent: _vm._s(
-                                          principal.mantenimiento.kms_goal -
-                                            principal.vehiculo.kms_inicial
-                                        )
-                                      }
-                                    }),
+                                    principal.mantenimiento.kms_goal -
+                                      principal.vehiculo.kms_inicial <=
+                                      (principal.mantenimiento.tipomanto
+                                        .cantidad *
+                                        principal.mantenimiento
+                                          .porcentaje_alerta_por_vencerse) /
+                                        100 &&
+                                    principal.mantenimiento.kms_goal -
+                                      principal.vehiculo.kms_inicial >
+                                      0
+                                      ? [
+                                          _c("td", {
+                                            staticClass:
+                                              "align-middle bg-warning",
+                                            staticStyle: {
+                                              "text-align": "center"
+                                            },
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                principal.mantenimiento
+                                                  .kms_goal -
+                                                  principal.vehiculo.kms_inicial
+                                              )
+                                            }
+                                          })
+                                        ]
+                                      : principal.mantenimiento.kms_goal -
+                                          principal.vehiculo.kms_inicial <=
+                                        0
+                                      ? [
+                                          _c("td", {
+                                            staticClass:
+                                              "align-middle bg-danger",
+                                            staticStyle: {
+                                              "text-align": "center"
+                                            },
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                principal.mantenimiento
+                                                  .kms_goal -
+                                                  principal.vehiculo.kms_inicial
+                                              )
+                                            }
+                                          })
+                                        ]
+                                      : [
+                                          _c("td", {
+                                            staticClass: "align-middle",
+                                            staticStyle: {
+                                              "text-align": "center"
+                                            },
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                principal.mantenimiento
+                                                  .kms_goal -
+                                                  principal.vehiculo.kms_inicial
+                                              )
+                                            }
+                                          })
+                                        ],
                                     _vm._v(" "),
                                     _c("td", {
                                       staticClass: "align-middle",
@@ -43352,6 +43429,11 @@ var render = function() {
                                     })
                                   ]
                                 : [
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" }
+                                    }),
+                                    _vm._v(" "),
                                     _c("td", {
                                       staticClass: "align-middle",
                                       staticStyle: { "text-align": "center" }
@@ -43496,7 +43578,7 @@ var render = function() {
                 ]
               : [
                   _c("div", { staticClass: "form-group row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-md-2" }, [
                       _c(
                         "button",
                         {
@@ -43508,6 +43590,57 @@ var render = function() {
                           _vm._v(" VOLVER")
                         ]
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("NOMBRE:")]
+                      ),
+                      _vm._v(" "),
+                      _c("label", {
+                        staticClass: "form-control-label",
+                        attrs: { for: "text-input" },
+                        domProps: { textContent: _vm._s(_vm.nombre) }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("PLACA:")]
+                      ),
+                      _vm._v(" "),
+                      _c("label", {
+                        staticClass: "form-control-label",
+                        attrs: { for: "text-input" },
+                        domProps: { textContent: _vm._s(_vm.placa) }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("FLOTA:")]
+                      ),
+                      _vm._v(" "),
+                      _c("label", {
+                        staticClass: "form-control-label",
+                        attrs: { for: "text-input" },
+                        domProps: { textContent: _vm._s(_vm.flota) }
+                      })
                     ])
                   ]),
                   _vm._v(" "),
