@@ -88,4 +88,12 @@
         <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
     </template-->
 
+    <template v-if="menu==16">
+        <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
+    </template>
+
+    <template v-if="menu==17">
+        <reporte-mantenimientos></reporte-mantenimientos>
+    </template>
+
 @endsection

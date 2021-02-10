@@ -59,9 +59,34 @@ class MantenimientoController extends Controller
 
         if(!$request->ajax()) return redirect('/');
 
-        //dd($request->all());
-
         $kms_goal = $request->odohwinicial + $request->cantidad;
+
+        $ulto_manto = Principal::select('tb_principal.*')
+                                ->where('tb_principal.FK_idVehicle', $request->vehiculo)
+                                ->first();
+
+        $mantenimiento = Mantenimiento::select('tb_mtto_history.*', 'tb_tipo_mttos.cantidad')
+                                        ->join('tb_tipo_mttos', 'tb_tipo_mttos.id', '=', 'tb_mtto_history.FK_tipoMtto')
+                                        ->where('tb_mtto_history.id', $ulto_manto->FK_idMtto)
+                                        ->first();
+
+        $quedan = $mantenimiento->kms_goal - $request->odohwinicial;
+
+        $estado_alerta = '';
+
+        if($quedan > (($mantenimiento->cantidad * $mantenimiento->porcentaje_alerta_por_vencerse) / 100)){
+
+            $estado_alerta = 'VERDE';
+
+        }elseif($quedan <= (($mantenimiento->cantidad * $mantenimiento->porcentaje_alerta_por_vencerse) / 100) && $quedan > 0){
+
+            $estado_alerta = 'NARANJA';
+
+        }else{
+
+            $estado_alerta = 'ROJA';
+
+        }
 
         $mantenimiento = new Mantenimiento();
         
@@ -80,6 +105,7 @@ class MantenimientoController extends Controller
             $mantenimiento->recordatorio_diario_vencido = $request->recordatorioven;
             $mantenimiento->recordatorio_diario_por_vencerse = $request->recordatorioporven;
             $mantenimiento->porcentaje_alerta_por_vencerse = $request->porcentajealerta;
+            $mantenimiento->estado_alerta = $estado_alerta;
 
         $mantenimiento->save();
 
@@ -113,7 +139,6 @@ class MantenimientoController extends Controller
         foreach($historial as $item){
             $distancia = $distancia + $item->distance;
         }
-
 
         return [
             'distancia' => $distancia

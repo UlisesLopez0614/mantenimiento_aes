@@ -175,15 +175,17 @@
                                     <th style="text-align: center;">MANTENIMIENTO ASIGNADO</th>
                                     <th style="text-align: center;">CANTIDAD</th>
                                     <th style="text-align: center;">UNIDAD DE MEDIDA</th>
+                                    <th style="text-align: center;">COSTO</th>
                                     <th style="text-align: center;">ASIGNADO</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="historial in arrayHistorial" :key="historial.id">
-                                    <td style="text-align: center;" class="align-middle">FINALIZADO</td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.estado_alerta"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.nombre"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.cantidad"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.umedida"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="'$' + historial.costo"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="historial.date"></td>                
                                 </tr>
                             </tbody>
@@ -639,6 +641,7 @@
                 this.errorMantenimiento = 0;
                 this.errorMostrarMsjMantenimiento = [];
 
+                if(!this.odohwinicial) this.errorMostrarMsjMantenimiento.push("DEBE REFRESCAR EL ODOMETRO PARA REGISTRAR EL MANTENIMIENTO");
                 if(!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
                 if(!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE");
                 if(!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
@@ -841,7 +844,8 @@
                 
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.odohwinicial = respuesta.distancia
+                    console.log(respuesta.distancia);
+                    me.odohwinicial = respuesta.distancia.toFixed(2);
                     //me.arrayTaller = respuesta.talleres;
                     console.log(response);
 

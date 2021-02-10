@@ -29,6 +29,7 @@ Vue.component('tipomanto-pantalla', require('./components/TipomantoPantalla.vue'
 Vue.component('empresa-catalogo-pantalla', require('./components/EmpresaCatalogoPantalla.vue').default);
 Vue.component('empresa-asignacion-pantalla', require('./components/EmpresaAsignacionPantalla.vue').default);
 Vue.component('acceso-users', require('./components/AccesoUsers.vue').default);
+Vue.component('reporte-mantenimientos', require('./components/ReporteMantenimientos.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

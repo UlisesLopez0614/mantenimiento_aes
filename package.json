@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "file-saver": "^2.0.5",
         "vue-sorted-table": "^1.3.0"
     }
 }
