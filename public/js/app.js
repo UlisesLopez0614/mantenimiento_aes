@@ -3637,7 +3637,7 @@ __webpack_require__.r(__webpack_exports__);
           responseType: "blob"
         }).then(function (response) {
           console.log(response.data);
-          file_saver__WEBPACK_IMPORTED_MODULE_1___default.a.saveAs(response.data, 'CONSOLIDADO-ACTIVIDADES-TECNICAS.xlsx');
+          file_saver__WEBPACK_IMPORTED_MODULE_1___default.a.saveAs(response.data, 'CONSOLIDADO-MANTENIMIENTOS.xlsx');
         });
       })["catch"](function (error) {
         console.log(error);

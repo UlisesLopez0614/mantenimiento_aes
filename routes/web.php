@@ -47,3 +47,6 @@ Route::get('/mantenimientos', 'MantenimientoController@index');
 Route::post('/mantenimientos/registrar', 'MantenimientoController@store');
 
 Route::get('/vehiculos/historial', 'MantenimientoController@refrescarOdometro');
+
+Route::get('/reportes/consolidado', 'ReporteriaController@consolidado');
+Route::get('/reportes/consolidadoDescargar', 'ReporteriaController@consolidadoDescargar');
