@@ -3460,17 +3460,38 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     refrescarOdometro: function refrescarOdometro(vehiculo, fecha) {
-      console.log(vehiculo);
-      var me = this;
-      var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
-      axios.get(url).then(function (response) {
-        var respuesta = response.data;
-        console.log(respuesta.distancia);
-        me.odohwinicial = respuesta.distancia.toFixed(2); //me.arrayTaller = respuesta.talleres;
+      var _this = this;
 
-        console.log(response);
-      })["catch"](function (error) {
-        console.log(error);
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'ESTÁ SEGURO QUE NO HAY MANTENIMIENTOS PENDIENTES PARA ESTE VEHICULO ANTES DE LA FECHA SEÑALADA?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'SÍ, ESTOY SEGURO!',
+        cancelButtonText: 'NO, DEBO REVISAR!',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.value) {
+          var me = _this;
+          var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
+          axios.get(url).then(function (response) {
+            var respuesta = response.data;
+            console.log(respuesta.distancia);
+            me.odohwinicial = respuesta.distancia.toFixed(2); //me.arrayTaller = respuesta.talleres;
+
+            console.log(response);
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel) {}
       });
     },
     cambiarKmDesde: function cambiarKmDesde() {
@@ -43986,14 +44007,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("FECHA:")]
-                      ),
+                      _vm._m(4),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-3" }, [
                         _c("input", {
@@ -44898,6 +44912,19 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-3 form-control-label",
+        attrs: { for: "text-input" }
+      },
+      [_c("b", [_vm._v("FECHA:")])]
+    )
   }
 ]
 render._withStripped = true

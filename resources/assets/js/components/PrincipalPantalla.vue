@@ -215,7 +215,7 @@
                                 <div class="col-md-4"></div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">FECHA:</label>
+                                <label class="col-md-3 form-control-label" for="text-input"><b>FECHA:</b></label>
                                 <div class="col-md-3">
                                     <input type="date" v-model="fecha" :min="fecha_minima" class="form-control">
                                 </div>
@@ -838,23 +838,58 @@
 
             refrescarOdometro(vehiculo, fecha){
 
-                console.log(vehiculo);
-                let me = this;
-                var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
-                
-                axios.get(url).then(function (response) {
-                    var respuesta = response.data;
-                    console.log(respuesta.distancia);
-                    me.odohwinicial = respuesta.distancia.toFixed(2);
-                    //me.arrayTaller = respuesta.talleres;
-                    console.log(response);
+                const swalWithBootstrapButtons = Swal.mixin({
 
-                })
-                .catch(function (error) {
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+
+                    buttonsStyling: false
+
+                    })
+
+                    swalWithBootstrapButtons.fire({
                     
-                    console.log(error);
+                        title: 'ESTÁ SEGURO QUE NO HAY MANTENIMIENTOS PENDIENTES PARA ESTE VEHICULO ANTES DE LA FECHA SEÑALADA?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'SÍ, ESTOY SEGURO!',
+                        cancelButtonText: 'NO, DEBO REVISAR!',
+                        reverseButtons: true
 
-                })
+                    }).then((result) => {
+
+                        if (result.value) {
+
+                            let me = this;
+
+                            var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
+                
+                                axios.get(url).then(function (response) {
+                                    var respuesta = response.data;
+                                    console.log(respuesta.distancia);
+                                    me.odohwinicial = respuesta.distancia.toFixed(2);
+                                    //me.arrayTaller = respuesta.talleres;
+                                    console.log(response);
+
+                                })
+                                .catch(function (error) {
+                                    
+                                    console.log(error);
+
+                                })
+
+                            
+                        } else if (
+                            /* Read more about handling dismissals below */
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                            
+                        }
+
+                });
+
             },
 
             cambiarKmDesde(){

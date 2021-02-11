@@ -28,8 +28,6 @@ class ReporteriaController extends Controller
                                         ->join('tb_talleres', 'tb_talleres.id', '=', 'tb_mtto_history.FK_taller')
                                         ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                         ->get();
-
-        //dd($mantenimientos);
         
         Excel::store(new ConsolidadoExport($mantenimientos, $desde, $hasta), $nombre_reporte, 'public');
 
