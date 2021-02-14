@@ -185,7 +185,12 @@
                                     <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.nombre"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.cantidad"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.umedida"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="'$' + historial.costo"></td>
+                                    <template v-if="historial.costo == null">
+                                        <td style="text-align: center;" class="align-middle" v-text="'$0.00'"></td>
+                                    </template>
+                                    <template v-else>
+                                            <td style="text-align: center;" class="align-middle" v-text="'$' + historial.costo"></td>
+                                    </template>
                                     <td style="text-align: center;" class="align-middle" v-text="historial.date"></td>                
                                 </tr>
                             </tbody>
@@ -641,11 +646,11 @@
                 this.errorMantenimiento = 0;
                 this.errorMostrarMsjMantenimiento = [];
 
-                if(!this.odohwinicial) this.errorMostrarMsjMantenimiento.push("DEBE REFRESCAR EL ODOMETRO PARA REGISTRAR EL MANTENIMIENTO");
+                if(!this.odohwinicial) this.errorMostrarMsjMantenimiento.push("DEBE REFRESCAR EL ODOMETRO PARA REGISTRAR EL MANTENIMIENTO.");
                 if(!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
-                if(!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE");
                 if(!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
-                if(!this.porcentajealerta) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN PORCENTAJE DE ALERTA");
+                if(!this.costo) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN COSTO DE MANTENIMIENTO.")
+                if(!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE.");
                 if(this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
 
                 return this.errorMantenimiento;

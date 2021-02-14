@@ -47,6 +47,8 @@ class PrincipalController extends Controller
                                             'mantenimiento.tipomanto', 
                                             'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
 
         }elseif($buscar != null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto == null){
@@ -60,6 +62,8 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
                                     
         }elseif($buscar == null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto == null){
@@ -78,7 +82,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar == null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto == null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -96,6 +103,8 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
         }elseif($buscar == null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto != null){
             
@@ -114,7 +123,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar != null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto == null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -132,7 +144,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar != null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto == null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -150,7 +165,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar != null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto != null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -168,7 +186,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar == null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto == null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -186,7 +207,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar == null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto != null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -204,7 +228,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar == null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto != null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -222,7 +249,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar != null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto == null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -241,7 +271,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar != null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto != null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -260,7 +293,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }elseif($buscar == null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto != null){
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -279,7 +315,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+
         }else{
             
             $vehicles = Vehiculo::select('tb_vehicles.id')
@@ -299,7 +338,10 @@ class PrincipalController extends Controller
 
             $principales = Principal::with(['vehiculo', 'mantenimiento', 'mantenimiento.tipomanto', 'mantenimiento.taller'])
                                     ->whereIn('FK_idVehicle', $arreglo_vehiculos)
+                                    ->where('FK_idMtto', '!=', null)
+                                    ->orderBy('quedan', 'asc')
                                     ->paginate(50);
+                                    
         }
 
         return [

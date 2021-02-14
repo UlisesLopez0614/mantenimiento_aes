@@ -37,6 +37,7 @@
         <script src="js/plantilla.js"></script>
 
         <script>
+
             $(document).ready(function(){
                 
                 $('.dropdown-toggle').dropdown();
@@ -53,9 +54,12 @@
                     return false;
                     }
                 });
+
+                //$("#tablesorter").tablesorter(); 
                 
 
             });
+            
         </script>
 
         

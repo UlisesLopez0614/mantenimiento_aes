@@ -26,6 +26,7 @@ mix.styles([
     'resources/assets/plantilla/js/template.js',
     'resources/assets/plantilla/js/sweetalert2.all.min.js',
     'resources/assets/plantilla/js/moment.min.js',
-    'resources/assets/plantilla/js/bootstrap-datepicker.min.js'
+    'resources/assets/plantilla/js/bootstrap-datepicker.min.js',
+    'resources/assets/plantilla/js/jquery.tablesorter.min.js',
  ], 'public/js/plantilla.js')
  .js(['resources/assets/js/app.js'], 'public/js/app.js');

@@ -3157,6 +3157,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3315,11 +3320,11 @@ __webpack_require__.r(__webpack_exports__);
     validarMantenimiento: function validarMantenimiento() {
       this.errorMantenimiento = 0;
       this.errorMostrarMsjMantenimiento = [];
-      if (!this.odohwinicial) this.errorMostrarMsjMantenimiento.push("DEBE REFRESCAR EL ODOMETRO PARA REGISTRAR EL MANTENIMIENTO");
+      if (!this.odohwinicial) this.errorMostrarMsjMantenimiento.push("DEBE REFRESCAR EL ODOMETRO PARA REGISTRAR EL MANTENIMIENTO.");
       if (!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
-      if (!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE");
       if (!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
-      if (!this.porcentajealerta) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN PORCENTAJE DE ALERTA");
+      if (!this.costo) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN COSTO DE MANTENIMIENTO.");
+      if (!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE.");
       if (this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
       return this.errorMantenimiento;
     },
@@ -43854,55 +43859,78 @@ var render = function() {
                       _c(
                         "tbody",
                         _vm._l(_vm.arrayHistorial, function(historial) {
-                          return _c("tr", { key: historial.id }, [
-                            _c("td", {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" },
-                              domProps: {
-                                textContent: _vm._s(historial.estado_alerta)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" },
-                              domProps: {
-                                textContent: _vm._s(historial.tipomanto.nombre)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" },
-                              domProps: {
-                                textContent: _vm._s(
-                                  historial.tipomanto.cantidad
-                                )
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" },
-                              domProps: {
-                                textContent: _vm._s(historial.tipomanto.umedida)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" },
-                              domProps: {
-                                textContent: _vm._s("$" + historial.costo)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              staticClass: "align-middle",
-                              staticStyle: { "text-align": "center" },
-                              domProps: { textContent: _vm._s(historial.date) }
-                            })
-                          ])
+                          return _c(
+                            "tr",
+                            { key: historial.id },
+                            [
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(historial.estado_alerta)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    historial.tipomanto.nombre
+                                  )
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    historial.tipomanto.cantidad
+                                  )
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    historial.tipomanto.umedida
+                                  )
+                                }
+                              }),
+                              _vm._v(" "),
+                              historial.costo == null
+                                ? [
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: { textContent: _vm._s("$0.00") }
+                                    })
+                                  ]
+                                : [
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          "$" + historial.costo
+                                        )
+                                      }
+                                    })
+                                  ],
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(historial.date)
+                                }
+                              })
+                            ],
+                            2
+                          )
                         }),
                         0
                       )
