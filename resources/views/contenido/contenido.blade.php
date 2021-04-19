@@ -6,9 +6,26 @@
         <escritorio-pantalla></escritorio-pantalla>
     </template>
 
-    <keep-alive include="principa-pantalla">
+    <keep-alive include="principal-pantalla">
         <template v-if="menu==1">
             <principal-pantalla></principal-pantalla>
+        </template>
+    </keep-alive>
+
+    <keep-alive include="mantenimiento-lubricante">
+        <template v-if="menu==9">
+            <mantenimiento-lubricante></mantenimiento-lubricante>
+        </template>
+    </keep-alive>
+
+
+        <template v-if="menu==10">
+            <mantenimiento-baterias></mantenimiento-baterias>
+        </template>
+
+    <keep-alive include="mantenimiento-llantas">
+        <template v-if="menu==11">
+            <mantenimiento-llantas></mantenimiento-llantas>
         </template>
     </keep-alive>
 

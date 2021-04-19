@@ -21,7 +21,7 @@ Route::get('/', 'Auth\LoginController@showLoginForm')->name('principal');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home_data', 'HomeController@home_data')->name('home_data');
 
 
 Route::get('/roles', 'RolController@index');
@@ -42,11 +42,26 @@ Route::put('/tipomantos/actualizar', 'TipomantoController@update');
 Route::put('/tipomantos/desactivar', 'TipomantoController@desactivar');
 Route::put('/tipomantos/activar', 'TipomantoController@activar');
 
+
 Route::get('/principales', 'PrincipalController@index');
+//----------------------------Rutas De Los Modulos de Mantenimientos
+Route::get('/baterias', 'VehicleDetailsController@getBatteryDetails');
+Route::post('/baterias/registrar', 'VehicleDetailsController@registerBatteryRecord');
+Route::get('/battery_records', 'VehicleDetailsController@getBatteryHistory');
+
+
+Route::get('/tires', 'VehicleDetailsController@getTireDetails');
+Route::post('/tires/registrar', 'VehicleDetailsController@registerTireRecord');
+Route::get('/tire_records', 'VehicleDetailsController@getTireHistory');
+
+
+Route::get('/lubricantes', 'VehicleDetailsController@index');
+Route::get('/llantas', 'VehicleDetailsController@index');
+//
 Route::get('/mantenimientos', 'MantenimientoController@index');
 Route::post('/mantenimientos/registrar', 'MantenimientoController@store');
 
-Route::get('/vehiculos/historial', 'MantenimientoController@refrescarOdometro');
+Route::get('/vehiculos/historial', 'mantenimientos/registrarr@refrescarOdometro');
 
 Route::get('/reportes/consolidado', 'ReporteriaController@consolidado');
 Route::get('/reportes/consolidadoDescargar', 'ReporteriaController@consolidadoDescargar');

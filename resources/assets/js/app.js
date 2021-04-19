@@ -19,8 +19,14 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('escritorio-pantalla', require('./components/EscritorioPantalla.vue').default);
+//Componentes de los modulos de mantenimiento
+Vue.component('mantenimiento-lubricante', require('./components/ModuloLubricantes.vue').default);
+Vue.component('mantenimiento-baterias', require('./components/ModuloBaterias.vue').default);
+Vue.component('mantenimiento-llantas', require('./components/ModuloLlantas.vue').default);
 Vue.component('principal-pantalla', require('./components/PrincipalPantalla.vue').default);
+//
+
+Vue.component('escritorio-pantalla', require('./components/EscritorioPantalla.vue').default);
 Vue.component('supervisor-pantalla', require('./components/SupervisorPantalla.vue').default);
 Vue.component('unidmedida-pantalla', require('./components/UnidmedidaPantalla.vue').default);
 Vue.component('taller-pantalla', require('./components/TallerPantalla.vue').default);

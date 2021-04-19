@@ -7,8 +7,22 @@
             <li class="nav-title">
                 Mantenimiento
             </li>
-            <li @click="menu=1" class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-bag"></i> PRINCIPAL</a>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> MANTENIMIENTOS</a>
+                <ul class="nav-dropdown-items">
+                    <li @click="menu=1" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-wallet"></i>General</a>
+                    </li>
+                    <li @click="menu=9" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-tint"></i>Lubricantes</a>
+                    </li>
+                    <li @click="menu=10" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-car-battery"></i>Baterias</a>
+                    </li>
+                    <li @click="menu=11" class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-dot-circle"></i>Llantas</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> CATÁLOGOS</a>

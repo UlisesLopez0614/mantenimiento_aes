@@ -34,7 +34,7 @@
                                     <select class="form-control col-md-6" v-model="criterio2">
                                         <option value="tb_vehicles.kms_inicial">ODÓMETRO ACTUAL</option>
                                         <option value="tb_mtto_history.kms_goal">ODÓMETRO ALERTA</option>
-                                    </select>                            
+                                    </select>
                                     <div class="input-group-addon bg-primary">DESDE</div>
                                     <input type="number" v-model="desde" @change="cambiarKmHasta()" :min="minimo_desde" :max="maximo_desde" class="form-control">
                                     <div class="input-group-addon bg-primary">HASTA</div>
@@ -45,7 +45,7 @@
                         <div class="form-group row">
                         <div class="col-md-8">
                             <div class="input-group input-daterange">
-                                <div class="input-group-addon bg-primary">ACTIVIDAD</div>                         
+                                <div class="input-group-addon bg-primary">ACTIVIDAD</div>
                                 <div class="input-group-addon bg-primary">DESDE</div>
                                 <input type="date" v-model="desde" @change="cambiarHasta()" :max="fechaMaxima" class="form-control">
                                 <div class="input-group-addon bg-primary">HASTA</div>
@@ -89,7 +89,7 @@
                                     <th style="text-align: center;" class="align-middle">ANTERIOR</th>
                                     <th style="text-align: center;" class="align-middle">PROXIMO</th>
                                     <th style="text-align: center;" class="align-middle">QUEDAN</th>
-                                    <th style="text-align: center;" class="align-middle">TIPO</th>
+                                    <th style="text-align: center;" class="align-middle">TIPO DE INDICADOR</th>
                                     <th style="text-align: center;" class="align-middle">TALLER</th>
                                     <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">FECHA</div></th>
                                 </tr>
@@ -106,7 +106,7 @@
                                     </td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Name"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Plate"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>      
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.kms_inicial"></td>
                                     <template v-if="principal.mantenimiento != null">
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_ini"></td>
@@ -120,7 +120,7 @@
                                         <template v-else>
                                             <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
                                         </template>
-                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.tipomanto.cantidad"></td>
+                                        <td style="text-align: center;" class="align-middle">A{{principal.counter}}</td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.date"></td>
                                     </template>
@@ -191,7 +191,7 @@
                                     <template v-else>
                                             <td style="text-align: center;" class="align-middle" v-text="'$' + historial.costo"></td>
                                     </template>
-                                    <td style="text-align: center;" class="align-middle" v-text="historial.date"></td>                
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.date"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -264,13 +264,17 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">CANTIDAD:</label>
-                                <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="cantidad"></label>
+                                <label class="col-md-2 form-control-label" for="text-input">CANTIDAD:</label>
+                                <div class="col-md-2">
+                                    <label class="col-md-2 form-control-label" for="text-input" v-text="cantidad"></label>
                                 </div>
-                                <label class="col-md-3 form-control-label" for="text-input">UNIDAD DE MEDIDA:</label>
-                                <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="umedida"></label>
+                                <label class="col-md-2 form-control-label" for="text-input">UNIDAD DE MEDIDA:</label>
+                                <div class="col-md-2">
+                                    <label class="col-md-2 form-control-label" for="text-input" v-text="umedida"></label>
+                                </div>
+                                <label class="col-md-2 form-control-label" for="text-input">TIPO MANTENIMIENTO:</label>
+                                <div class="col-md-2">
+                                    <label class="col-md-2 form-control-label" for="text-input">A1</label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -280,9 +284,15 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">CORREO ALERTA:</label>
+                                <label class="col-md-3 form-control-label">CORREO ALERTA 8%:</label>
                                 <div class="col-md-9">
                                     <input type="email" v-model="correoalerta" class="form-control" placeholder="INGRESE UN CORREO PARA ALERTAS">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label">CORREO ALERTA 5%:</label>
+                                <div class="col-md-9">
+                                    <input type="email" v-model="correoalertagrave" class="form-control" placeholder="INGRESE UN CORREO PARA ALERTAS">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -426,7 +436,7 @@
                         <div class="form-group row">
                             <h5>No hay registros para mostrar</h5>
                         </div>
-                        
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
@@ -551,7 +561,7 @@
 
                 let me = this;
                 var url = '/principales?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio + '&criterio2=' + criterio2 + '&desde=' + desde + '&hasta=' + hasta + '&select_taller=' + select_taller + '&select_tipomanto=' + select_tipomanto;
-                
+
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayPrincipal = respuesta.principales.data;
@@ -559,7 +569,7 @@
                     console.log(respuesta);
                 })
                 .catch(function (error) {
-                    
+
                     console.log(error);
 
                 })
@@ -570,14 +580,14 @@
 
                 let me = this;
                 var url = '/mantenimientos?vehiculo=' + vehiculo + '&buscar=' + buscar + '&criterio=' + criterio;
-                
+
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayHistorial = respuesta.mantenimientos;
                     console.log(respuesta);
                 })
                 .catch(function (error) {
-                    
+
                     console.log(error);
 
                 })
@@ -585,7 +595,7 @@
             },
 
             cambiarPagina(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto){
-                
+
                 let me = this;
 
                 me.pagination.current_page = page;
@@ -598,7 +608,7 @@
                 if(this.validarMantenimiento()){
 
                     return;
-                    
+
                 }
 
                 let me = this;
@@ -642,7 +652,7 @@
             },
 
             validarMantenimiento(){
-                
+
                 this.errorMantenimiento = 0;
                 this.errorMostrarMsjMantenimiento = [];
 
@@ -661,7 +671,7 @@
 
                 let me = this;
                 var url = '/talleres/selectTaller';
-                
+
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayTaller = respuesta.talleres;
@@ -669,7 +679,7 @@
 
                 })
                 .catch(function (error) {
-                    
+
                     console.log(error);
 
                 })
@@ -680,7 +690,7 @@
 
                 let me = this;
                 var url = '/tipomantos/selectTipomanto';
-                
+
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayTipomanto = respuesta.tipomantos;
@@ -688,7 +698,7 @@
 
                 })
                 .catch(function (error) {
-                    
+
                     console.log(error);
 
                 })
@@ -696,7 +706,7 @@
             },
 
             fechaActual2(){
-                
+
                 let hoy = new Date();
 
                 let dd = hoy.getDate();
@@ -720,7 +730,7 @@
                 if(min < 10){
                     min = '0'+min;
                 }
-        
+
                 this.fecha = yyyy + '-' + mm + '-' + dd;
                 this.hora = hh + ':' + min;
 
@@ -735,11 +745,11 @@
                 switch (modelo) {
 
                     case 'principal':
-                        
+
                         {
 
                             switch (accion) {
-                                
+
                                 case 'registrar':
                                     {
                                         this.modal = 1;
@@ -754,15 +764,15 @@
                                         this.cantidad = data['mantenimiento'].tipomanto.cantidad;
                                         this.umedida = data['mantenimiento'].tipomanto.umedida;
                                         this.fecha_minima = data['mantenimiento'].date;
-                                        //this.odohwinicial = data['vehiculo'].kms_inicial;
+                                        this.odohwinicial = data['vehiculo'].kms_inicial;
                                         this.tipoAccion = 1;
                                         break;
                                     }
-                            
+
                             }
 
                         }
-                        
+
                 }
             },
 
@@ -799,7 +809,7 @@
 
                 let me = this;
                 console.log(p);
-                
+
                 me.loading = false;
                 me.placa = p.vehiculo.Plate;
                 me.nombre = p.vehiculo.Name;
@@ -812,7 +822,7 @@
 
             cambiar2(){
                 let me = this;
-                
+
                 me.loading = true;
                 me.placa = '';
 
@@ -822,10 +832,9 @@
             },
 
             obtenerInfoTipomanto(r){
-                console.log(r);
                 let me = this;
                 var url = '/tipomantos/info?id_tipomanto=' + r;
-                
+
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.cantidad = respuesta.tipomantos.cantidad;
@@ -834,7 +843,7 @@
 
                 })
                 .catch(function (error) {
-                    
+
                     console.log(error);
 
                 })
@@ -855,7 +864,7 @@
                     })
 
                     swalWithBootstrapButtons.fire({
-                    
+
                         title: 'ESTÁ SEGURO QUE NO HAY MANTENIMIENTOS PENDIENTES PARA ESTE VEHICULO ANTES DE LA FECHA SEÑALADA?',
                         icon: 'warning',
                         showCancelButton: true,
@@ -870,7 +879,7 @@
                             let me = this;
 
                             var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
-                
+
                                 axios.get(url).then(function (response) {
                                     var respuesta = response.data;
                                     console.log(respuesta.distancia);
@@ -880,17 +889,17 @@
 
                                 })
                                 .catch(function (error) {
-                                    
+
                                     console.log(error);
 
                                 })
 
-                            
+
                         } else if (
                             /* Read more about handling dismissals below */
                             result.dismiss === Swal.DismissReason.cancel
                         ) {
-                            
+
                         }
 
                 });
@@ -909,7 +918,7 @@
                 }
 
                 this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
-                
+
             },
 
             cambiarKmHasta(){
@@ -927,7 +936,7 @@
                     this.minimo_hasta = this.desde;
                 }
 
-                this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);             
+                this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
             },
 
             cambiarDesde(){
@@ -945,7 +954,7 @@
                 }
 
                 this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
-                
+
             },
 
             cambiarHasta(){
@@ -967,7 +976,7 @@
                     if(mm < 10){
                         mm = '0'+mm;
                     }
-            
+
                     this.hasta = yyyy + '-' + mm + '-' + dd;
 
                 }else if(this.desde == ''){
@@ -976,13 +985,13 @@
                 }
 
                 this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
-                
+
             },
 
         },
 
         mounted() {
-            
+
             this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
             this.selectTaller();
             this.selectTipomanto();

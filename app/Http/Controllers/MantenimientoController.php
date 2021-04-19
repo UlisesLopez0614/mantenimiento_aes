@@ -18,7 +18,7 @@ class MantenimientoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        
+
         /**
          * Desplegar el listado de talleres registrados en el sistema con paginacion
          * Se pueden hacer busquedas de datos segun el criterio que el usuario elija.
@@ -44,12 +44,6 @@ class MantenimientoController extends Controller
         ];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         /**
@@ -89,7 +83,7 @@ class MantenimientoController extends Controller
         }
 
         $mantenimiento = new Mantenimiento();
-        
+
             $mantenimiento->FK_idVehicle = $request->vehiculo;
             $mantenimiento->FK_taller = $request->taller;
             $mantenimiento->FK_tipoMtto = $request->tipomanto;
@@ -98,6 +92,8 @@ class MantenimientoController extends Controller
             $mantenimiento->date = $request->fecha;
             $mantenimiento->time = $request->hora;
             $mantenimiento->correo = $request->correoalerta;
+            $mantenimiento->correo_supervisor = $request->correoalertagrave;
+            $mantenimiento->mtto_count = $ulto_manto->counter;
             $mantenimiento->costo = $request->costo;
             $mantenimiento->alerta_naranja = $request->alertanaranja;
             $mantenimiento->alerta_roja = $request->alertaroja;
@@ -108,7 +104,13 @@ class MantenimientoController extends Controller
             $mantenimiento->estado_alerta = $estado_alerta;
 
         $mantenimiento->save();
+        if($ulto_manto->counter == 5)
+        {
+            $ulto_manto->counter = 1;
 
+        }
+        else{$ulto_manto->counter =  $ulto_manto->counter +1;}
+        $ulto_manto->save();
     }
 
 
@@ -121,9 +123,9 @@ class MantenimientoController extends Controller
                                 ->first();
 
         if($ulto_manto == null){
-            
+
             $distancia = 0;
-            
+
         }else{
 
             $mantenimiento = Mantenimiento::findOrFail($ulto_manto->FK_idMtto);
