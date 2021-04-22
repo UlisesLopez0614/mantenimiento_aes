@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mail\AlertasPruebaAES;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendAlerts extends Command
@@ -50,20 +51,28 @@ class SendAlerts extends Command
         foreach ($Vehicles as $item)
         {
             $VeH = $item->Name."-".$item->Plate." / ".$item->Fleet." ".$item->Area;
+            $correos = collect(explode(";", $item->correo));
+            $correo_sup = explode(";", $item->correo_supervisor);
             if($item->quedan > 300)
             {
-                $correos = collect(explode(";", $item->correo));
                 foreach($correos as $key => $value)
                 {
-                    Mail::to($value)->queue(new AlertasPruebaAES($VeH,$item->quedan));
+                    try{
+                        Mail::to($value)->queue(new AlertasPruebaAES($VeH,$item->quedan));
+                    }catch (\Exception $e){
+                        Log::error("Invalid Email for element: ".$item);
+                    }
                 }
             }
             else
             {
-                $correo_sup = explode(";", $item->correo_supervisor);
                 foreach($correo_sup as $key => $value)
                 {
-                    Mail::to($value)->queue(new AlertasPruebaAES($VeH,$item->quedan));
+                    try{
+                        Mail::to($value)->queue(new AlertasPruebaAES($VeH,$item->quedan));
+                    }catch (\Exception $e){
+                        Log::error("Invalid Email for element: ".$item);
+                    }
                 }
             }
         }
