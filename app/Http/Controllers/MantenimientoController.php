@@ -130,16 +130,16 @@ class MantenimientoController extends Controller
 
             $mantenimiento = Mantenimiento::findOrFail($ulto_manto->FK_idMtto);
 
-            $distancia = $mantenimiento->kms_ini;
+            $distancia = $mantenimiento->kms_ini;//200094
         }
 
-        $historial = HistorialVehiculo::select('FK_idVehicle', 'distance', 'Date')
+        $historial = HistorialVehiculo::select('FK_idVehicle', 'distance', 'Date') //tb_summary
                                         ->where('FK_idVehicle', $request->vehiculo)
                                         ->where('Date', '<=', $request->fecha)
                                         ->get();
 
         foreach($historial as $item){
-            $distancia = $distancia + $item->distance;
+            $distancia = $distancia + $item->distance;//156
         }
 
         return [
