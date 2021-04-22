@@ -65,5 +65,3 @@ Route::get('/vehiculos/historial', 'MantenimientoController@refrescarOdometro');
 
 Route::get('/reportes/consolidado', 'ReporteriaController@consolidado');
 Route::get('/reportes/consolidadoDescargar', 'ReporteriaController@consolidadoDescargar');
-
-Route::get('/70KMe2mF7epoxCPUZT3Y','PrincipalController@alertas');
