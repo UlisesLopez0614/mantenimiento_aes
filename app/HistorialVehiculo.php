@@ -11,6 +11,21 @@ class HistorialVehiculo extends Model
     protected $table = 'tb_summary';
 
     //Llave primaria
-    protected $primaryKey = 'registro_id';
+    protected $fillable = [
+        'FK_idVehicle',
+        'Date',
+        'Time',
+        'Positions',
+        'Distance',
+        'AvgSpeed',
+        'MaxSpeed',
+        'FuelAvg',
+        'MovTime',
+        'Stops',
+        'StopTime',
+        'StopTimeOn',
+        'GeoEvents'
+    ];
 
+    public $timestamps = false;
 }

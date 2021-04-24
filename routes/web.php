@@ -1,5 +1,6 @@
 <?php
 
+use Faker\Provider\Base;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,3 +66,10 @@ Route::get('/vehiculos/historial', 'MantenimientoController@refrescarOdometro');
 
 Route::get('/reportes/consolidado', 'ReporteriaController@consolidado');
 Route::get('/reportes/consolidadoDescargar', 'ReporteriaController@consolidadoDescargar');
+
+
+Route::get('json',function (){
+        $response = Illuminate\Support\Facades\Http::get('http://avlaes.disatelgps.com/ws/?api=VehicleSummary&sitekey=avlaes&usr=admin&pwd=aes&veh=351580051671721&dat=2021-04-22')->json();
+        $datetime = new DateTime($response[0]['Date']);
+        return $datetime->format('H:m:s');
+});
