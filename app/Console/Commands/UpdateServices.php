@@ -50,22 +50,21 @@ class UpdateServices extends Command
         Carbon::setLocale('es');
         setlocale(LC_ALL, 'es');
         $Vehicles = Vehiculo::all();
-        Log::info("Iniciando Registros el dia  : ".now()->formatLocalized('%A').", ".now()->formatLocalized('%d, %B %Y, a las %H:%M  '));
+        Log::channel('SummaryUpdates')->info("Iniciando Registros el dia  : ".now()->formatLocalized('%A').", ".now()->formatLocalized('%d, %B %Y, a las %H:%M  '));
         foreach($Vehicles as $VH)
         {
             try
             {
                 $response = Http::get('http://avlaes.disatelgps.com/ws/?api=VehicleSummary&sitekey=avlaes&usr=admin&pwd=aes&veh='.$VH->idAVL.'&dat='.now()->format('Y-m-d'))->json();
+                dd('http://avlaes.disatelgps.com/ws/?api=VehicleSummary&sitekey=avlaes&usr=admin&pwd=aes&veh=863286020928165&dat='.now()->format('Y-m-d'));
                 if($response[0]['Date'] == '-')
                 {
-                    Log::alert("No hay registros el dia : ".now()->format('Y-m-d')." para el vehiculo con placas : ".$VH->Plate);
+                    Log::channel('SummaryUpdates')->warning("No hay registros el dia : ".now()->format('Y-m-d')." para el vehiculo con placas : ".$VH->Plate);
                 }
                 else
                 {
-                    //dd('http://avlaes.disatelgps.com/ws/?api=VehicleSummary&sitekey=avlaes&usr=admin&pwd=aes&veh='.$VH->idAVL.'&dat='.now()->format('Y-m-d'));
                     $VH_Record = new HistorialVehiculo();
                     $VH_Record->FK_idVehicle = $VH->id;
-                    //$datetime = new DateTime($response[0]['Date']);
                     $VH_Record->Date = now()->format('Y-m-d');
                     $VH_Record->Time = now()->format('H:m:s');
                     $VH_Record->Positions = $response[0]['Positions'];
@@ -83,18 +82,23 @@ class UpdateServices extends Command
                     $VH->kms_inicial = $VH->kms_inicial + $response[0]['Distance'];
                     $VH->save();
 
-                    $Principal_Table = Principal::where('FK_idVehicle','=',$VH->id);
-                    ///Esta dando un error aca con lo de las llave FK_idMtto .... Revisa el Log Bro... vos podes :D
-                    $Mantenimiento_Record = Mantenimiento::findorFail($Principal_Table->FK_idMtto);
-                    $Remaining_KMS = round($Mantenimiento_Record->kms_goal - $VH->kms_inicial,2);
-                    $Principal_Table->quedan = $Remaining_KMS;
-                    $Principal_Table->save();
+                    $Principal_Table = Principal::where('FK_idVehicle','=',$VH->id)->first();
+                    if($Principal_Table->FK_idMtto){
+                        Log::channel('SummaryUpdates')->info('Actualizando Registros para el Vehiculo IDAVL : '.$VH->idAVL. ' y placas : '.$VH->Plate);
+                        Log::channel('SummaryUpdates')->info('Distancia Restante  :'.$Principal_Table->quedan.' KMS.');
+                        $Mantenimiento_Record = Mantenimiento::findorFail($Principal_Table->FK_idMtto);
+                        $Remaining_KMS = round($Mantenimiento_Record->kms_goal - $VH->kms_inicial,2);
+                        Log::channel('SummaryUpdates')->info('Nueva Distancia Restante :'.$Remaining_KMS.' KMS.');
+                        $Principal_Table->quedan = $Remaining_KMS;
+                        $Principal_Table->save();
+                    }
                 }
             }
             catch (\Exception $e){
-                Log::error("ERROR CRITICO : ".$e . " idAVL : ".$VH->idAVL);
+                Log::channel('SummaryUpdates')->error("ERROR CRITICO : ".$e . " idAVL : ".$VH->idAVL);
             }
         }
-        Log::info("Fin de los Registros. Fecha y Hora de Finalizacion  : ".now()->formatLocalized('%A').", ".now()->formatLocalized('%d, %B %Y, a las %H:%M  '));
+        Log::channel('SummaryUpdates')->info("Fin de los Registros. Fecha y Hora de Finalizacion  : ".now()->formatLocalized('%A').", ".now()->formatLocalized('%d, %B %Y, a las %H:%M  '));
+        return 'Actualizacion Completada';
     }
 }

@@ -18,30 +18,10 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <select class="form-control col-md-3" v-model="criterio">
-                                        <option value="idAVL">ID AVL</option>
-                                        <option value="Name">NOMBRE</option>
-                                        <option value="Plate">PLACA</option>
-                                        <option value="Fleet">FLOTA</option>
-                                    </select>
-                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)" class="form-control" placeholder="Texto a buscar">
+                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio,  desde, hasta)" class="form-control" placeholder="Texto a buscar">
                                 </div>
                             </div>
                         </div>
-                        <!--div class="form-group row">
-                            <div class="col-md-10">
-                                <div class="input-group input-daterange">
-                                    <select class="form-control col-md-6" v-model="criterio2">
-                                        <option value="tb_vehicles.kms_inicial">ODÓMETRO ACTUAL</option>
-                                        <option value="tb_mtto_history.kms_goal">ODÓMETRO ALERTA</option>
-                                    </select>
-                                    <div class="input-group-addon bg-primary">DESDE</div>
-                                    <input type="number" v-model="desde" @change="cambiarKmHasta()" :min="minimo_desde" :max="maximo_desde" class="form-control">
-                                    <div class="input-group-addon bg-primary">HASTA</div>
-                                    <input type="number" v-model="hasta" @change="cambiarKmDesde()" :min="minimo_hasta" class="form-control">
-                                </div>
-                            </div>
-                        </div-->
                         <div class="form-group row">
                             <div class="col-md-8">
                                 <div class="input-group input-daterange">
@@ -53,45 +33,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="input-group input-daterange">
-                                    <div class="input-group-addon bg-primary">TIPO MANTO</div>
-                                    <select class="form-control col-md-8" v-model="select_tipomanto" @change="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">
-                                        <option value="">TODOS</option>
-                                        <option v-for="nombreTipomanto in arrayTipomanto" :key="nombreTipomanto.id" :value="nombreTipomanto.id" v-text="nombreTipomanto.nombre"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group input-daterange">
-                                    <div class="input-group-addon bg-primary">TALLER</div>
-                                    <select class="form-control col-md-8" v-model="select_taller" @change="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">
-                                        <option value="">TODOS</option>
-                                        <option v-for="nombreTaller in arrayTaller" :key="nombreTaller.id" :value="nombreTaller.id" v-text="nombreTaller.nombre"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <table id="mi-tabla" class="table table-responsive table-bordered table-striped table-sm">
                             <thead>
                             <tr class="bg-primary">
                                 <th style="text-align: center;" class="align-middle"></th>
-                                <th style="text-align: center;" class="align-middle" colspan="4">VEHÍCULO</th>
-                                <th style="text-align: center;" class="align-middle" colspan="6">MANTENIMIENTO</th>
+                                <th style="text-align: center;" class="align-middle" colspan="6">VEHÍCULO</th>
+                                <th style="text-align: center;" class="align-middle" colspan="9">MANTENIMIENTO</th>
                             </tr>
                             <tr class="bg-primary">
                                 <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">OPCIONES</div></th>
-                                <th style="text-align: center;" class="align-middle">NOMBRE</th>
+                                <th style="text-align: center;" class="align-middle">EQUIPO</th>
                                 <th style="text-align: center;" class="align-middle">PLACA</th>
                                 <th style="text-align: center;" class="align-middle">FLOTA</th>
+                                <th style="text-align: center;" class="align-middle">AREA</th>
+                                <th style="text-align: center;" class="align-middle">TIPO</th>
                                 <th style="text-align: center;" class="align-middle">KM ACTUAL</th>
-                                <th style="text-align: center;" class="align-middle">ANTERIOR</th>
-                                <th style="text-align: center;" class="align-middle">PROXIMO</th>
-                                <th style="text-align: center;" class="align-middle">QUEDAN</th>
-                                <th style="text-align: center;" class="align-middle">TIPO DE INDICADOR</th>
-                                <th style="text-align: center;" class="align-middle">TALLER</th>
-                                <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">FECHA</div></th>
+
+                                <th style="text-align: center;" class="align-middle">TALLER EXTERNO</th>
+                                <th style="text-align: center;" class="align-middle">FECHA SALIDA FLOTA</th>
+                                <th style="text-align: center;" class="align-middle">FECHA INGRESO TALLER</th>
+                                <th style="text-align: center;" class="align-middle">TIPO REPARACION</th>
+                                <th style="text-align: center;" class="align-middle">CANT. CUARTOS</th>
+                                <th style="text-align: center;" class="align-middle">CANT. GALS </th>
+                                <th style="text-align: center;" class="align-middle">FECHA SALIDA TALLER</th>
+                                <th style="text-align: center;" class="align-middle">FECHA INGRESO FLOTA</th>
+                                <th style="text-align: center;" class="align-middle">CICLO MTTO.</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -100,37 +66,72 @@
                                     <button @click="cambiar(principal)" type="button" class="btn btn-primary btn-sm">
                                         <i class="icon-eye"></i>
                                     </button> &nbsp;
-                                    <button type="button" @click="abrirModal('principal', 'registrar', principal)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                        <i class="icon-plus"></i>
-                                    </button> &nbsp;
+                                    <template v-if="principal.lubricantes ==null">
+                                        <button type="button" @click="abrirModal(principal)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
+                                            <i class="icon-plus"/>
+                                        </button> &nbsp;
+                                    </template>
+                                    <template v-else>
+                                        <template v-if="principal.lubricantes.Date_Out_Workshop!=null && principal.lubricantes.Date_In_Fleet ==null">
+                                            <button type="button" @click="abrirModalIngreso(principal)" class="btn btn-warning btn-sm">
+                                                <i class="icon-arrow-right-circle"/>
+                                            </button> &nbsp;
+                                        </template>
+                                        <template v-if="principal.lubricantes.Date_In_Fleet != null">
+                                            <button type="button" @click="abrirModal(principal)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
+                                                <i class="icon-plus"/>
+                                            </button> &nbsp;
+                                        </template>
+                                    </template>
                                 </td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Name"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Plate"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Area"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.type"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.kms_inicial"></td>
-                                <template v-if="principal.mantenimiento != null">
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_ini"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal"></td>
-                                    <template v-if="((principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial) <= ((principal.mantenimiento.tipomanto.cantidad * principal.mantenimiento.porcentaje_alerta_por_vencerse) / 100)) && (principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial) >0">
-                                        <td style="text-align: center;" class="align-middle bg-warning" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
-                                    </template>
-                                    <template v-else-if="(principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial) <= 0">
-                                        <td style="text-align: center;" class="align-middle bg-danger" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
+                                <template v-if="principal.lubricantes != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.taller.nombre"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Date_Out_Fleet"></td>
+                                    <template v-if="principal.lubricantes.Date_In_Workshop != null">
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Date_In_Workshop"></td>
+                                        <template v-if="principal.lubricantes.Tipo_Reparacion != null">
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Tipo_Reparacion"></td>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Qty_Qts"></td>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Qty_Gals"></td>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Date_Out_Workshop"></td>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Date_In_Fleet"></td>
+                                            <td style="text-align: center;" class="align-middle">A{{principal.lubricantes.Ciclo_Mto}}</td>
+                                        </template>
+                                        <template v-else>
+                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                        </template>
                                     </template>
                                     <template v-else>
-                                        <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
+                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     </template>
-                                    <td style="text-align: center;" class="align-middle">A{{principal.counter}}</td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.date"></td>
                                 </template>
                                 <template v-else>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
-                                    <td style="text-align: center;" class="align-middle"></td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                 </template>
                             </tr>
                             </tbody>
@@ -171,27 +172,53 @@
                         <table class="table table-responsive table-bordered table-striped table-sm">
                             <thead>
                             <tr class="bg-primary">
-                                <th style="text-align: center;">ESTADO</th>
-                                <th style="text-align: center;">MANTENIMIENTO ASIGNADO</th>
-                                <th style="text-align: center;">CANTIDAD</th>
-                                <th style="text-align: center;">UNIDAD DE MEDIDA</th>
-                                <th style="text-align: center;">COSTO</th>
-                                <th style="text-align: center;">ASIGNADO</th>
+                                <th style="text-align: center;" class="align-middle">FECHA SALIDA FLOTA</th>
+                                <th style="text-align: center;" class="align-middle">FECHA INGRESO TALLER</th>
+                                <th style="text-align: center;" class="align-middle">TALLER EXTERNO</th>
+                                <th style="text-align: center;" class="align-middle">TIPO REPARACION</th>
+                                <th style="text-align: center;" class="align-middle">CANT. CUARTOS</th>
+                                <th style="text-align: center;" class="align-middle">CANT. GALS </th>
+                                <th style="text-align: center;" class="align-middle">FECHA SALIDA TALLER</th>
+                                <th style="text-align: center;" class="align-middle">FECHA INGRESO FLOTA</th>
+                                <th style="text-align: center;" class="align-middle">MONTO</th>
+                                <th style="text-align: center;" class="align-middle">CICLO MTTO.</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="historial in arrayHistorial" :key="historial.id">
-                                <td style="text-align: center;" class="align-middle" v-text="historial.estado_alerta"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.nombre"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.cantidad"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.umedida"></td>
-                                <template v-if="historial.costo == null">
+                                <td style="text-align: center;" class="align-middle" v-text="historial.Date_Out_Fleet"></td>
+                                <template v-if="historial.Date_In_Workshop != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.Date_In_Workshop"></td>
+                                </template>
+                                <template v-else>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar por el Taller</td>
+                                </template>
+                                <td style="text-align: center;" class="align-middle" v-text="historial.taller.nombre"></td>
+                                <template v-if="historial.Date_In_Workshop != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.Tipo_Reparacion"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.Qty_Qts"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.Qty_Gals"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.Date_Out_Workshop"></td>
+                                </template>
+                                <template v-else>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar por el Taller</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar por el Taller</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar por el Taller</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar por el Taller</td>
+                                </template>
+                                <template v-if="historial.Date_In_Fleet !=null">
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.Date_In_Fleet"></td>
+                                </template>
+                                <template v-else>
+                                    <td style="text-align: center;" class="align-middle">Pendiente de Ingresar</td>
+                                </template>
+                                <template v-if="historial.Amount == null">
                                     <td style="text-align: center;" class="align-middle" v-text="'$0.00'"></td>
                                 </template>
                                 <template v-else>
-                                    <td style="text-align: center;" class="align-middle" v-text="'$' + historial.costo"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="'$' + historial.Amount"></td>
                                 </template>
-                                <td style="text-align: center;" class="align-middle" v-text="historial.date"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="historial.Ciclo_Mto"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -213,138 +240,23 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-4">
-                                    <button type="button" class="btn btn-primary" @click="refrescarOdometro(vehiculo, fecha)"><i class="icon-refresh"></i>  &nbsp; REFRESCAR ODÓMETRO</button>
-                                </div>
-                                <div class="col-md-4"></div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input"><b>FECHA:</b></label>
+                                <label class="col-md-3 form-control-label"><b>FECHA DE SALIDA DE FLOTA :</b></label>
                                 <div class="col-md-3">
-                                    <input type="date" v-model="fecha" :min="fecha_minima" class="form-control">
-                                </div>
-                                <label class="col-md-3 form-control-label" for="text-input">HORA:</label>
-                                <div class="col-md-3">
-                                    <input type="time" v-model="hora" class="form-control">
+                                    <input type="date" v-model="fleet_leaving" :min="fecha_minima" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">VEHÍCULO:</label>
+                                <label class="col-md-3 form-control-label">TALLER (*):</label>
                                 <div class="col-md-9">
-                                    <label class="col-md-9 form-control-label" for="text-input" v-text="nombre + '-' + placa + '-' + idAVL"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">ODO SW INICIAL:</label>
-                                <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="odoswinicial"></label>
-                                </div>
-                                <label class="col-md-3 form-control-label" for="text-input">ODO HW INICIAL:</label>
-                                <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="odohwinicial"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TALLER (*):</label>
-                                <div class="col-md-9">
-                                    <select class="form-control" v-model="taller1">
+                                    <select class="form-control" v-model="taller">
                                         <option value="">SELECCIONE UN TALLER</option>
                                         <option v-for="taller in arrayTaller" :key="taller.id" :value="taller.id" v-text="taller.nombre"></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TIPO MANTENIMIENTO (*):</label>
-                                <div class="col-md-9">
-                                    <select class="form-control" v-model="tipomanto1" @change="obtenerInfoTipomanto(tipomanto1)">
-                                        <option value="">SELECCIONE UN TIPO DE MANTENIMIENTO</option>
-                                        <option v-for="tipomanto in arrayTipomanto" :key="tipomanto.id" :value="tipomanto.id" v-text="tipomanto.nombre"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 form-control-label" for="text-input">CANTIDAD:</label>
-                                <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label" for="text-input" v-text="cantidad"></label>
-                                </div>
-                                <label class="col-md-2 form-control-label" for="text-input">UNIDAD DE MEDIDA:</label>
-                                <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label" for="text-input" v-text="umedida"></label>
-                                </div>
-                                <label class="col-md-2 form-control-label" for="text-input">TIPO MANTENIMIENTO:</label>
-                                <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label" for="text-input">A1</label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">COSTO MANTENIMIENTO (*):</label>
-                                <div class="col-md-9">
-                                    <input type="number" step="0.01" v-model="costo" class="form-control" placeholder="INGRESE EL COSTO DEL MANTENIMIENTO">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label">CORREO ALERTA 8%:</label>
-                                <div class="col-md-9">
-                                    <input type="email" v-model="correoalerta" class="form-control" placeholder="INGRESE UN CORREO PARA ALERTAS">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label">CORREO ALERTA 5%:</label>
-                                <div class="col-md-9">
-                                    <input type="email" v-model="correoalertagrave" class="form-control" placeholder="INGRESE UN CORREO PARA ALERTAS">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA NARANJA:</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="alertanaranja">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA PROXIMA A VENCER:</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="alertaproxima">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA ROJA (VENCIDO):</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="alertaroja">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                                <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (POR VENCERSE):</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="recordatorioporven">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (VENCIDO):</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="recordatorioven">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                                <label class="col-md-3 form-control-label" for="email-input">PORCENTAJE ALERTA POR VENCERSE:</label>
-                                <div class="col-md-3">
-                                    <input type="number" v-model="porcentajealerta" class="form-control" placeholder="PORCENTAJE">
-                                </div>
-                            </div>
                             <div v-show="errorMantenimiento" class="form-group row div-error">
                                 <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjMantenimiento" :key="error" v-text="error">
-
-                                    </div>
+                                    <div v-for="error in errorMostrarMsjlubricantes" :key="error" v-text="error"/>
                                 </div>
                             </div>
                         </form>
@@ -359,94 +271,48 @@
             <!-- /.modal-dialog -->
         </div>
         <!--Fin del modal-->
-        <!-- Inicio del modal Eliminar -->
-        <!--div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-primary" role="document">
+
+        <!--Inicio del modal agregar/actualizar-->
+        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modalIn}" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-primary modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">DETALLE DEL MANTENIMIENTO</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">ESTADO:</label>
-                            <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">TALLER NOMBRE:</label>
-                            <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">ENVIO ALERTAS:</label>
-                            <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">OBSERVACIONES:</label>
-                            <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">INICIO MANTO:</label>
-                            <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">FECHA MOD:</label>
-                            <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">HORA MOD:</label>
-                            <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
-                    </div>
-                </div-->
-        <!-- /.modal-content -->
-        <!--/div-->
-        <!-- /.modal-dialog -->
-        <!--/div-->
-        <!-- Fin del modal Eliminar -->
-        <!-- Inicio del modal Detalle -->
-        <!--div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-primary" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">DETALLE DE COSTOS POR ITEM</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h4 class="modal-title">Registro de Reingreso a Flota</h4>
+                        <button type="button" @click="cerrarModal()" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group row">
-                            <h5>No hay registros para mostrar</h5>
-                        </div>
-
+                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label"><b>FECHA DE INGRESO A FLOTA :</b></label>
+                                <div class="col-md-3">
+                                    <input type="date" v-model="fleet_incoming" :min="fecha_minima" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label">Monto:</label>
+                                <div class="col-md-3">
+                                    <input type="number" step="1" v-model="costo" :min="1" class="form-control" placeholder="Monto">
+                                </div>
+                            </div>
+                            <div v-show="errorMantenimiento" class="form-group row div-error">
+                                <div class="text-center text-error">
+                                    <div v-for="error in errorMsgsIn" :key="error" v-text="error"/>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+                        <button type="button" @click="cerrarModal()" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        <button type="button" @click="registrarIngreso()" class="btn btn-primary">Actualizar Mantenimiento</button>
                     </div>
-                </div-->
-        <!-- /.modal-content -->
-        <!--/div-->
-        <!-- /.modal-dialog -->
-        <!--/div-->
-        <!-- Fin del modal Eliminar -->
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!--Fin del modal-->
     </main>
     <!-- /Fin del contenido principal -->
 </template>
@@ -462,38 +328,36 @@ export default {
         return {
 
             tabla : 1,
-            prueba : '',
             loading : true,
             arrayTaller : [],
             arrayTipomanto : [],
             arrayPrincipal : [],
             arrayHistorial : [],
-            fecha : '',
+
+            //Var Busqueda
+
+            //Variables de Guardado de Datos
+            fleet_leaving : '',
+            fleet_incoming : '',
+            fleet_ : '',
             fecha_minima : '',
-            hora : '',
             vehiculo : '',
             nombre : '',
             placa : '',
-            idAVL : '',
-            odoswinicial : '',
-            odohwinicial : '',
-            taller1 : '',
-            tipomanto1 : '',
+            taller : '',
             cantidad : '',
-            umedida : '',
-            correoalerta : '',
             costo : '',
-            alertanaranja : 1,
-            alertaproxima : 1,
-            alertaroja : 1,
-            recordatorioporven : 1,
-            recordatorioven : 1,
-            porcentajealerta:  5,
+            idRecord:'',
+            //--- Variables de Controle de Modal
             modal : 0,
+            modalIn : 0,
+            //-------
             tituloModal : '',
             tipoAccion: 0,
             errorMantenimiento : 0,
             errorMostrarMsjMantenimiento : [],
+            errorMostrarMsjlubricantes : [],
+            errorMsgsIn:[],
             pagination : {
                 'total' : 0,
                 'current_page' : 0,
@@ -504,7 +368,6 @@ export default {
             },
             offset : 3,
             criterio : 'Name',
-            criterio2 : 'tb_vehicles.kms_inicial',
             buscar : '',
             minimo_desde : '',
             minimo_hasta : '',
@@ -559,41 +422,49 @@ export default {
 
     methods : {
 
-        listarPrincipal(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto){
+        listarPrincipal(page, buscar, criterio,  desde, hasta){
 
             let me = this;
-            var url = '/principales?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio + '&criterio2=' + criterio2 + '&desde=' + desde + '&hasta=' + hasta + '&select_taller=' + select_taller + '&select_tipomanto=' + select_tipomanto;
-
+            var url = '/oil?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio  + '&desde=' + desde + '&hasta=' + hasta ;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayPrincipal = respuesta.principales.data;
                 me.pagination = respuesta.pagination;
-                console.log(respuesta);
             })
                 .catch(function (error) {
-
                     console.log(error);
-
                 })
 
         },
 
-        listarHistorial(vehiculo, buscar, criterio){
+        currentDate() {
+            const current = new Date();
+            let dd = current.getDate();
+            let mm = current.getMonth()+1;
+
+            if(dd < 10){
+                dd = '0'+dd;
+            }
+
+            if(mm < 10){
+                mm = '0'+mm;
+            }
+            const date = `${current.getFullYear()}-${mm}-${dd}`;
+            this.fecha_minima = date;
+        },
+
+        listarHistorial(vehiculo){
 
             let me = this;
-            var url = '/mantenimientos?vehiculo=' + vehiculo + '&buscar=' + buscar + '&criterio=' + criterio;
+            var url = '/oil/records?vehiculo=' + vehiculo;
 
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayHistorial = respuesta.mantenimientos;
-                console.log(respuesta);
             })
                 .catch(function (error) {
-
                     console.log(error);
-
                 })
-
         },
 
         cambiarPagina(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto){
@@ -601,7 +472,7 @@ export default {
             let me = this;
 
             me.pagination.current_page = page;
-            me.listarPrincipal(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto);
+            me.listarPrincipal(page, buscar, criterio,  desde, hasta)
 
         },
 
@@ -615,40 +486,26 @@ export default {
 
             let me = this;
 
-            axios.post('/mantenimientos/registrar', {
+            axios.post('/oil/register', {
 
                 'vehiculo': this.vehiculo,
-                'fecha': this.fecha,
-                'hora' : this.hora,
-                'odohwinicial' : this.odohwinicial,
-                'cantidad' : this.cantidad,
-                'taller' : this.taller1,
-                'tipomanto' : this.tipomanto1,
-                'correoalerta' : this.correoalerta,
-                'costo' : this.costo,
-                'alertaroja' : this.alertaroja,
-                'alertanaranja' : this.alertanaranja,
-                'alertaproxima' : this.alertaproxima,
-                'recordatorioporven' : this.recordatorioporven,
-                'recordatorioven' : this.recordatorioven,
-                'porcentajealerta' : this.porcentajealerta
+                'Date_Out_Fleet': this.fleet_leaving,
+                'taller' : this.taller
 
             }).then(function (response) {
 
-                me.listarPrincipal(1, '', 'Name', '', 'tb_vehicles.kms_inicial', '', '');
+                me.listarPrincipal(1, '', 'Name',  '', '');
                 me.cerrarModal();
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'MANTENIMIENTO INGRESADO CON ÉXITO!',
+                    title: 'Informacion Archivada!!',
                     showConfirmButton: false,
                     timer: 1500
                 });
 
             }).catch(function (error) {
-
                 console.log(error);
-
             });
 
         },
@@ -656,15 +513,55 @@ export default {
         validarMantenimiento(){
 
             this.errorMantenimiento = 0;
-            this.errorMostrarMsjMantenimiento = [];
+            this.errorMostrarMsjlubricantes = [];
 
-            if(!this.odohwinicial) this.errorMostrarMsjMantenimiento.push("DEBE REFRESCAR EL ODOMETRO PARA REGISTRAR EL MANTENIMIENTO.");
-            if(!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
-            if(!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
-            if(!this.costo) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN COSTO DE MANTENIMIENTO.")
-            if(!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE.");
-            if(this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
+            if(!this.fleet_leaving) this.errorMostrarMsjlubricantes.push("Debe Ingresar una fecha.");
+            if(!this.taller ) this.errorMostrarMsjlubricantes.push("Por favor seleccione un taller.");
+            if(this.taller=='' ) this.errorMostrarMsjlubricantes.push("Por favor seleccione un taller.");
+            if(this.errorMostrarMsjlubricantes.length) this.errorMantenimiento = 1;
 
+            return this.errorMantenimiento;
+
+        },
+
+        registrarIngreso(){
+
+            if(this.validarIngreso()){return;}
+
+            let me = this;
+
+            axios.post('/oil/update', {
+
+                'id':this.idRecord,
+                'Date_In': this.fleet_incoming,
+                'Qty':this.costo
+
+            }).then(function (response) {
+
+                me.listarPrincipal(1, '', 'Name',  '', '');
+                me.cerrarModal();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Informacion Archivada!!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            }).catch(function (error) {
+                console.log(error);
+            });
+
+        },
+
+        validarIngreso(){
+
+            this.errorMantenimiento = 0;
+            this.errorMsgsIn = [];
+
+            if(!this.fleet_incoming) this.errorMsgsIn.push("Debe Ingresar una fecha.");
+            if(!this.costo ) this.errorMsgsIn.push("Por favor el monto del mantenimiento.");
+            if(this.errorMsgsIn.length) this.errorMantenimiento = 1;
             return this.errorMantenimiento;
 
         },
@@ -677,8 +574,6 @@ export default {
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayTaller = respuesta.talleres;
-                console.log(response);
-
             })
                 .catch(function (error) {
 
@@ -688,99 +583,22 @@ export default {
 
         },
 
-        selectTipomanto(){
-
-            let me = this;
-            var url = '/tipomantos/selectTipomanto';
-
-            axios.get(url).then(function (response) {
-                var respuesta = response.data;
-                me.arrayTipomanto = respuesta.tipomantos;
-                console.log(response);
-
-            })
-                .catch(function (error) {
-
-                    console.log(error);
-
-                })
-
-        },
-
-        fechaActual2(){
-
-            let hoy = new Date();
-
-            let dd = hoy.getDate();
-            let mm = hoy.getMonth()+1;
-            let yyyy = hoy.getFullYear();
-            let hh = hoy.getHours();
-            let min = hoy.getMinutes();
-
-            if(dd < 10){
-                dd = '0'+dd;
-            }
-
-            if(mm < 10){
-                mm = '0'+mm;
-            }
-
-            if(hh < 10){
-                hh = '0'+hh;
-            }
-
-            if(min < 10){
-                min = '0'+min;
-            }
-
-            this.fecha = yyyy + '-' + mm + '-' + dd;
-            this.hora = hh + ':' + min;
-
-        },
-
-        abrirModal(modelo, accion, data = []){
+        abrirModal(data = []){
 
             this.selectTaller();
-            this.selectTipomanto();
-            this.fechaActual2();
-
-            switch (modelo) {
-
-                case 'principal':
-
-                {
-
-                    switch (accion) {
-
-                        case 'registrar':
-                        {
-                            this.modal = 1;
-                            this.tituloModal = 'INGRESO DE ASIGNACIÓN DE MANTENIMIENTO A LOS VEHÍCULOS';
-                            this.vehiculo = data['vehiculo'].id;
-                            this.nombre = data['vehiculo'].Name;
-                            this.placa = data['vehiculo'].Plate;
-                            this.idAVL = data['vehiculo'].idAVL;
-                            this.correoalerta = data['vehiculo'].correo;
-                            this.taller1 = data['mantenimiento'].taller.id;
-                            this.tipomanto1 = data['mantenimiento'].tipomanto.id;
-                            this.cantidad = data['mantenimiento'].tipomanto.cantidad;
-                            this.umedida = data['mantenimiento'].tipomanto.umedida;
-                            this.fecha_minima = data['mantenimiento'].date;
-                            this.odohwinicial = data['vehiculo'].kms_inicial;
-                            this.tipoAccion = 1;
-                            break;
-                        }
-
-                    }
-
-                }
-
-            }
+            this.currentDate();
+            this.modal = 1;
+            this.tituloModal = 'SALIDA DE FLOTA';
+            this.vehiculo = data['vehiculo'].id;
+            this.nombre = data['vehiculo'].Name;
+            this.placa = data['vehiculo'].Plate;
+            this.idAVL = data['vehiculo'].idAVL;
         },
 
         cerrarModal(){
 
             this.modal = 0;
+            this.modalIn=0;
             this.tituloModal = '';
             this.arrayTaller = [];
             this.arrayTipomanto = [];
@@ -807,17 +625,45 @@ export default {
             this.errorMostrarMsjMantenimiento = [];
         },
 
+        abrirModalIngreso(data = []){
+            this.idRecord = data.lubricante_id;
+            const swalWithBootstrapButtons = Swal.mixin({
+
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+
+                buttonsStyling: false
+
+            });
+
+            swalWithBootstrapButtons.fire({
+
+                title: 'Porfavor, confirme que el vehiculo esta dentro de las instalaciones',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'SÍ, ESTOY SEGURO!',
+                cancelButtonText: 'NO, DEBO REVISAR!',
+                reverseButtons: true
+
+            }).then((result) => {
+
+                if (result.value) {
+                    this.modalIn = 1;
+                }
+            });
+        },
+
         cambiar(p){
 
             let me = this;
-            console.log(p);
-
             me.loading = false;
             me.placa = p.vehiculo.Plate;
             me.nombre = p.vehiculo.Name;
             me.flota = p.vehiculo.Fleet;
 
-            me.listarHistorial(p.vehiculo.id, me.buscar, me.criterio);
+            me.listarHistorial(p.vehiculo.id);
 
             //me.$root.menu = 2;
         },
@@ -841,13 +687,9 @@ export default {
                 var respuesta = response.data;
                 me.cantidad = respuesta.tipomantos.cantidad;
                 me.umedida = respuesta.tipomantos.umedida;
-                console.log(response);
-
             })
                 .catch(function (error) {
-
                     console.log(error);
-
                 })
 
         },
@@ -884,16 +726,12 @@ export default {
 
                     axios.get(url).then(function (response) {
                         var respuesta = response.data;
-                        console.log(respuesta.distancia);
                         me.odohwinicial = respuesta.distancia.toFixed(2);
                         //me.arrayTaller = respuesta.talleres;
-                        console.log(response);
 
                     })
                         .catch(function (error) {
-
                             console.log(error);
-
                         })
 
 
@@ -950,7 +788,7 @@ export default {
                 this.fechaMaxima = this.hasta;
             }else if(this.hasta == ''){
                 this.desde = '';
-                this.fechaActual2();
+                this.currentDate();
             }else{
                 this.fechaMaxima = this.hasta;
             }
@@ -983,7 +821,7 @@ export default {
 
             }else if(this.desde == ''){
                 this.hasta = '';
-                this.fechaActual2();
+                this.currentDate();
             }
 
             this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
@@ -996,13 +834,11 @@ export default {
 
         this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
         this.selectTaller();
-        this.selectTipomanto();
-
+        this.currentDate();
     }
 }
 
 </script>
-
 <style>
 
 .modal-content{
@@ -1062,12 +898,5 @@ export default {
 .sizeOpcion{
     width: 90px;
 }
-
-</style>
-
-
-
-
-<style scoped>
 
 </style>

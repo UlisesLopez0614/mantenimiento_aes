@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nombre', 'nombre_completo', 'email', 'password'
+        'nombre', 'nombre_completo', 'email', 'password','role_id'
     ];
 
     /**
@@ -42,4 +42,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        return $this->role_id == 1;
+    }
+
+    public function isWorkshop()
+    {
+        return $this->role_id == 2;
+    }
 }

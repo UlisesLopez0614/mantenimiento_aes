@@ -37,6 +37,9 @@ Vue.component('empresa-asignacion-pantalla', require('./components/EmpresaAsigna
 Vue.component('acceso-users', require('./components/AccesoUsers.vue').default);
 Vue.component('reporte-mantenimientos', require('./components/ReporteMantenimientos.vue').default);
 
+//Componentes de Taller
+Vue.component('listado-taler', require('./components/Talleres/MantenimientosPendientes').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

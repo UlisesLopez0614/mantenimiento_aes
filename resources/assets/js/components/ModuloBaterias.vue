@@ -389,6 +389,7 @@ export default {
 
             let me = this;
             var url = '/baterias?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio  + '&desde=' + desde + '&hasta=' + hasta ;
+            console.log(url);
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayPrincipal = respuesta.principales.data;

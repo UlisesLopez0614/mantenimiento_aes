@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Baterias_History;
 use App\Detalles_Vehiculos;
 use App\Llantas_History;
+use App\Lubricantes_History;
 use App\Vehiculo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -112,7 +113,6 @@ class VehicleDetailsController extends Controller
         $criterio = $request->criterio;
         $desde = $request->desde;
         $hasta = $request->hasta;
-        $db = Vehiculo::where('estado', 1)->toSql();
         $vehicles = Vehiculo::select('tb_vehicles.id')->where('estado', 1)->get();
 
         $arreglo_vehiculos = array();
@@ -176,5 +176,116 @@ class VehicleDetailsController extends Controller
         }
 
     }
-    //Llantas
+    //Lubricantes
+    public function getOilDetails(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        $desde = $request->desde;
+        $hasta = $request->hasta;
+        $vehicles = Vehiculo::select('tb_vehicles.id')->where('estado', 1)->get();
+
+        $arreglo_vehiculos = array();
+
+        foreach($vehicles as $item){
+            $arreglo_vehiculos[] = $item->id;
+        }
+
+        $Records =  Detalles_Vehiculos::with(['vehiculo','lubricantes','lubricantes.taller'])
+            ->whereIn('vehicle_id', $arreglo_vehiculos)
+            ->paginate(50);
+
+        return [
+            'pagination' => [
+                'total'         => $Records->total(),
+                'current_page'  => $Records->currentPage(),
+                'per_page'      => $Records->perPage(),
+                'last_page'     => $Records->lastPage(),
+                'from'          => $Records->firstItem(),
+                'to'            => $Records->lastItem(),
+            ],
+            'principales' => $Records
+
+        ];
+
+    }
+
+    public function getOilHistory(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        $mantenimientos = Lubricantes_History::with('taller')->where('vehicle_id',$request->vehiculo)->get();
+        return ['mantenimientos' => $mantenimientos];
+    }
+
+    public function registerOilRecord(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        try
+        {
+            $mantenimiento = new Lubricantes_History();
+            $mantenimiento->vehicle_id = $request->vehiculo;
+            $mantenimiento->Date_Out_Fleet = $request->Date_Out_Fleet;
+            $mantenimiento->FK_Taller = $request->taller;
+            $mantenimiento->created_at = now();
+            $mantenimiento->updated_at = now();
+            $mantenimiento->save();
+
+            $Vehicle_Data = Detalles_Vehiculos::firstOrCreate([
+                'vehicle_id' => $request->vehiculo
+            ]);
+            $Vehicle_Data->lubricante_id=$mantenimiento->id;
+            if(!$Vehicle_Data->created_at){$Vehicle_Data->created_at = now();}
+            $Vehicle_Data->updated_at =now();
+            $Vehicle_Data->save();
+        }
+        catch(Illuminate\Database\QueryException $ex){
+            Log::warning($ex->getMessage());
+            Log::info("Request : " + $request);
+        }
+
+    }
+
+    public function updateOilRecord(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+
+        try
+        {
+            $mantenimiento = Lubricantes_History::findOrFail($request->id);
+            $mantenimiento->Date_In_Fleet= $request->Date_In;
+            $mantenimiento->Amount = $request->Qty;
+            $mantenimiento->updated_at = now();
+            $mantenimiento->save();
+        }
+        catch(Illuminate\Database\QueryException $ex){
+            Log::warning($ex->getMessage());
+            Log::info("Request : " + $request);
+        }
+    }
+
+    public function finalUpdateOilRecord(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+        try
+        {
+            $Vehicle_Data = Detalles_Vehiculos::where('vehicle_id',$request->vehiculo);
+            $mantenimiento = Lubricantes_History::findorFail($Vehicle_Data->lubricante_id);
+            $mantenimiento->Date_In_Fleet = $request->Date_Out_Fleet;
+            $mantenimiento->updated_at = now();
+            $mantenimiento->save();
+
+            if(!$Vehicle_Data->created_at){$Vehicle_Data->created_at = now();}
+            $Vehicle_Data->updated_at =now();
+            $Vehicle_Data->save();
+        }
+        catch(Illuminate\Database\QueryException $ex){
+            Log::warning($ex->getMessage());
+            Log::info("Request : " + $request);
+        }
+    }
+
 }

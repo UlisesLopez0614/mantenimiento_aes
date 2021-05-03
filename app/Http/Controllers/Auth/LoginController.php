@@ -19,16 +19,18 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        
+
         $this->validateLogin($request);
 
         if(Auth::attempt(['nombre' => $request->usuario, 'password' => $request->password, 'condicion' => 1])){
-            
+
             $user = User::findOrFail(Auth::user()->id);
             $user->ultimo_login = \Carbon\Carbon::now();
             $user->save();
-            
-            return redirect()->route('main');
+            if($user->role_id == 1){
+                return redirect()->route('main');
+            }
+            return redirect()->route('workshops');
         }
 
         return back()

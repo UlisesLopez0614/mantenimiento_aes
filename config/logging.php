@@ -41,6 +41,18 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'SummaryUpdates' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/SummaryUpdates.log'),
+            'level' => 'debug',
+        ],
+
+        'ODO' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/ODOS.log'),
+            'level' => 'debug',
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
