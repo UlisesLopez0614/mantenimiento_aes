@@ -24,21 +24,34 @@ Route::middleware(['admins'])->group(function () {
     Route::get('/roles', 'RolController@index');
     Route::get('/roles/selectRol', 'RolController@selectRol');
 
-    Route::get('/talleres', 'TallerController@index');
-    Route::get('/talleres/selectTaller', 'TallerController@selectTaller');
-    Route::post('/talleres/registrar', 'TallerController@store');
-    Route::put('/talleres/actualizar', 'TallerController@update');
-    Route::put('/talleres/desactivar', 'TallerController@desactivar');
-    Route::put('/talleres/activar', 'TallerController@activar');
+    //Talleres
+    Route::prefix('talleres')->group(function () {
+        Route::get('/', 'TallerController@index');
+        Route::get('/selectTaller', 'TallerController@selectTaller');
+        Route::post('/registrar', 'TallerController@store');
+        Route::put('/actualizar', 'TallerController@update');
+        Route::put('/desactivar', 'TallerController@desactivar');
+        Route::put('/activar', 'TallerController@activar');
+    });
 
-    Route::get('/tipomantos', 'TipomantoController@index');
-    Route::get('/tipomantos/selectTipomanto', 'TipomantoController@selectTipomanto');
-    Route::get('/tipomantos/info', 'TipomantoController@info');
-    Route::post('/tipomantos/registrar', 'TipomantoController@store');
-    Route::put('/tipomantos/actualizar', 'TipomantoController@update');
-    Route::put('/tipomantos/desactivar', 'TipomantoController@desactivar');
-    Route::put('/tipomantos/activar', 'TipomantoController@activar');
 
+    //Tipos de Mantenimiento
+    Route::prefix('tipomantos')->group(function () {
+        Route::get('/', 'TipomantoController@index');
+        Route::get('/selectTipomanto', 'TipomantoController@selectTipomanto');
+        Route::get('/info', 'TipomantoController@info');
+        Route::post('/registrar', 'TipomantoController@store');
+        Route::put('/actualizar', 'TipomantoController@update');
+        Route::put('/desactivar', 'TipomantoController@desactivar');
+        Route::put('/activar', 'TipomantoController@activar');
+    });
+
+    //Llantas
+    Route::prefix('usuarios-taller')->group(function () {
+        Route::get('/', 'ControllerForWorkshops@getWorkShopsUsers');
+        Route::post('/registrar', 'ControllerForWorkshops@registerWorkShopsUser');
+        Route::post('/deactivate', 'ControllerForWorkshops@deactivateWorkShopsUsers');
+    });
 
     Route::get('/principales', 'PrincipalController@index');
 //----------------------------Rutas De Los Modulos de Mantenimientos
@@ -46,9 +59,12 @@ Route::middleware(['admins'])->group(function () {
     Route::post('/baterias/registrar', 'VehicleDetailsController@registerBatteryRecord');
     Route::get('/battery_records', 'VehicleDetailsController@getBatteryHistory');
 
+    //Llantas
+    Route::prefix('tires')->group(function () {
+        Route::get('/', 'VehicleDetailsController@getTireDetails');
+        Route::post('/registrar', 'VehicleDetailsController@registerTireRecord');
+    });
 
-    Route::get('/tires', 'VehicleDetailsController@getTireDetails');
-    Route::post('/tires/registrar', 'VehicleDetailsController@registerTireRecord');
     Route::get('/tire_records', 'VehicleDetailsController@getTireHistory');
 
     //Aceites
@@ -59,19 +75,16 @@ Route::middleware(['admins'])->group(function () {
         Route::get('/records', 'VehicleDetailsController@getOilHistory');
     });
 //
-    Route::get('/mantenimientos', 'MantenimientoController@index');
-    Route::post('/mantenimientos/registrar', 'MantenimientoController@store');
+    //Mantenimientos
+    Route::prefix('mantenimientos')->group(function () {
+        Route::get('/', 'MantenimientoController@index');
+        Route::post('/registrar', 'MantenimientoController@store');
+    });
 
     Route::get('/vehiculos/historial', 'MantenimientoController@refrescarOdometro');
 
     Route::get('/reportes/consolidado', 'ReporteriaController@consolidado');
     Route::get('/reportes/consolidadoDescargar', 'ReporteriaController@consolidadoDescargar');
-
-    /*Prueba*/
-    Route::get('json',function (){
-        $response = Illuminate\Support\Facades\Http::get('http://avlaes.disatelgps.com/ws/?api=VehicleHistory&sitekey=avlaes&usr=admin&pwd=aes&veh=AES332&dat=2021-04-25')->json();
-        return $response[0]['OdometerSW'];
-    });
 
 });
 

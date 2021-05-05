@@ -25,7 +25,7 @@
                         <div class="form-group row">
                             <div class="col-md-8">
                                 <div class="input-group input-daterange">
-                                    <div class="input-group-addon bg-primary">ACTIVIDAD</div>
+                                    <div class="input-group-addon bg-primary">SALIDA DE FLOTA</div>
                                     <div class="input-group-addon bg-primary">DESDE</div>
                                     <input type="date" v-model="desde" @change="cambiarHasta()" :max="fechaMaxima" class="form-control">
                                     <div class="input-group-addon bg-primary">HASTA</div>
@@ -66,42 +66,42 @@
                                     <button @click="cambiar(principal)" type="button" class="btn btn-primary btn-sm">
                                         <i class="icon-eye"></i>
                                     </button> &nbsp;
-                                    <template v-if="principal.lubricantes ==null">
+                                    <template v-if="principal.nombre ==null">
                                         <button type="button" @click="abrirModal(principal)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
                                             <i class="icon-plus"/>
                                         </button> &nbsp;
                                     </template>
                                     <template v-else>
-                                        <template v-if="principal.lubricantes.Date_Out_Workshop!=null && principal.lubricantes.Date_In_Fleet ==null">
+                                        <template v-if="principal.Date_Out_Workshop!=null && principal.Date_In_Fleet ==null">
                                             <button type="button" @click="abrirModalIngreso(principal)" class="btn btn-warning btn-sm">
                                                 <i class="icon-arrow-right-circle"/>
                                             </button> &nbsp;
                                         </template>
-                                        <template v-if="principal.lubricantes.Date_In_Fleet != null">
+                                        <template v-if="principal.Date_In_Fleet != null">
                                             <button type="button" @click="abrirModal(principal)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNuevo">
                                                 <i class="icon-plus"/>
                                             </button> &nbsp;
                                         </template>
                                     </template>
                                 </td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Name"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Plate"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Area"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.type"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.kms_inicial"></td>
-                                <template v-if="principal.lubricantes != null">
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.taller.nombre"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Date_Out_Fleet"></td>
-                                    <template v-if="principal.lubricantes.Date_In_Workshop != null">
-                                        <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Date_In_Workshop"></td>
-                                        <template v-if="principal.lubricantes.Tipo_Reparacion != null">
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Tipo_Reparacion"></td>
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Qty_Qts"></td>
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Qty_Gals"></td>
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Date_Out_Workshop"></td>
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.lubricantes.Date_In_Fleet"></td>
-                                            <td style="text-align: center;" class="align-middle">A{{principal.lubricantes.Ciclo_Mto}}</td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.Name"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.Plate"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.Fleet"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.Area"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.type"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.kms_inicial"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.nombre"></td>
+                                <template v-if="principal.Date_In_Workshop != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.Date_Out_Fleet"></td>
+                                    <template v-if="principal.Date_In_Workshop != null">
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.Date_In_Workshop"></td>
+                                        <template v-if="principal.Tipo_Reparacion != null">
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.Tipo_Reparacion"></td>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.Qty_Qts"></td>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.Qty_Gals"></td>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.Date_Out_Workshop"></td>
+                                            <td style="text-align: center;" class="align-middle" v-text="principal.Date_In_Fleet"></td>
+                                            <td style="text-align: center;" class="align-middle">A{{principal.Ciclo_Mto}}</td>
                                         </template>
                                         <template v-else>
                                             <td style="text-align: center;" class="align-middle">Sin Asignar</td>
@@ -109,11 +109,9 @@
                                             <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                             <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                             <td style="text-align: center;" class="align-middle">Sin Asignar</td>
-                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                         </template>
                                     </template>
                                     <template v-else>
-                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                         <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                         <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                         <td style="text-align: center;" class="align-middle">Sin Asignar</td>
@@ -131,7 +129,6 @@
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
-                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                 </template>
                             </tr>
                             </tbody>
@@ -140,13 +137,13 @@
                             <span class="page-stats">Del {{pagination.from}} al {{pagination.to}} de un total de  {{pagination.total}} registros.</span>
                             <ul class="pagination">
                                 <li class="page-item" v-if="pagination.current_page > 1">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio, criterio2, select_taller, select_tipomanto)">Ant</a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio)">Ant</a>
                                 </li>
                                 <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)" v-text="page"></a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio,  desde, hasta)" v-text="page"></a>
                                 </li>
                                 <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">Sig</a>
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio, desde, hasta)">Sig</a>
                                 </li>
                             </ul>
                         </nav>
@@ -287,7 +284,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label"><b>FECHA DE INGRESO A FLOTA :</b></label>
                                 <div class="col-md-3">
-                                    <input type="date" v-model="fleet_incoming" :min="fecha_minima" class="form-control">
+                                    <input type="date" v-model="fleet_incoming" :min="fecha_minima_ingreso" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -341,6 +338,7 @@ export default {
             fleet_incoming : '',
             fleet_ : '',
             fecha_minima : '',
+            fecha_minima_ingreso:'',
             vehiculo : '',
             nombre : '',
             placa : '',
@@ -428,6 +426,7 @@ export default {
             var url = '/oil?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio  + '&desde=' + desde + '&hasta=' + hasta ;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
+                console.log(respuesta);
                 me.arrayPrincipal = respuesta.principales.data;
                 me.pagination = respuesta.pagination;
             })
@@ -457,17 +456,17 @@ export default {
 
             let me = this;
             var url = '/oil/records?vehiculo=' + vehiculo;
-
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayHistorial = respuesta.mantenimientos;
+                console.log(respuesta.mantenimientos);
             })
                 .catch(function (error) {
                     console.log(error);
                 })
         },
 
-        cambiarPagina(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto){
+        cambiarPagina(page, buscar, criterio,  desde, hasta,){
 
             let me = this;
 
@@ -515,10 +514,10 @@ export default {
             this.errorMantenimiento = 0;
             this.errorMostrarMsjlubricantes = [];
 
-            if(!this.fleet_leaving) this.errorMostrarMsjlubricantes.push("Debe Ingresar una fecha.");
-            if(!this.taller ) this.errorMostrarMsjlubricantes.push("Por favor seleccione un taller.");
-            if(this.taller=='' ) this.errorMostrarMsjlubricantes.push("Por favor seleccione un taller.");
-            if(this.errorMostrarMsjlubricantes.length) this.errorMantenimiento = 1;
+            if(!this.fleet_leaving) this.errorMostrarMsjpush("Debe Ingresar una fecha.");
+            if(!this.taller ) this.errorMostrarMsjpush("Por favor seleccione un taller.");
+            if(this.taller=='' ) this.errorMostrarMsjpush("Por favor seleccione un taller.");
+            if(this.errorMostrarMsjlength) this.errorMantenimiento = 1;
 
             return this.errorMantenimiento;
 
@@ -627,6 +626,7 @@ export default {
 
         abrirModalIngreso(data = []){
             this.idRecord = data.lubricante_id;
+            this.fecha_minima_ingreso = data.Date_Out_Workshop;
             const swalWithBootstrapButtons = Swal.mixin({
 
                 customClass: {
@@ -659,11 +659,11 @@ export default {
 
             let me = this;
             me.loading = false;
-            me.placa = p.vehiculo.Plate;
-            me.nombre = p.vehiculo.Name;
-            me.flota = p.vehiculo.Fleet;
+            me.placa = p.Plate;
+            me.nombre = p.Name;
+            me.flota = p.Fleet;
 
-            me.listarHistorial(p.vehiculo.id);
+            me.listarHistorial(p.vehicle_id);
 
             //me.$root.menu = 2;
         },
@@ -679,128 +679,34 @@ export default {
             //me.$root.menu = 2;
         },
 
-        obtenerInfoTipomanto(r){
-            let me = this;
-            var url = '/tipomantos/info?id_tipomanto=' + r;
-
-            axios.get(url).then(function (response) {
-                var respuesta = response.data;
-                me.cantidad = respuesta.tipomantos.cantidad;
-                me.umedida = respuesta.tipomantos.umedida;
-            })
-                .catch(function (error) {
-                    console.log(error);
-                })
-
-        },
-
-        refrescarOdometro(vehiculo, fecha){
-
-            const swalWithBootstrapButtons = Swal.mixin({
-
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-
-                buttonsStyling: false
-
-            })
-
-            swalWithBootstrapButtons.fire({
-
-                title: 'ESTÁ SEGURO QUE NO HAY MANTENIMIENTOS PENDIENTES PARA ESTE VEHICULO ANTES DE LA FECHA SEÑALADA?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'SÍ, ESTOY SEGURO!',
-                cancelButtonText: 'NO, DEBO REVISAR!',
-                reverseButtons: true
-
-            }).then((result) => {
-
-                if (result.value) {
-
-                    let me = this;
-
-                    var url = '/vehiculos/historial?vehiculo=' + vehiculo + '&fecha=' + fecha;
-
-                    axios.get(url).then(function (response) {
-                        var respuesta = response.data;
-                        me.odohwinicial = respuesta.distancia.toFixed(2);
-                        //me.arrayTaller = respuesta.talleres;
-
-                    })
-                        .catch(function (error) {
-                            console.log(error);
-                        })
-
-
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-
-                }
-
-            });
-
-        },
-
-        cambiarKmDesde(){
-
-            if(this.desde == '' && this.hasta != ''){
-                this.desde = this.hasta;
-                this.maximo_desde = this.hasta;
-            }else if(this.hasta == ''){
-                this.desde = '';
-            }else{
-                this.maximo_desde = this.hasta;
-            }
-
-            this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
-
-        },
-
-        cambiarKmHasta(){
-
-            if(this.hasta == '' && this.desde != ''){
-
-                this.hasta = this.desde;
-                this.minimo_hasta = this.desde;
-                this.maximo_desde = this.hasta;
-
-            }else if(this.desde == ''){
-                this.hasta = '';
-            }else{
-                this.maximo_desde = this.hasta;
-                this.minimo_hasta = this.desde;
-            }
-
-            this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
-        },
-
         cambiarDesde(){
 
             let me = this;
-
+            console.log("Almenos llega aca?");
             if(this.desde == '' && this.hasta != ''){
+                console.log("Hasta : "+ this.hasta);
                 this.desde = this.hasta;
+                console.log("Desde: "+ this.desde);
                 this.fechaMaxima = this.hasta;
             }else if(this.hasta == ''){
-                this.desde = '';
+                console.log("Hasta : "+ this.hasta);
+                console.log("Desde: "+ this.desde);
+                this.hasta = this.desde;
+                console.log("------------");
                 this.currentDate();
+                console.log("Hasta : "+ this.hasta);
+                console.log("Desde: "+ this.desde);
             }else{
                 this.fechaMaxima = this.hasta;
+                console.log("Desde: "+ this.desde);
             }
-
-            this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
+            this.listarPrincipal(1, me.buscar, me.criterio, me.desde, me.hasta)
 
         },
 
         cambiarHasta(){
 
             let me = this;
-
             if(this.hasta == '' && this.desde != ''){
 
                 let hoy = new Date();
@@ -824,7 +730,7 @@ export default {
                 this.currentDate();
             }
 
-            this.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller, me.select_tipomanto);
+            this.listarPrincipal(1, me.buscar, me.criterio, me.desde, me.hasta);
 
         },
 
@@ -832,7 +738,7 @@ export default {
 
     mounted() {
 
-        this.listarPrincipal(1, this.buscar, this.criterio, this.criterio2, this.desde, this.hasta, this.select_taller, this.select_tipomanto);
+        this.listarPrincipal(1, this.buscar, this.criterio, this.desde, this.hasta);
         this.selectTaller();
         this.currentDate();
     }

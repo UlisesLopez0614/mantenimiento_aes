@@ -32,6 +32,7 @@ Vue.component('unidmedida-pantalla', require('./components/UnidmedidaPantalla.vu
 Vue.component('taller-pantalla', require('./components/TallerPantalla.vue').default);
 Vue.component('item-pantalla', require('./components/ItemPantalla.vue').default);
 Vue.component('tipomanto-pantalla', require('./components/TipomantoPantalla.vue').default);
+Vue.component('usuarios-taller', require('./components/UsuariosTaller.vue').default);
 Vue.component('empresa-catalogo-pantalla', require('./components/EmpresaCatalogoPantalla.vue').default);
 Vue.component('empresa-asignacion-pantalla', require('./components/EmpresaAsignacionPantalla.vue').default);
 Vue.component('acceso-users', require('./components/AccesoUsers.vue').default);

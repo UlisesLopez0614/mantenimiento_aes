@@ -5,7 +5,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Home</li>
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item active">Tipos Mantenimiento</li>
         </ol>
         <div class="container-fluid">
             <!-- Ejemplo de tabla Listado -->
@@ -81,7 +81,7 @@
                             </li>
                         </ul>
                     </nav>
-                    
+
                 </div>
             </div>
             <!-- Fin ejemplo de tabla Listado -->
@@ -228,7 +228,7 @@
 
                 let me = this;
                 var url = '/tipomantos?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
-                
+
                 axios.get(url).then(function (response) {
 
                     var respuesta = response.data;
@@ -238,7 +238,7 @@
 
                 })
                 .catch(function (error) {
-                    
+
                     console.log(error);
 
                 })
@@ -246,7 +246,7 @@
             },
 
             cambiarPagina(page, buscar, criterio){
-                
+
                 let me = this;
 
                 me.pagination.current_page = page;
@@ -259,7 +259,7 @@
                 if(this.validarTipomanto()){
 
                     return;
-                    
+
                 }
 
                 let me = this;
@@ -289,7 +289,7 @@
                 if(this.validarTipomanto()){
 
                     return;
-                    
+
                 }
 
                 let me = this;
@@ -329,7 +329,7 @@
                     })
 
                     swalWithBootstrapButtons.fire({
-                    
+
                         title: 'ESTÁ SEGURO DE DESACTIVAR A ESTE TIPO MANTENIMEINTO?',
                         icon: 'warning',
                         showCancelButton: true,
@@ -362,12 +362,12 @@
 
                             });
 
-                            
+
                         } else if (
                             /* Read more about handling dismissals below */
                             result.dismiss === Swal.DismissReason.cancel
                         ) {
-                            
+
                         }
 
                 });
@@ -387,7 +387,7 @@
                     })
 
                     swalWithBootstrapButtons.fire({
-                    
+
                         title: 'ESTÁ SEGURO DE ACTIVAR A ESTE TIPO MANTENIMIENTO?',
                         icon: 'warning',
                         showCancelButton: true,
@@ -420,19 +420,19 @@
 
                             });
 
-                            
+
                         } else if (
                             /* Read more about handling dismissals below */
                             result.dismiss === Swal.DismissReason.cancel
                         ) {
-                            
+
                         }
 
                 });
             },
 
             validarTipomanto(){
-                
+
                 this.errorTipomanto = 0;
                 this.errorMostrarMsjTipomanto = [];
 
@@ -451,11 +451,11 @@
                 switch (modelo) {
 
                     case 'tipomanto':
-                        
+
                         {
 
                             switch (accion) {
-                                
+
                                 case 'registrar':
                                     {
                                         this.modal = 1;
@@ -481,11 +481,11 @@
                                          this.porcentajealerta = data['porcentajealerta'];
                                          break;
                                     }
-                            
+
                             }
 
                         }
-                        
+
                 }
             },
 

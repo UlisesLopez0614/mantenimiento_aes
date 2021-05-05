@@ -18,23 +18,17 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <select class="form-control col-md-3" v-model="criterio">
-                                        <option value="idAVL">ID AVL</option>
-                                        <option value="Name">NOMBRE</option>
-                                        <option value="Plate">PLACA</option>
-                                        <option value="Fleet">FLOTA</option>
-                                    </select>
-                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio,  desde, hasta)" class="form-control" placeholder="Texto a buscar">
+                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio,  desde, hasta)" class="form-control" placeholder="Placa,Flota,Nombre,Area,Detalles de las baterias...">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-8">
                                 <div class="input-group input-daterange">
-                                    <div class="input-group-addon bg-primary">ACTIVIDAD</div>
-                                    <div class="input-group-addon bg-primary">Fecha de Inicio {{desde}}</div>
+                                    <div class="input-group-addon bg-primary">Fecha Instalacion</div>
+                                    <div class="input-group-addon bg-primary">Inicio</div>
                                     <input type="date" v-model="desde" @change="cambiarHasta()" :max="fechaMaxima" class="form-control">
-                                    <div class="input-group-addon bg-primary">HASTA</div>
+                                    <div class="input-group-addon bg-primary">Fin</div>
                                     <input type="date" v-model="hasta" @change="cambiardesde()" :max="fechaActual" :min="desde" class="form-control">
                                 </div>
                             </div>

@@ -6,6 +6,8 @@ use App\Lubricantes_History;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class ControllerForWorkshops extends Controller
@@ -53,6 +55,47 @@ class ControllerForWorkshops extends Controller
             $mantenimiento->Qty_Gals = $request->Qty/4;
             $mantenimiento->Date_Out_Workshop = $request->Date_Out;
             $mantenimiento->save();
+        }catch(Illuminate\Database\QueryException $ex){
+            Log::warning($ex->getMessage());
+            Log::info("Request : " + $request);
+        }
+
+    }
+
+    public function getWorkShopsUsers(Request $request){
+        $Records = DB::table('tb_users')
+            ->select('tb_users.nombre','tb_users.email','tb_users.ultimo_login','tb_users.condicion','tb_talleres.nombre as taller')
+            ->join('tb_talleres','tb_talleres.id','=','tb_users.Taller_id')
+            ->where('Taller_id','!=',null)
+            ->where('role_id','=',2)
+            ->paginate(50);
+        return [
+            'pagination' => [
+                'total'         => $Records->total(),
+                'current_page'  => $Records->currentPage(),
+                'per_page'      => $Records->perPage(),
+                'last_page'     => $Records->lastPage(),
+                'from'          => $Records->firstItem(),
+                'to'            => $Records->lastItem(),
+            ],
+            'records' => $Records
+
+        ];
+    }
+    public function registerWorkShopsUser(Request $request){
+        if(!$request->ajax()) return redirect('/');
+        try{
+            $user = new User();
+            $user->nombre = $request->name;
+            $user->nombre_completo = $request->name;
+            $user->email = $request->email;
+            $user->role_id  = 2;
+            $user->password = Hash::make($request->password);
+            $user->condicion = 1;
+            $user->created_at = now();
+            $user->updated_at = now();
+            $user->Taller_id = $request->taller;
+            $user->save();
         }catch(Illuminate\Database\QueryException $ex){
             Log::warning($ex->getMessage());
             Log::info("Request : " + $request);

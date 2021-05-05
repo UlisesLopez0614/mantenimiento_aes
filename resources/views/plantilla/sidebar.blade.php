@@ -42,6 +42,10 @@
                     <li @click="menu=6" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-wallet"></i> Tipos Manto.</a>
                     </li>
+
+                    <li @click="menu=18" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-user"></i> Usuarios Taller.</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">

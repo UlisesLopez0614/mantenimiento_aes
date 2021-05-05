@@ -53,6 +53,12 @@ return [
             'level' => 'debug',
         ],
 
+        'alerts' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/alerts.log'),
+            'level' => 'debug',
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),

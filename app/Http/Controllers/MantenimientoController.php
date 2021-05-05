@@ -81,9 +81,8 @@ class MantenimientoController extends Controller
             $estado_alerta = 'ROJA';
 
         }
-
-        $mantenimiento = new Mantenimiento();
-
+            //Se crea un nuevo record de mantenimiento
+            $mantenimiento = new Mantenimiento();
             $mantenimiento->FK_idVehicle = $request->vehiculo;
             $mantenimiento->FK_taller = $request->taller;
             $mantenimiento->FK_tipoMtto = $request->tipomanto;
@@ -102,12 +101,13 @@ class MantenimientoController extends Controller
             $mantenimiento->recordatorio_diario_por_vencerse = $request->recordatorioporven;
             $mantenimiento->porcentaje_alerta_por_vencerse = $request->porcentajealerta;
             $mantenimiento->estado_alerta = $estado_alerta;
-
-        $mantenimiento->save();
+            $mantenimiento->save();
+            //----------------
+        $ulto_manto->FK_idMtto = $mantenimiento->id;
+        $ulto_manto->quedan = $request->cantidad;
         if($ulto_manto->counter == 5)
         {
             $ulto_manto->counter = 1;
-
         }
         else{$ulto_manto->counter =  $ulto_manto->counter +1;}
         $ulto_manto->save();

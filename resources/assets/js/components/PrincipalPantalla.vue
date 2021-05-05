@@ -214,9 +214,10 @@
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
                                 <div class="col-md-4"></div>
+                                <!---
                                 <div class="col-md-4">
                                     <button type="button" class="btn btn-primary" @click="refrescarOdometro(vehiculo, fecha)"><i class="icon-refresh"></i>  &nbsp; REFRESCAR ODÓMETRO</button>
-                                </div>
+                                </div>-->
                                 <div class="col-md-4"></div>
                             </div>
                             <div class="form-group row">
@@ -231,11 +232,15 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">VEHÍCULO:</label>
-                                <div class="col-md-9">
+                                <div class="col-md-3">
                                     <label class="col-md-9 form-control-label" for="text-input" v-text="nombre + '-' + placa + '-' + idAVL"></label>
                                 </div>
+                                <label class="col-md-3 form-control-label" for="text-input">ODO HW INICIAL:</label>
+                                <div class="col-md-3">
+                                    <label class="col-md-3 form-control-label" for="text-input" v-text="odohwinicial"></label>
+                                </div>
                             </div>
-                            <div class="form-group row">
+                            <!--<div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">ODO SW INICIAL:</label>
                                 <div class="col-md-3">
                                     <label class="col-md-3 form-control-label" for="text-input" v-text="odoswinicial"></label>
@@ -244,7 +249,7 @@
                                 <div class="col-md-3">
                                     <label class="col-md-3 form-control-label" for="text-input" v-text="odohwinicial"></label>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">TALLER (*):</label>
                                 <div class="col-md-9">
@@ -290,54 +295,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label">CORREO ALERTA 5%:</label>
+                                <label class="col-md-3 form-control-label">CORREO ALERTA 5% (*) :</label>
                                 <div class="col-md-9">
                                     <input type="email" v-model="correoalertagrave" class="form-control" placeholder="INGRESE UN CORREO PARA ALERTAS">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA NARANJA:</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="alertanaranja">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA PROXIMA A VENCER:</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="alertaproxima">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">ENVIO DE ALERTA ROJA (VENCIDO):</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="alertaroja">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                                <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (POR VENCERSE):</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="recordatorioporven">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">RECORDATORIO DIARIO (VENCIDO):</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" v-model="recordatorioven">
-                                        <option value="1">SI</option>
-                                        <option value="0">NO</option>
-                                    </select>
-                                </div>
-                                <label class="col-md-3 form-control-label" for="email-input">PORCENTAJE ALERTA POR VENCERSE:</label>
-                                <div class="col-md-3">
-                                    <input type="number" v-model="porcentajealerta" class="form-control" placeholder="PORCENTAJE">
                                 </div>
                             </div>
                             <div v-show="errorMantenimiento" class="form-group row div-error">
@@ -480,6 +440,7 @@
                 cantidad : '',
                 umedida : '',
                 correoalerta : '',
+                correoalertagrave:'',
                 costo : '',
                 alertanaranja : 1,
                 alertaproxima : 1,
@@ -623,6 +584,7 @@
                     'taller' : this.taller1,
                     'tipomanto' : this.tipomanto1,
                     'correoalerta' : this.correoalerta,
+                    'correoalertagrave':this.correoalertagrave,
                     'costo' : this.costo,
                     'alertaroja' : this.alertaroja,
                     'alertanaranja' : this.alertanaranja,
@@ -632,8 +594,9 @@
                     'porcentajealerta' : this.porcentajealerta
 
                 }).then(function (response) {
-
-                    me.listarPrincipal(1, '', 'Name', '', 'tb_vehicles.kms_inicial', '', '');
+                    if(me.buscar!= undefined)
+                    {me.listarPrincipal(1, '', 'Name', 'tb_vehicles.kms_inicial','', '', '','');}
+                    else{me.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller ,me.select_tipomanto);}
                     me.cerrarModal();
                     Swal.fire({
                         position: 'top-end',
@@ -644,9 +607,7 @@
                     });
 
                 }).catch(function (error) {
-
                     console.log(error);
-
                 });
 
             },

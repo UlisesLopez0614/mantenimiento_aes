@@ -29,6 +29,10 @@
         </template>
     </keep-alive>
 
+    <template v-if="menu==18">
+        <usuarios-taller></usuarios-taller>
+    </template>
+
     <keep-alive include="supervisor-pantalla">
         <template v-if="menu==2">
             <supervisor-pantalla></supervisor-pantalla>

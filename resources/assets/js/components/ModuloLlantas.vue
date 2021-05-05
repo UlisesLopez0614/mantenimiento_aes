@@ -18,13 +18,7 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <select class="form-control col-md-3" v-model="criterio">
-                                        <option value="idAVL">ID AVL</option>
-                                        <option value="Name">NOMBRE</option>
-                                        <option value="Plate">PLACA</option>
-                                        <option value="Fleet">FLOTA</option>
-                                    </select>
-                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio,  desde, hasta)" class="form-control" placeholder="Texto a buscar">
+                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio,  desde, hasta)" class="form-control" placeholder="Placa,Flota,Nombre,Area,Detalles de las llantas... ">
                                 </div>
                             </div>
                         </div>
