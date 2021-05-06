@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Mail\AlertasPruebaAES;
+use App\Mantenimiento;
+use App\Principal;
 use App\Vehiculo;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +44,15 @@ class SendAlerts extends Command
      */
     public function handle()
     {
+        /*        ---------------------- / Actualizacion Manual Quedan ----------------
+        $Principal_Table = Principal::all();
+        foreach ($Principal_Table as $P){
+            $Mantenimiento_Record = Mantenimiento::findorFail($P->FK_idMtto);
+            $VH = Vehiculo::findorFail($Mantenimiento_Record->FK_idVehicle);
+            $P->quedan = round($Mantenimiento_Record->kms_goal - $VH->kms_inicial,2);
+            $P->save();
+        }
+        ---------------------- / Actualizacion Manual Quedan ----------------*/
         Log::channel('alerts')->info("Alertas Diarias del dia : ".now());
         $Vehicles = DB::table('tb_principal')
             ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.Fleet','tb_vehicles.Area','tb_vehicles.odo_actual','tb_mtto_history.kms_goal', 'tb_mtto_history.mtto_count','tb_mtto_history.correo','tb_mtto_history.correo_supervisor','tb_principal.quedan')

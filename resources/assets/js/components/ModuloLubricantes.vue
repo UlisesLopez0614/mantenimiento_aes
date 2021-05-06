@@ -587,11 +587,10 @@ export default {
             this.selectTaller();
             this.currentDate();
             this.modal = 1;
-            this.tituloModal = 'SALIDA DE FLOTA';
-            this.vehiculo = data['vehiculo'].id;
-            this.nombre = data['vehiculo'].Name;
-            this.placa = data['vehiculo'].Plate;
-            this.idAVL = data['vehiculo'].idAVL;
+            this.tituloModal = 'SALIDA DE FLOTA : ' + data.Name +" - "+data.Plate;
+            this.vehiculo = data.vehicle_id;
+            this.nombre = data.Name;
+            this.placa = data.Plate;
         },
 
         cerrarModal(){

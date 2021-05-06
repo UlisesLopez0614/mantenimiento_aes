@@ -79,14 +79,12 @@ class UpdateODO extends Command
                 }
                 $initial_date->modify('+1 day');
             }
-            dd($VH_distance);
+            //dd($VH_distance);
             $VH->kms_inicial += $VH_distance;
             $VH->save();
         }
         Log::channel('ODO')->info("Fin de la Actualizacion. Fecha y Hora de Finalizacion  : ".now()->formatLocalized('%A').", ".now()->formatLocalized('%d, %B %Y, a las %H:%M  '));
-
-
-        dd($counter);
+        //dd($counter);
         Log::channel('ODO')->info("Dia de Actualizacion de Odometros  : ".now()->formatLocalized('%A').", ".now()->formatLocalized('%d, %B %Y, a las %H:%M  '));
 
         return 'Odometros Actualizacidos :D';

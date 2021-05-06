@@ -56,7 +56,7 @@ class UpdateServices extends Command
             try
             {
                 $response = Http::get('http://avlaes.disatelgps.com/ws/?api=VehicleSummary&sitekey=avlaes&usr=admin&pwd=aes&veh='.$VH->idAVL.'&dat='.now()->format('Y-m-d'))->json();
-                dd('http://avlaes.disatelgps.com/ws/?api=VehicleSummary&sitekey=avlaes&usr=admin&pwd=aes&veh=863286020928165&dat='.now()->format('Y-m-d'));
+                //dd('http://avlaes.disatelgps.com/ws/?api=VehicleSummary&sitekey=avlaes&usr=admin&pwd=aes&veh=863286020928165&dat='.now()->format('Y-m-d'));
                 if($response[0]['Date'] == '-')
                 {
                     Log::channel('SummaryUpdates')->warning("No hay registros el dia : ".now()->format('Y-m-d')." para el vehiculo con placas : ".$VH->Plate);
