@@ -71,7 +71,7 @@ class SendAlerts extends Command
                 foreach($correos as $key => $value)
                 {
                     try{
-                        Mail::to($value)->queue(new AlertasPruebaAES($VeH,$item->quedan));
+                        Mail::to(trim($value))->queue(new AlertasPruebaAES($VeH,$item->quedan));
                     }catch (\Exception $e){
                         Log::channel('alerts')->error("Invalid Email ".$value." for element: ".$item);
                     }
@@ -82,7 +82,7 @@ class SendAlerts extends Command
                 foreach($correo_sup as $key => $value)
                 {
                     try{
-                        Mail::to($value)->queue(new AlertasPruebaAES($VeH,$item->quedan));
+                        Mail::to(trim($value))->queue(new AlertasPruebaAES($VeH,$item->quedan));
                     }catch (\Exception $e){
                         Log::channel('alerts')->error("Invalid Email ".$value." for element: ".$item);
                     }
