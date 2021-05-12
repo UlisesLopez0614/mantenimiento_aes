@@ -13,16 +13,15 @@ class AlertasPruebaAES extends Mailable
 
     public $subject= 'Alerta de Mantenimiento Cercano';
 
-    public $VH,$QTY ;
+    public $VH_Info ;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($Vehicle,$Qty)
+    public function __construct($Vehicle_Info)
     {
-        $this->VH = $Vehicle;
-        $this->QTY = $Qty;
+        $this->VH_Info = $Vehicle_Info;
     }
 
     /**
@@ -32,6 +31,6 @@ class AlertasPruebaAES extends Mailable
      */
     public function build()
     {
-        return $this->from('jose.delao@grupodisatel.com')->view('prueba_correo');
+        return $this->from('sistemas.sv@grupodisatel.com')->view('prueba_correo');
     }
 }

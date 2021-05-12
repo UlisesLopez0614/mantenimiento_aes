@@ -4,10 +4,9 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="format-detection" content="telephone=no">
-
     <!-- rpcampaign: trigger_funnel_transactional_verify-email_10042018_mu-->
-    <title>Wix.com
-    </title>
+    <title>Alertas AES</title>
+
     <style type="text/css">
         .ReadMsgBody {
             width: 100%;
@@ -340,6 +339,341 @@
             display: block;
         }
     </style>
+    <style>
+        .list-group {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+
+        .list-group-item-action {
+            width: 100%;
+            color: #495057;
+            text-align: inherit;
+        }
+
+        .list-group-item-action:hover, .list-group-item-action:focus {
+            color: #495057;
+            text-decoration: none;
+            background-color: #f8f9fa;
+        }
+
+        .list-group-item-action:active {
+            color: #212529;
+            background-color: #e9ecef;
+        }
+
+        .list-group-item {
+            position: relative;
+            display: block;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: -1px;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
+        .list-group-item:first-child {
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+        }
+
+        .list-group-item:last-child {
+            margin-bottom: 0;
+            border-bottom-right-radius: 0.25rem;
+            border-bottom-left-radius: 0.25rem;
+        }
+
+        .list-group-item:hover, .list-group-item:focus {
+            z-index: 1;
+            text-decoration: none;
+        }
+
+        .list-group-item.disabled, .list-group-item:disabled {
+            color: #6c757d;
+            background-color: #fff;
+        }
+
+        .list-group-item.active {
+            z-index: 2;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .list-group-flush .list-group-item {
+            border-right: 0;
+            border-left: 0;
+            border-radius: 0;
+        }
+
+        .list-group-flush:first-child .list-group-item:first-child {
+            border-top: 0;
+        }
+
+        .list-group-flush:last-child .list-group-item:last-child {
+            border-bottom: 0;
+        }
+
+        .list-group-item-primary {
+            color: #004085;
+            background-color: #b8daff;
+        }
+
+        .list-group-item-primary.list-group-item-action:hover, .list-group-item-primary.list-group-item-action:focus {
+            color: #004085;
+            background-color: #9fcdff;
+        }
+
+        .list-group-item-primary.list-group-item-action.active {
+            color: #fff;
+            background-color: #004085;
+            border-color: #004085;
+        }
+
+        .list-group-item-secondary {
+            color: #383d41;
+            background-color: #d6d8db;
+        }
+
+        .list-group-item-secondary.list-group-item-action:hover, .list-group-item-secondary.list-group-item-action:focus {
+            color: #383d41;
+            background-color: #c8cbcf;
+        }
+
+        .list-group-item-secondary.list-group-item-action.active {
+            color: #fff;
+            background-color: #383d41;
+            border-color: #383d41;
+        }
+
+        .list-group-item-success {
+            color: #155724;
+            background-color: #c3e6cb;
+        }
+
+        .list-group-item-success.list-group-item-action:hover, .list-group-item-success.list-group-item-action:focus {
+            color: #155724;
+            background-color: #b1dfbb;
+        }
+
+        .list-group-item-success.list-group-item-action.active {
+            color: #fff;
+            background-color: #155724;
+            border-color: #155724;
+        }
+
+        .list-group-item-info {
+            color: #0c5460;
+            background-color: #bee5eb;
+        }
+
+        .list-group-item-info.list-group-item-action:hover, .list-group-item-info.list-group-item-action:focus {
+            color: #0c5460;
+            background-color: #abdde5;
+        }
+
+        .list-group-item-info.list-group-item-action.active {
+            color: #fff;
+            background-color: #0c5460;
+            border-color: #0c5460;
+        }
+
+        .list-group-item-warning {
+            color: #856404;
+            background-color: #ffeeba;
+        }
+
+        .list-group-item-warning.list-group-item-action:hover, .list-group-item-warning.list-group-item-action:focus {
+            color: #856404;
+            background-color: #ffe8a1;
+        }
+
+        .list-group-item-warning.list-group-item-action.active {
+            color: #fff;
+            background-color: #856404;
+            border-color: #856404;
+        }
+
+        .list-group-item-danger {
+            color: #721c24;
+            background-color: #f5c6cb;
+        }
+
+        .list-group-item-danger.list-group-item-action:hover, .list-group-item-danger.list-group-item-action:focus {
+            color: #721c24;
+            background-color: #f1b0b7;
+        }
+
+        .list-group-item-danger.list-group-item-action.active {
+            color: #fff;
+            background-color: #721c24;
+            border-color: #721c24;
+        }
+
+        .list-group-item-light {
+            color: #818182;
+            background-color: #fdfdfe;
+        }
+
+        .list-group-item-light.list-group-item-action:hover, .list-group-item-light.list-group-item-action:focus {
+            color: #818182;
+            background-color: #ececf6;
+        }
+
+        .list-group-item-light.list-group-item-action.active {
+            color: #fff;
+            background-color: #818182;
+            border-color: #818182;
+        }
+
+        .list-group-item-dark {
+            color: #1b1e21;
+            background-color: #c6c8ca;
+        }
+
+        .list-group-item-dark.list-group-item-action:hover, .list-group-item-dark.list-group-item-action:focus {
+            color: #1b1e21;
+            background-color: #b9bbbe;
+        }
+
+        .list-group-item-dark.list-group-item-action.active {
+            color: #fff;
+            background-color: #1b1e21;
+            border-color: #1b1e21;
+        }
+
+        .badge {
+            border: 1px solid #000;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+        }
+
+        .badge:empty {
+            display: none;
+        }
+
+        .btn .badge {
+            position: relative;
+            top: -1px;
+        }
+
+        .badge-pill {
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem;
+        }
+
+        .badge-primary {
+            color: #fff;
+            background-color: #007bff;
+        }
+
+        .badge-primary[href]:hover, .badge-primary[href]:focus {
+            color: #fff;
+            text-decoration: none;
+            background-color: #0062cc;
+        }
+
+        .badge-secondary {
+            color: #fff;
+            background-color: #6c757d;
+        }
+
+        .badge-secondary[href]:hover, .badge-secondary[href]:focus {
+            color: #fff;
+            text-decoration: none;
+            background-color: #545b62;
+        }
+
+        .badge-success {
+            color: #fff;
+            background-color: #28a745;
+        }
+
+        .badge-success[href]:hover, .badge-success[href]:focus {
+            color: #fff;
+            text-decoration: none;
+            background-color: #1e7e34;
+        }
+
+        .badge-info {
+            color: #fff;
+            background-color: #17a2b8;
+        }
+
+        .badge-info[href]:hover, .badge-info[href]:focus {
+            color: #fff;
+            text-decoration: none;
+            background-color: #117a8b;
+        }
+
+        .badge-warning {
+            color: #212529;
+            background-color: #ffc107;
+        }
+
+        .badge-warning[href]:hover, .badge-warning[href]:focus {
+            color: #212529;
+            text-decoration: none;
+            background-color: #d39e00;
+        }
+
+        .badge-danger {
+            color: #fff;
+            background-color: #dc3545;
+        }
+
+        .badge-danger[href]:hover, .badge-danger[href]:focus {
+            color: #fff;
+            text-decoration: none;
+            background-color: #bd2130;
+        }
+
+        .badge-light {
+            color: #212529;
+            background-color: #f8f9fa;
+        }
+
+        .badge-light[href]:hover, .badge-light[href]:focus {
+            color: #212529;
+            text-decoration: none;
+            background-color: #dae0e5;
+        }
+
+        .badge-dark {
+            color: #fff;
+            background-color: #343a40;
+        }
+
+        .badge-dark[href]:hover, .badge-dark[href]:focus {
+            color: #fff;
+            text-decoration: none;
+            background-color: #1d2124;
+        }
+
+        .d-flex {
+            display: flex !important;
+        }
+
+        .justify-content-between {
+            justify-content: space-between !important;
+        }
+
+        .align-items-center {
+            align-items: center !important;
+        }
+    </style>
 </head>
 <body yahoo="fix" style="background-color: #f7f8fa; margin: 0; min-width: 100%; height: 100%; margin: 0; padding: 0; width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%">
 <div>
@@ -476,7 +810,7 @@
                                                                                     <tr>
                                                                                         <td class="mob-img-block-padding-top" style="background-color: #fff;padding: 0px 22px; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #000; font-size: 24px; font-style: normal; font-weight: normal; line-height: 30px; letter-spacing: 0.7px; text-align: left;">
                                                                                             <div style="padding-bottom: 0; text-align: center; font-weight: bold; font-size: 24px; letter-spacing: normal !important; color: #43515c" class="text-block-2">
-                                                                                                Alerta de Mantenimiento Requerido Vehiculo
+                                                                                                Listado de Vehiculos con Mantenimientos Atrasados
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
@@ -487,8 +821,77 @@
                                                                                     <tr>
                                                                                         <td class="mob-img-block-padding-top mob-img-block-padding-bottom" style="font-weight: normal;padding: 0px 22px; font-size: 14px; line-height: 18px; color: #333; text-align: left; padding-top: 25px; padding-bottom:20px;" align="left">
                                                                                             <span class="text-block" style="font-weight: normal; font-size: 14px; line-height: 18px;">
-                                                                                                Vehiculo :{{$VH}}
-                                                                                                <br><br>Faltan &nbsp;{{$QTY}}&nbsp;KM para el mantenimiento del vehiculo. No olvidar!
+                                                                                              Buenos Dias.
+                                                                                              A continuacion te presento el listado de vehiculos que poseen mantenimiento atrasado, por favor no olvides darle mantenimiento.
+                                                                                              <br><br><br>
+
+                                                                                                <table class="table">
+                                                                                                  <thead>
+                                                                                                    <tr>
+                                                                                                      <th scope="col"></th>
+                                                                                                      <th scope="col"></th>
+                                                                                                      <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                                                                      <th scope="col"></th>
+                                                                                                    </tr>
+                                                                                                  </thead>
+                                                                                                  <tbody>
+                                                                                                  @foreach($VH_Info as $item)
+                                                                                                      <tr>
+                                                                                                      <td scope="col">&nbsp;</td>
+                                                                                                      <td><strong>{{$item['Name']}}</strong></td>
+                                                                                                      <td scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+                                                                                                      <td><span style="display: inline-block;
+                                                                                                                padding: 0.25em 0.4em;
+                                                                                                                font-size: 75%;
+                                                                                                                font-weight: 700;
+                                                                                                                line-height: 1;
+                                                                                                                text-align: center;
+                                                                                                                white-space: nowrap;
+                                                                                                                padding-right: 0.6em;
+                                                                                                                padding-left: 0.6em;
+                                                                                                                @if($item['KM']<0)
+                                                                                                                color: #fff;
+                                                                                                                background-color: #007bff;
+                                                                                                                @else
+                                                                                                              color: #fff;
+                                                                                                              background-color: #007bff;
+                                                                                                                @endif
+                                                                                                                vertical-align: baseline;
+                                                                                                                border-radius: 0.5rem;" class="badge-danger badge-pill">{{$item['KM']}} Km </span>
+                                                                                                      </td>
+                                                                                                    </tr>
+                                                                                                  @endforeach
+                                                                                                  </tbody>
+                                                                                                </table>
+                                                                                              <br>
+                                                                                              <p class='font-italic'><strong>Leyenda :</strong></p>
+                                                                                                <span style="display: inline-block;
+                                                                                                                padding: 0.25em 0.4em;
+                                                                                                                font-size: 75%;
+                                                                                                                font-weight: 700;
+                                                                                                                line-height: 1;
+                                                                                                                text-align: center;
+                                                                                                                white-space: nowrap;
+                                                                                                                padding-right: 0.6em;
+                                                                                                                padding-left: 0.6em;
+                                                                                                                color: #fff;
+                                                                                                                background-color: #dc3545;
+                                                                                                                vertical-align: baseline;
+                                                                                                                border-radius: 0.5rem;">12 Km</span> Excedio 12 Km de su mantenimiento programado.
+                                                                                                <br><br><span style="display: inline-block;
+                                                                                                                padding: 0.25em 0.4em;
+                                                                                                                font-size: 75%;
+                                                                                                                font-weight: 700;
+                                                                                                                line-height: 1;
+                                                                                                                text-align: center;
+                                                                                                                white-space: nowrap;
+                                                                                                                padding-right: 0.6em;
+                                                                                                                padding-left: 0.6em;
+                                                                                                                color: #fff;
+                                                                                                                background-color: #007bff;
+                                                                                                                vertical-align: baseline;
+                                                                                                                border-radius: 0.5rem;">12 Km</span> Faltan 12 Km para su mantenimiento programad.
                                                                                             </span>
                                                                                         </td>
                                                                                     </tr>
@@ -499,7 +902,7 @@
                                                                                                     <tbody>
                                                                                                     <tr>
                                                                                                         <td class="mob-pad" align="left" bgcolor="#B13DAC" style="border-radius: 40px; display: block; text-align: center; width: 200px; margin: 0 auto; padding: 14px 0px; font-size: 17px; background-color: #459fed">
-                                                                                                            <a href="#" style="color: #fff; font-weight: normal; font-family: Helvetica, Arial, sans-serif; text-decoration: none; width: 100%; display: inline-block">Ver Detalles de Mantenimiento
+                                                                                                            <a href="http://aes-mtto.disatelapp.com/" style="color: #fff; font-weight: normal; font-family: Helvetica, Arial, sans-serif; text-decoration: none; width: 100%; display: inline-block">&nbsp; Gestionar  Mantenimientos &nbsp;
                                                                                                             </a>
                                                                                                         </td>
                                                                                                     </tr>
