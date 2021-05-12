@@ -810,7 +810,7 @@
                                                                                     <tr>
                                                                                         <td class="mob-img-block-padding-top" style="background-color: #fff;padding: 0px 22px; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #000; font-size: 24px; font-style: normal; font-weight: normal; line-height: 30px; letter-spacing: 0.7px; text-align: left;">
                                                                                             <div style="padding-bottom: 0; text-align: center; font-weight: bold; font-size: 24px; letter-spacing: normal !important; color: #43515c" class="text-block-2">
-                                                                                                Listado de Vehiculos con Mantenimientos Atrasados
+                                                                                                Listado de Unidades con Mantenimiento Vencido o Pronto a Vencerse
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
