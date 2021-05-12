@@ -114,8 +114,6 @@ class SendAlerts extends Command
             foreach($Mtos as $item){
                 $Data->push(['Name'=>$item->Name.'-'.$item->Plate,'KM'=>$item->quedan]);
             }
-            Mail::to(trim('fshk1805@gmail.com'))->queue(new AlertasPruebaAES($Data));
-            dd('Hope It Worked Now :/');
             Mail::to(trim($value))->queue(new AlertasPruebaAES($Data));
         }
         //Envio de correos a superiores
