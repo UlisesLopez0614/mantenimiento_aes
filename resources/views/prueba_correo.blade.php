@@ -979,7 +979,7 @@
                                                         border: 0; background-color: #f7f8fa" class="disclaimer">
                                                 Por favor, no responder a este correo electronico.
                                                 <br>
-                                                <a href="https://emails.wix.com/pub/cc?_ri_=X0Gzc2X%3DYQpglLjHJlTQGtnBIa5PcSnzeBYhzf2zfr9zbtMd2q6zfeNCzdSEzbzg6zaOLL1T1CwTm7XkdnSOVXtpKX%3DWTCASCAT&_ei_=EqNp27QWMuWHDEmRNsxiBGfm3XuAvfi0FBInP8_HmgZVYbomP1RNknbBIDOYYkfSyNJlTMBn6gLRb_vUzoq-3ePhPpSxJqhqX8MGNAOin4xqsCKxST-0uvdDtU7QikCPqAZptPXPbM7kzHnJj1VHWNNsrnThpXXTkEsw6eswtQM79gCXCgolMgBioVtCwpqp-KhUbLYMdY-r4-pGrXG4ByxBUvbhUDWz.&_di_=g27kmivhaledd9kpk69lotgm41m5th376i2a07q1ajqpjoi7r79g" target="blank" style="color: rgb(51, 51, 51); text-decoration: none; pointer-events: none; cursor: text!important">13 Calle Poniente, Santa Tecla, San Salvador</a>
+                                                <a href="https://www.grupodisatel.com/" target="blank" style="color: rgb(51, 51, 51); text-decoration: none; pointer-events: none; cursor: text!important">13 Calle Poniente, Santa Tecla, San Salvador</a>
                                                 <br>
                                                 <a href="https://www.grupodisatel.com/" target="_blank" shape="rect" style="color: #459fed; text-decoration: none">www.grupodisatel.com</a>
                                                 <br>
