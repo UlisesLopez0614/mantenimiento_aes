@@ -821,8 +821,7 @@
                                                                                     <tr>
                                                                                         <td class="mob-img-block-padding-top mob-img-block-padding-bottom" style="font-weight: normal;padding: 0px 22px; font-size: 14px; line-height: 18px; color: #333; text-align: left; padding-top: 25px; padding-bottom:20px;" align="left">
                                                                                             <span class="text-block" style="font-weight: normal; font-size: 14px; line-height: 18px;">
-                                                                                              Buenos Dias.
-                                                                                              A continuacion te presento el listado de vehiculos que poseen mantenimiento atrasado, por favor no olvides darle mantenimiento.
+                                                                                              A continuacion, se detalla el listado de vehiculos que poseen mantenimiento proximo ha atrasarse o ya atrasado.
                                                                                               <br><br><br>
 
                                                                                                 <table class="table">
