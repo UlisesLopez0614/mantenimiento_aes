@@ -99,6 +99,5 @@ class UpdateServices extends Command
             }
         }
         Log::channel('SummaryUpdates')->info("Fin de los Registros. Fecha y Hora de Finalizacion  : ".now()->formatLocalized('%A').", ".now()->formatLocalized('%d, %B %Y, a las %H:%M  '));
-        return 'Actualizacion Completada';
     }
 }

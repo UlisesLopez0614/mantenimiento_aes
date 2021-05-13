@@ -6,6 +6,7 @@ use App\Baterias_History;
 use App\Detalles_Vehiculos;
 use App\Llantas_History;
 use App\Lubricantes_History;
+use App\Principal;
 use App\Vehiculo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
@@ -416,8 +417,10 @@ class VehicleDetailsController extends Controller
         if(!$request->ajax()) return redirect('/');
         try
         {
-            $Vehicle_Data = Detalles_Vehiculos::where('vehicle_id',$request->vehiculo);
+            $Vehicle_Data = Detalles_Vehiculos::where('vehicle_id',$request->vehiculo)->first();
             $mantenimiento = Lubricantes_History::findorFail($Vehicle_Data->lubricante_id);
+            $Principal = Principal::where('FK_idVehicle','=',$request->vehiculo)->first();
+            $mantenimiento->Ciclo_Mto = $Principal->counter;
             $mantenimiento->Date_In_Fleet = $request->Date_Out_Fleet;
             $mantenimiento->updated_at = now();
             $mantenimiento->save();
