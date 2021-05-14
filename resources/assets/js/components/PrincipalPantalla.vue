@@ -89,7 +89,7 @@
                                     <th style="text-align: center;" class="align-middle">ANTERIOR</th>
                                     <th style="text-align: center;" class="align-middle">PROXIMO</th>
                                     <th style="text-align: center;" class="align-middle">QUEDAN</th>
-                                    <th style="text-align: center;" class="align-middle">TIPO DE INDICADOR</th>
+                                    <th style="text-align: center;" class="align-middle">CICLO MANTENIMIENTO</th>
                                     <th style="text-align: center;" class="align-middle">TALLER</th>
                                     <th style="text-align: center;" class="align-middle"><div class="sizeOpcion">FECHA</div></th>
                                 </tr>
@@ -120,7 +120,9 @@
                                         <template v-else>
                                             <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
                                         </template>
-                                        <td style="text-align: center;" class="align-middle">A{{principal.counter}}</td>
+                                        <template v-if="principal.counter != null ">
+                                            <td style="text-align: center;" class="align-middle"><a @click="abrirModal('principal', 'registrar', principal)">{{principal.counter*6000}} KM</a></td>
+                                        </template>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.date"></td>
                                     </template>
@@ -233,7 +235,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">VEHÍCULO:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-9 form-control-label" for="text-input" v-text="nombre + '-' + placa + '-' + idAVL"></label>
+                                    <label class="col-md-9 form-control-label" for="text-input" v-text="nombre"></label>
                                 </div>
                                 <label class="col-md-3 form-control-label" for="text-input">ODO HW INICIAL:</label>
                                 <div class="col-md-3">

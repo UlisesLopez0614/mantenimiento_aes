@@ -191,7 +191,7 @@
                                 </div>
                                 <label class="col-md-3 form-control-label" >VEHÍCULO:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-9 form-control-label"  v-text="nombre + '-' + placa + '-' + idAVL"></label>
+                                    <label class="col-md-9 form-control-label"  v-text="nombre"></label>
                                 </div>
                             </div>
 
@@ -228,7 +228,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" >DISPOSICION FINAL (*):</label>
+                                <label class="col-md-3 form-control-label" >DISPOSICION FINAL :</label>
                                 <div class="col-md-9">
                                     <input v-model="disposicion_final" class="form-control" placeholder="EX: A003">
                                 </div>
@@ -268,7 +268,6 @@ export default {
             prueba : '',
             loading : true,
             arrayTaller : [],
-            arrayTipomanto : [],
             arrayPrincipal : [],
             arrayHistorial : [],
             nombre : '',
@@ -290,7 +289,6 @@ export default {
             odoswinicial : '',
             odohwinicial : '',
             taller1 : '',
-            tipomanto1 : '',
             cantidad : '',
             umedida : '',
 
@@ -377,7 +375,6 @@ export default {
                 var respuesta = response.data;
                 me.arrayPrincipal = respuesta.principales.data;
                 me.pagination = respuesta.pagination;
-                console.log(respuesta);
             })
                 .catch(function (error) {
 
@@ -395,7 +392,6 @@ export default {
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayHistorial = respuesta.mantenimientos;
-                console.log(respuesta);
             })
                 .catch(function (error) {
 
@@ -466,16 +462,15 @@ export default {
 
             this.errorMostrarMsjMantenimiento = [];
 
-            if(!this.fecha) this.errorMostrarMsjMantenimiento.push("Ingrese una fecha");
+            if(!this.fecha) this.errorMostrarMsjMantenimiento.push("Por favor, ingrese una fecha");
             if(!this.vehiculo) this.errorMostrarMsjMantenimiento.push("Error de Vehiculo");
-            if(!this.tipo_llanta) this.errorMostrarMsjMantenimiento.push("Ingrese el tipo de llanta");
-            if(!this.mecanico)this.errorMostrarMsjMantenimiento.push("Ingrese el nombre del mecanico");
-            if(!this.qty_llantas|| this.qty_llantas  < 1 )this.errorMostrarMsjMantenimiento.push("Verifique la cantidad de llantas a instala");
-            if(!this.amount || this.amount  < 1 )this.errorMostrarMsjMantenimiento.push("Verifique el monto del mantenimiento");
-            if(!this.numero_aviso)this.errorMostrarMsjMantenimiento.push("Ingrese un numero de aviso");
-            if(!this.orden_trabajo)this.errorMostrarMsjMantenimiento.push("Ingrese una orden de trabajo");
-            if(!this.disposicion_final)this.errorMostrarMsjMantenimiento.push("Ingrese una disposicion Final");
-
+            if(!this.tipo_llanta) this.errorMostrarMsjMantenimiento.push("Por favor, ingrese el tipo de llanta");
+            if(!this.mecanico)this.errorMostrarMsjMantenimiento.push("Por favor, ingrese el nombre del mecanico");
+            if(!this.qty_llantas|| this.qty_llantas  < 1 )this.errorMostrarMsjMantenimiento.push("Por favor, verfique la cantidad de llantas a instalar");
+            if(!this.amount || this.amount  < 1 )this.errorMostrarMsjMantenimiento.push("Por favor, verfique el monto del mantenimiento");
+            if(!this.numero_aviso)this.errorMostrarMsjMantenimiento.push("Por favor, ingrese un numero de aviso");
+            if(!this.orden_trabajo)this.errorMostrarMsjMantenimiento.push("Por favor, ingrese una orden de trabajo");
+            if(this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
             return this.errorMantenimiento;
 
         },
@@ -532,11 +527,6 @@ export default {
                             this.placa = data['vehiculo'].Plate;
                             this.idAVL = data['vehiculo'].idAVL;
                             this.correoalerta = data['vehiculo'].correo;
-                            this.taller1 = data['mantenimiento'].taller.id;
-                            this.tipomanto1 = data['mantenimiento'].tipomanto.id;
-                            this.cantidad = data['mantenimiento'].tipomanto.cantidad;
-                            this.umedida = data['mantenimiento'].tipomanto.umedida;
-                            this.fecha_minima = data['mantenimiento'].date;
                             this.odohwinicial = data['vehiculo'].kms_inicial;
                             this.tipoAccion = 1;
                             break;
@@ -563,8 +553,6 @@ export default {
             this.idAVL = '';
             this.odoswinicial = '';
             this.odohwinicial = '';
-            this.taller1 = '';
-            this.tipomanto1 = '';
             this.cantidad = '';
             this.umedida = '';
             this.correoalerta = '';
@@ -599,25 +587,6 @@ export default {
             me.arrayHistorial = [];
 
             //me.$root.menu = 2;
-        },
-
-        obtenerInfoTipomanto(r){
-            let me = this;
-            var url = '/tipomantos/info?id_tipomanto=' + r;
-
-            axios.get(url).then(function (response) {
-                var respuesta = response.data;
-                me.cantidad = respuesta.tipomantos.cantidad;
-                me.umedida = respuesta.tipomantos.umedida;
-                console.log(response);
-
-            })
-                .catch(function (error) {
-
-                    console.log(error);
-
-                })
-
         },
 
         cambiarKmdesde(){

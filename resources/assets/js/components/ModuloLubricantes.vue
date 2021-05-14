@@ -90,29 +90,25 @@
                                 <td style="text-align: center;" class="align-middle" v-text="principal.Area"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.type"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.kms_inicial"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.nombre"></td>
-                                <template v-if="principal.Date_In_Workshop != null">
+                                <template v-if="principal.nombre != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.nombre"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.Date_Out_Fleet"></td>
-                                    <template v-if="principal.Date_In_Workshop != null">
-                                        <td style="text-align: center;" class="align-middle" v-text="principal.Date_In_Workshop"></td>
-                                        <template v-if="principal.Tipo_Reparacion != null">
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.Tipo_Reparacion"></td>
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.Qty_Qts"></td>
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.Qty_Gals"></td>
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.Date_Out_Workshop"></td>
-                                            <td style="text-align: center;" class="align-middle" v-text="principal.Date_In_Fleet"></td>
-                                            <td style="text-align: center;" class="align-middle">A{{principal.Ciclo_Mto}}</td>
-                                        </template>
-                                        <template v-else>
-                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
-                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
-                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
-                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
-                                            <td style="text-align: center;" class="align-middle">Sin Asignar</td>
-                                        </template>
+                                </template>
+                                <template v-else>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                </template>
+                                <template v-if="principal.Date_In_Workshop != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.Date_In_Workshop"></td>
+                                    <template v-if="principal.Tipo_Reparacion != null">
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.Tipo_Reparacion"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.Qty_Qts"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.Qty_Gals"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.Date_Out_Workshop"></td>
+                                        <td style="text-align: center;" class="align-middle" v-text="principal.Date_In_Fleet"></td>
+                                        <td style="text-align: center;" class="align-middle">A{{principal.Ciclo_Mto}}</td>
                                     </template>
                                     <template v-else>
-                                        <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                         <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                         <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                         <td style="text-align: center;" class="align-middle">Sin Asignar</td>
@@ -121,7 +117,6 @@
                                     </template>
                                 </template>
                                 <template v-else>
-                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
@@ -513,11 +508,9 @@ export default {
 
             this.errorMantenimiento = 0;
             this.errorMostrarMsjlubricantes = [];
-
-            if(!this.fleet_leaving) this.errorMostrarMsjpush("Debe Ingresar una fecha.");
-            if(!this.taller ) this.errorMostrarMsjpush("Por favor seleccione un taller.");
-            if(this.taller=='' ) this.errorMostrarMsjpush("Por favor seleccione un taller.");
-            if(this.errorMostrarMsjlength) this.errorMantenimiento = 1;
+            if(!this.fleet_leaving) this.errorMostrarMsjlubricantes.push("Debe Ingresar una fecha.");
+            if(!this.taller || this.taller=='' ) this.errorMostrarMsjlubricantes.push("Por favor seleccione un taller.");
+            if(this.errorMostrarMsjlubricantes.length) this.errorMantenimiento = 1;
 
             return this.errorMantenimiento;
 

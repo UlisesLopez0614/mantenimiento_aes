@@ -190,25 +190,25 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label"><b>FECHA DE INSTALACION:</b></label>
                                 <div class="col-md-3">
-                                    <input type="date" v-model="fecha" :min="fecha_minima" class="form-control">
+                                    <input type="date" v-model="fecha" :min="fecha_minima" class="form-control" required>
                                 </div>
                                 <label class="col-md-3 form-control-label" >VEHÍCULO:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-9 form-control-label"  v-text="nombre + '-' + placa + '-' + idAVL"></label>
+                                    <label class="col-md-9 form-control-label"  v-text="nombre"></label>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" >TIPO BATERIA (*):</label>
                                 <div class="col-md-9">
-                                    <input v-model="tipo_bateria" class="form-control" placeholder="BATERIA YELLOW TOP">
+                                    <input v-model="tipo_bateria" class="form-control" placeholder="BATERIA YELLOW TOP" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" >MECANICO (*):</label>
                                 <div class="col-md-9">
-                                    <input v-model="mecanico" class="form-control" placeholder="NOMBRE DEL MECANICO QUE REALIZO LA INSTALACION">
+                                    <input v-model="mecanico" class="form-control" placeholder="NOMBRE DEL MECANICO QUE REALIZO LA INSTALACION" required>
                                 </div>
                             </div>
 
@@ -219,26 +219,26 @@
                                 </div>
                                 <label class="col-md-3 form-control-label" >MONTO:</label>
                                 <div class="col-md-3">
-                                    <input type="number" step="1" v-model="amount" class="form-control" placeholder="$ 20.00">
+                                    <input type="number" step="1" v-model="amount" class="form-control" placeholder="$ 20.00" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" >NUMERO DE AVISO (*):</label>
                                 <div class="col-md-9">
-                                    <input v-model="numero_aviso" class="form-control" placeholder="EX: 1000322466">
+                                    <input v-model="numero_aviso" class="form-control" placeholder="EX: 1000322466" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" >ORDEN DE TRABAJO (*):</label>
                                 <div class="col-md-9">
-                                    <input v-model="orden_trabajo" class="form-control" placeholder="EX: 2000643229">
+                                    <input v-model="orden_trabajo" class="form-control" placeholder="EX: 2000643229" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" >DISPOSICION FINAL (*):</label>
+                                <label class="col-md-3 form-control-label" >DISPOSICION FINAL :</label>
                                 <div class="col-md-9">
                                     <input v-model="disposicion_final" class="form-control" placeholder="EX: A003">
                                 </div>
@@ -383,12 +383,10 @@ export default {
 
             let me = this;
             var url = '/baterias?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio  + '&desde=' + desde + '&hasta=' + hasta ;
-            console.log(url);
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayPrincipal = respuesta.principales.data;
                 me.pagination = respuesta.pagination;
-                console.log(respuesta);
             })
                 .catch(function (error) {
 
@@ -485,8 +483,7 @@ export default {
             if(!this.amount || this.amount  < 1 )this.errorMostrarMsjMantenimiento.push("Verifique el monto del mantenimiento");
             if(!this.numero_aviso)this.errorMostrarMsjMantenimiento.push("Ingrese un numero de aviso");
             if(!this.orden_trabajo)this.errorMostrarMsjMantenimiento.push("Ingrese una orden de trabajo");
-            if(!this.disposicion_final)this.errorMostrarMsjMantenimiento.push("Ingrese una disposicion Final");
-
+            if(this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
             return this.errorMantenimiento;
 
         },
@@ -540,8 +537,6 @@ export default {
                             this.tituloModal = 'INGRESO DE MANTENIMIENTO DE BATERIA';
                             this.vehiculo = data['vehiculo'].id;
                             this.nombre = data['vehiculo'].Name;
-                            this.placa = data['vehiculo'].Plate;
-                            this.idAVL = data['vehiculo'].idAVL;
                             this.correoalerta = data['vehiculo'].correo;
                             this.taller1 = data['mantenimiento'].taller.id;
                             this.tipomanto1 = data['mantenimiento'].tipomanto.id;

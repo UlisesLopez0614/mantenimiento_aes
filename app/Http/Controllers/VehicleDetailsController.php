@@ -74,10 +74,6 @@ class VehicleDetailsController extends Controller
                 ->paginate(50);
         }
 
-            $Records =  Detalles_Vehiculos::with(['vehiculo','baterias'])
-                ->whereIn('vehicle_id', $arreglo_vehiculos)
-                ->paginate(50);
-
             return [
                     'pagination' => [
                     'total'         => $Records->total(),

@@ -3103,12 +3103,10 @@ __webpack_require__.r(__webpack_exports__);
     listarPrincipal: function listarPrincipal(page, buscar, criterio, desde, hasta) {
       var me = this;
       var url = '/baterias?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio + '&desde=' + desde + '&hasta=' + hasta;
-      console.log(url);
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayPrincipal = respuesta.principales.data;
         me.pagination = respuesta.pagination;
-        console.log(respuesta);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3177,7 +3175,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.amount || this.amount < 1) this.errorMostrarMsjMantenimiento.push("Verifique el monto del mantenimiento");
       if (!this.numero_aviso) this.errorMostrarMsjMantenimiento.push("Ingrese un numero de aviso");
       if (!this.orden_trabajo) this.errorMostrarMsjMantenimiento.push("Ingrese una orden de trabajo");
-      if (!this.disposicion_final) this.errorMostrarMsjMantenimiento.push("Ingrese una disposicion Final");
+      if (this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
       return this.errorMantenimiento;
     },
     fechaActual2: function fechaActual2() {
@@ -3221,8 +3219,6 @@ __webpack_require__.r(__webpack_exports__);
                   this.tituloModal = 'INGRESO DE MANTENIMIENTO DE BATERIA';
                   this.vehiculo = data['vehiculo'].id;
                   this.nombre = data['vehiculo'].Name;
-                  this.placa = data['vehiculo'].Plate;
-                  this.idAVL = data['vehiculo'].idAVL;
                   this.correoalerta = data['vehiculo'].correo;
                   this.taller1 = data['mantenimiento'].taller.id;
                   this.tipomanto1 = data['mantenimiento'].tipomanto.id;
@@ -3639,7 +3635,6 @@ __webpack_require__.r(__webpack_exports__);
       prueba: '',
       loading: true,
       arrayTaller: [],
-      arrayTipomanto: [],
       arrayPrincipal: [],
       arrayHistorial: [],
       nombre: '',
@@ -3659,7 +3654,6 @@ __webpack_require__.r(__webpack_exports__);
       odoswinicial: '',
       odohwinicial: '',
       taller1: '',
-      tipomanto1: '',
       cantidad: '',
       umedida: '',
       costo: '',
@@ -3733,7 +3727,6 @@ __webpack_require__.r(__webpack_exports__);
         var respuesta = response.data;
         me.arrayPrincipal = respuesta.principales.data;
         me.pagination = respuesta.pagination;
-        console.log(respuesta);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3745,7 +3738,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayHistorial = respuesta.mantenimientos;
-        console.log(respuesta);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3794,15 +3786,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     validarMantenimiento: function validarMantenimiento() {
       this.errorMostrarMsjMantenimiento = [];
-      if (!this.fecha) this.errorMostrarMsjMantenimiento.push("Ingrese una fecha");
+      if (!this.fecha) this.errorMostrarMsjMantenimiento.push("Por favor, ingrese una fecha");
       if (!this.vehiculo) this.errorMostrarMsjMantenimiento.push("Error de Vehiculo");
-      if (!this.tipo_llanta) this.errorMostrarMsjMantenimiento.push("Ingrese el tipo de llanta");
-      if (!this.mecanico) this.errorMostrarMsjMantenimiento.push("Ingrese el nombre del mecanico");
-      if (!this.qty_llantas || this.qty_llantas < 1) this.errorMostrarMsjMantenimiento.push("Verifique la cantidad de llantas a instala");
-      if (!this.amount || this.amount < 1) this.errorMostrarMsjMantenimiento.push("Verifique el monto del mantenimiento");
-      if (!this.numero_aviso) this.errorMostrarMsjMantenimiento.push("Ingrese un numero de aviso");
-      if (!this.orden_trabajo) this.errorMostrarMsjMantenimiento.push("Ingrese una orden de trabajo");
-      if (!this.disposicion_final) this.errorMostrarMsjMantenimiento.push("Ingrese una disposicion Final");
+      if (!this.tipo_llanta) this.errorMostrarMsjMantenimiento.push("Por favor, ingrese el tipo de llanta");
+      if (!this.mecanico) this.errorMostrarMsjMantenimiento.push("Por favor, ingrese el nombre del mecanico");
+      if (!this.qty_llantas || this.qty_llantas < 1) this.errorMostrarMsjMantenimiento.push("Por favor, verfique la cantidad de llantas a instalar");
+      if (!this.amount || this.amount < 1) this.errorMostrarMsjMantenimiento.push("Por favor, verfique el monto del mantenimiento");
+      if (!this.numero_aviso) this.errorMostrarMsjMantenimiento.push("Por favor, ingrese un numero de aviso");
+      if (!this.orden_trabajo) this.errorMostrarMsjMantenimiento.push("Por favor, ingrese una orden de trabajo");
+      if (this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
       return this.errorMantenimiento;
     },
     fechaActual2: function fechaActual2() {
@@ -3849,11 +3841,6 @@ __webpack_require__.r(__webpack_exports__);
                   this.placa = data['vehiculo'].Plate;
                   this.idAVL = data['vehiculo'].idAVL;
                   this.correoalerta = data['vehiculo'].correo;
-                  this.taller1 = data['mantenimiento'].taller.id;
-                  this.tipomanto1 = data['mantenimiento'].tipomanto.id;
-                  this.cantidad = data['mantenimiento'].tipomanto.cantidad;
-                  this.umedida = data['mantenimiento'].tipomanto.umedida;
-                  this.fecha_minima = data['mantenimiento'].date;
                   this.odohwinicial = data['vehiculo'].kms_inicial;
                   this.tipoAccion = 1;
                   break;
@@ -3875,8 +3862,6 @@ __webpack_require__.r(__webpack_exports__);
       this.idAVL = '';
       this.odoswinicial = '';
       this.odohwinicial = '';
-      this.taller1 = '';
-      this.tipomanto1 = '';
       this.cantidad = '';
       this.umedida = '';
       this.correoalerta = '';
@@ -3903,18 +3888,6 @@ __webpack_require__.r(__webpack_exports__);
       me.loading = true;
       me.placa = '';
       me.arrayHistorial = []; //me.$root.menu = 2;
-    },
-    obtenerInfoTipomanto: function obtenerInfoTipomanto(r) {
-      var me = this;
-      var url = '/tipomantos/info?id_tipomanto=' + r;
-      axios.get(url).then(function (response) {
-        var respuesta = response.data;
-        me.cantidad = respuesta.tipomantos.cantidad;
-        me.umedida = respuesta.tipomantos.umedida;
-        console.log(response);
-      })["catch"](function (error) {
-        console.log(error);
-      });
     },
     cambiarKmdesde: function cambiarKmdesde() {
       if (this.desde == '' && this.hasta != '') {
@@ -3999,11 +3972,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4474,10 +4442,9 @@ __webpack_require__.r(__webpack_exports__);
     validarMantenimiento: function validarMantenimiento() {
       this.errorMantenimiento = 0;
       this.errorMostrarMsjlubricantes = [];
-      if (!this.fleet_leaving) this.errorMostrarMsjpush("Debe Ingresar una fecha.");
-      if (!this.taller) this.errorMostrarMsjpush("Por favor seleccione un taller.");
-      if (this.taller == '') this.errorMostrarMsjpush("Por favor seleccione un taller.");
-      if (this.errorMostrarMsjlength) this.errorMantenimiento = 1;
+      if (!this.fleet_leaving) this.errorMostrarMsjlubricantes.push("Debe Ingresar una fecha.");
+      if (!this.taller || this.taller == '') this.errorMostrarMsjlubricantes.push("Por favor seleccione un taller.");
+      if (this.errorMostrarMsjlubricantes.length) this.errorMantenimiento = 1;
       return this.errorMantenimiento;
     },
     registrarIngreso: function registrarIngreso() {
@@ -4668,6 +4635,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -46723,7 +46692,11 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date", min: _vm.fecha_minima },
+                          attrs: {
+                            type: "date",
+                            min: _vm.fecha_minima,
+                            required: ""
+                          },
                           domProps: { value: _vm.fecha },
                           on: {
                             input: function($event) {
@@ -46745,11 +46718,7 @@ var render = function() {
                       _c("div", { staticClass: "col-md-3" }, [
                         _c("label", {
                           staticClass: "col-md-9 form-control-label",
-                          domProps: {
-                            textContent: _vm._s(
-                              _vm.nombre + "-" + _vm.placa + "-" + _vm.idAVL
-                            )
-                          }
+                          domProps: { textContent: _vm._s(_vm.nombre) }
                         })
                       ])
                     ]),
@@ -46772,7 +46741,10 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { placeholder: "BATERIA YELLOW TOP" },
+                          attrs: {
+                            placeholder: "BATERIA YELLOW TOP",
+                            required: ""
+                          },
                           domProps: { value: _vm.tipo_bateria },
                           on: {
                             input: function($event) {
@@ -46806,7 +46778,8 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             placeholder:
-                              "NOMBRE DEL MECANICO QUE REALIZO LA INSTALACION"
+                              "NOMBRE DEL MECANICO QUE REALIZO LA INSTALACION",
+                            required: ""
                           },
                           domProps: { value: _vm.mecanico },
                           on: {
@@ -46876,7 +46849,8 @@ var render = function() {
                           attrs: {
                             type: "number",
                             step: "1",
-                            placeholder: "$ 20.00"
+                            placeholder: "$ 20.00",
+                            required: ""
                           },
                           domProps: { value: _vm.amount },
                           on: {
@@ -46909,7 +46883,10 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { placeholder: "EX: 1000322466" },
+                          attrs: {
+                            placeholder: "EX: 1000322466",
+                            required: ""
+                          },
                           domProps: { value: _vm.numero_aviso },
                           on: {
                             input: function($event) {
@@ -46941,7 +46918,10 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { placeholder: "EX: 2000643229" },
+                          attrs: {
+                            placeholder: "EX: 2000643229",
+                            required: ""
+                          },
                           domProps: { value: _vm.orden_trabajo },
                           on: {
                             input: function($event) {
@@ -46959,7 +46939,7 @@ var render = function() {
                       _c(
                         "label",
                         { staticClass: "col-md-3 form-control-label" },
-                        [_vm._v("DISPOSICION FINAL (*):")]
+                        [_vm._v("DISPOSICION FINAL :")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -48101,11 +48081,7 @@ var render = function() {
                       _c("div", { staticClass: "col-md-3" }, [
                         _c("label", {
                           staticClass: "col-md-9 form-control-label",
-                          domProps: {
-                            textContent: _vm._s(
-                              _vm.nombre + "-" + _vm.placa + "-" + _vm.idAVL
-                            )
-                          }
+                          domProps: { textContent: _vm._s(_vm.nombre) }
                         })
                       ])
                     ]),
@@ -48280,7 +48256,7 @@ var render = function() {
                       _c(
                         "label",
                         { staticClass: "col-md-3 form-control-label" },
-                        [_vm._v("DISPOSICION FINAL (*):")]
+                        [_vm._v("DISPOSICION FINAL :")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -48957,16 +48933,16 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _c("td", {
-                                staticClass: "align-middle",
-                                staticStyle: { "text-align": "center" },
-                                domProps: {
-                                  textContent: _vm._s(principal.nombre)
-                                }
-                              }),
-                              _vm._v(" "),
-                              principal.Date_In_Workshop != null
+                              principal.nombre != null
                                 ? [
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(principal.nombre)
+                                      }
+                                    }),
+                                    _vm._v(" "),
                                     _c("td", {
                                       staticClass: "align-middle",
                                       staticStyle: { "text-align": "center" },
@@ -48975,9 +48951,41 @@ var render = function() {
                                           principal.Date_Out_Fleet
                                         )
                                       }
+                                    })
+                                  ]
+                                : [
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass: "align-middle",
+                                        staticStyle: { "text-align": "center" }
+                                      },
+                                      [_vm._v("Sin Asignar")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass: "align-middle",
+                                        staticStyle: { "text-align": "center" }
+                                      },
+                                      [_vm._v("Sin Asignar")]
+                                    )
+                                  ],
+                              _vm._v(" "),
+                              principal.Date_In_Workshop != null
+                                ? [
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          principal.Date_In_Workshop
+                                        )
+                                      }
                                     }),
                                     _vm._v(" "),
-                                    principal.Date_In_Workshop != null
+                                    principal.Tipo_Reparacion != null
                                       ? [
                                           _c("td", {
                                             staticClass: "align-middle",
@@ -48986,149 +48994,59 @@ var render = function() {
                                             },
                                             domProps: {
                                               textContent: _vm._s(
-                                                principal.Date_In_Workshop
+                                                principal.Tipo_Reparacion
                                               )
                                             }
                                           }),
                                           _vm._v(" "),
-                                          principal.Tipo_Reparacion != null
-                                            ? [
-                                                _c("td", {
-                                                  staticClass: "align-middle",
-                                                  staticStyle: {
-                                                    "text-align": "center"
-                                                  },
-                                                  domProps: {
-                                                    textContent: _vm._s(
-                                                      principal.Tipo_Reparacion
-                                                    )
-                                                  }
-                                                }),
-                                                _vm._v(" "),
-                                                _c("td", {
-                                                  staticClass: "align-middle",
-                                                  staticStyle: {
-                                                    "text-align": "center"
-                                                  },
-                                                  domProps: {
-                                                    textContent: _vm._s(
-                                                      principal.Qty_Qts
-                                                    )
-                                                  }
-                                                }),
-                                                _vm._v(" "),
-                                                _c("td", {
-                                                  staticClass: "align-middle",
-                                                  staticStyle: {
-                                                    "text-align": "center"
-                                                  },
-                                                  domProps: {
-                                                    textContent: _vm._s(
-                                                      principal.Qty_Gals
-                                                    )
-                                                  }
-                                                }),
-                                                _vm._v(" "),
-                                                _c("td", {
-                                                  staticClass: "align-middle",
-                                                  staticStyle: {
-                                                    "text-align": "center"
-                                                  },
-                                                  domProps: {
-                                                    textContent: _vm._s(
-                                                      principal.Date_Out_Workshop
-                                                    )
-                                                  }
-                                                }),
-                                                _vm._v(" "),
-                                                _c("td", {
-                                                  staticClass: "align-middle",
-                                                  staticStyle: {
-                                                    "text-align": "center"
-                                                  },
-                                                  domProps: {
-                                                    textContent: _vm._s(
-                                                      principal.Date_In_Fleet
-                                                    )
-                                                  }
-                                                }),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "td",
-                                                  {
-                                                    staticClass: "align-middle",
-                                                    staticStyle: {
-                                                      "text-align": "center"
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "A" +
-                                                        _vm._s(
-                                                          principal.Ciclo_Mto
-                                                        )
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            : [
-                                                _c(
-                                                  "td",
-                                                  {
-                                                    staticClass: "align-middle",
-                                                    staticStyle: {
-                                                      "text-align": "center"
-                                                    }
-                                                  },
-                                                  [_vm._v("Sin Asignar")]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "td",
-                                                  {
-                                                    staticClass: "align-middle",
-                                                    staticStyle: {
-                                                      "text-align": "center"
-                                                    }
-                                                  },
-                                                  [_vm._v("Sin Asignar")]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "td",
-                                                  {
-                                                    staticClass: "align-middle",
-                                                    staticStyle: {
-                                                      "text-align": "center"
-                                                    }
-                                                  },
-                                                  [_vm._v("Sin Asignar")]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "td",
-                                                  {
-                                                    staticClass: "align-middle",
-                                                    staticStyle: {
-                                                      "text-align": "center"
-                                                    }
-                                                  },
-                                                  [_vm._v("Sin Asignar")]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "td",
-                                                  {
-                                                    staticClass: "align-middle",
-                                                    staticStyle: {
-                                                      "text-align": "center"
-                                                    }
-                                                  },
-                                                  [_vm._v("Sin Asignar")]
-                                                )
-                                              ]
-                                        ]
-                                      : [
+                                          _c("td", {
+                                            staticClass: "align-middle",
+                                            staticStyle: {
+                                              "text-align": "center"
+                                            },
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                principal.Qty_Qts
+                                              )
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("td", {
+                                            staticClass: "align-middle",
+                                            staticStyle: {
+                                              "text-align": "center"
+                                            },
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                principal.Qty_Gals
+                                              )
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("td", {
+                                            staticClass: "align-middle",
+                                            staticStyle: {
+                                              "text-align": "center"
+                                            },
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                principal.Date_Out_Workshop
+                                              )
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("td", {
+                                            staticClass: "align-middle",
+                                            staticStyle: {
+                                              "text-align": "center"
+                                            },
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                principal.Date_In_Fleet
+                                              )
+                                            }
+                                          }),
+                                          _vm._v(" "),
                                           _c(
                                             "td",
                                             {
@@ -49137,9 +49055,15 @@ var render = function() {
                                                 "text-align": "center"
                                               }
                                             },
-                                            [_vm._v("Sin Asignar")]
-                                          ),
-                                          _vm._v(" "),
+                                            [
+                                              _vm._v(
+                                                "A" +
+                                                  _vm._s(principal.Ciclo_Mto)
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      : [
                                           _c(
                                             "td",
                                             {
@@ -49197,15 +49121,6 @@ var render = function() {
                                         ]
                                   ]
                                 : [
-                                    _c(
-                                      "td",
-                                      {
-                                        staticClass: "align-middle",
-                                        staticStyle: { "text-align": "center" }
-                                      },
-                                      [_vm._v("Sin Asignar")]
-                                    ),
-                                    _vm._v(" "),
                                     _c(
                                       "td",
                                       {
@@ -50916,14 +50831,42 @@ var render = function() {
                                           })
                                         ],
                                     _vm._v(" "),
-                                    _c(
-                                      "td",
-                                      {
-                                        staticClass: "align-middle",
-                                        staticStyle: { "text-align": "center" }
-                                      },
-                                      [_vm._v("A" + _vm._s(principal.counter))]
-                                    ),
+                                    principal.counter != null
+                                      ? [
+                                          _c(
+                                            "td",
+                                            {
+                                              staticClass: "align-middle",
+                                              staticStyle: {
+                                                "text-align": "center"
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "a",
+                                                {
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.abrirModal(
+                                                        "principal",
+                                                        "registrar",
+                                                        principal
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      principal.counter * 6000
+                                                    ) + " KM"
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      : _vm._e(),
                                     _vm._v(" "),
                                     _c("td", {
                                       staticClass: "align-middle",
@@ -51397,11 +51340,7 @@ var render = function() {
                         _c("label", {
                           staticClass: "col-md-9 form-control-label",
                           attrs: { for: "text-input" },
-                          domProps: {
-                            textContent: _vm._s(
-                              _vm.nombre + "-" + _vm.placa + "-" + _vm.idAVL
-                            )
-                          }
+                          domProps: { textContent: _vm._s(_vm.nombre) }
                         })
                       ]),
                       _vm._v(" "),
@@ -51909,7 +51848,7 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("TIPO DE INDICADOR")]
+          [_vm._v("CICLO MANTENIMIENTO")]
         ),
         _vm._v(" "),
         _c(
