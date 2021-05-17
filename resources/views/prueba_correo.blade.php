@@ -890,7 +890,7 @@
                                                                                                                 color: #fff;
                                                                                                                 background-color: #007bff;
                                                                                                                 vertical-align: baseline;
-                                                                                                                border-radius: 0.5rem;">12 Km</span> Faltan 12 Km para su mantenimiento programad.
+                                                                                                                border-radius: 0.5rem;">12 Km</span> Faltan 12 Km para su mantenimiento programado.
                                                                                             </span>
                                                                                         </td>
                                                                                     </tr>
