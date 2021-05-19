@@ -31,7 +31,6 @@
                                 <th style="text-align: center;">NOMBRE</th>
                                 <th style="text-align: center;">CANTIDAD</th>
                                 <th style="text-align: center;">UNIDAD DE MEDIDA</th>
-                                <th style="text-align: center;">% DE ALERTA</th>
                                 <th style="text-align: center;">ESTADO</th>
                             </tr>
                         </thead>
@@ -55,7 +54,6 @@
                                 <td style="text-align: center;" v-text="tipomanto.nombre"></td>
                                 <td style="text-align: center;" v-text="tipomanto.cantidad"></td>
                                 <td style="text-align: center;" v-text="tipomanto.umedida"></td>
-                                <td style="text-align: center;" v-text="tipomanto.porcentajealerta"></td>
                                 <td style="text-align: center;">
                                     <div v-if="tipomanto.condicion">
                                         <span class="badge badge-success">ACTIVO</span>
@@ -99,31 +97,25 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TIPO DE MANTENIMIENTO:</label>
+                                <label class="col-md-3 form-control-label" >TIPO DE MANTENIMIENTO:</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control" placeholder="INGRESE UN NOMBRE PARA EL TIPO DE MANTENIMIENTO">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">CANTIDAD:</label>
+                                <label class="col-md-3 form-control-label">CANTIDAD:</label>
                                 <div class="col-md-9">
                                     <input type="number" v-model="cantidad" min="0" class="form-control" placeholder="INGRESE LA CANTIDAD">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">UNIDAD DE MEDIDA:</label>
+                                <label class="col-md-3 form-control-label">UNIDAD DE MEDIDA:</label>
                                 <div class="col-md-9">
                                     <select class="form-control" v-model="umedida">
                                         <option value="">SELECCIONE UNA UNIDAD DE MEDIDA</option>
                                         <option value="KILOMETRO">KILÓMETRO</option>
                                         <option value="ESTANDAR">ESTANDAR</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">% DE ALERTA:</label>
-                                <div class="col-md-9">
-                                    <input type="number" v-model="porcentajealerta" min="0" id="descripcion" name="descripcion" class="form-control" placeholder="INGRESE UN PORCENTAJE PARA ALERTA">
                                 </div>
                             </div>
                             <div v-show="errorTipomanto" class="form-group row div-error">
@@ -180,9 +172,7 @@
                 offset : 3,
                 criterio : 'nombre',
                 buscar : ''
-
             }
-
         },
 
         computed : {
@@ -439,9 +429,7 @@
                 if(!this.nombre) this.errorMostrarMsjTipomanto.push("EL NOMBRE DEL TIPO MANTENIMIENTO NO PUEDE IR VACÍO.");
                 if(!this.cantidad) this.errorMostrarMsjTipomanto.push("LA CANTIDAD DEL TIPO MANTENIMIENTO NO PUEDE IR VACÍA.");
                 if(!this.umedida) this.errorMostrarMsjTipomanto.push("LA UNIDAD DE MEDIDA DEL TIPO MANTENIMIENTO NO PUEDE IR VACÍA.");
-                if(!this.porcentajealerta) this.errorMostrarMsjTipomanto.push("EL PORCENTAJE DE ALERTA NO PUEDE IR VACÍO.");
                 if(this.errorMostrarMsjTipomanto.length) this.errorTipomanto = 1;
-
                 return this.errorTipomanto;
 
             },

@@ -470,7 +470,7 @@ export default {
                         case 'registrar':
                         {
                             this.modal = 1;
-                            this.tituloModal = 'REGISTRAR TIPO MANTENIMIENTO'
+                            this.tituloModal = 'REGISTRAR NUEVO USUARIO DE TALLER'
                             this.nombre = '';
                             this.cantidad = '';
                             this.umedida = '';
