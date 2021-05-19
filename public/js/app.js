@@ -6643,14 +6643,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6837,7 +6829,6 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.nombre) this.errorMostrarMsjTipomanto.push("EL NOMBRE DEL TIPO MANTENIMIENTO NO PUEDE IR VACÍO.");
       if (!this.cantidad) this.errorMostrarMsjTipomanto.push("LA CANTIDAD DEL TIPO MANTENIMIENTO NO PUEDE IR VACÍA.");
       if (!this.umedida) this.errorMostrarMsjTipomanto.push("LA UNIDAD DE MEDIDA DEL TIPO MANTENIMIENTO NO PUEDE IR VACÍA.");
-      if (!this.porcentajealerta) this.errorMostrarMsjTipomanto.push("EL PORCENTAJE DE ALERTA NO PUEDE IR VACÍO.");
       if (this.errorMostrarMsjTipomanto.length) this.errorTipomanto = 1;
       return this.errorTipomanto;
     },
@@ -7401,7 +7392,7 @@ __webpack_require__.r(__webpack_exports__);
               case 'registrar':
                 {
                   this.modal = 1;
-                  this.tituloModal = 'REGISTRAR TIPO MANTENIMIENTO';
+                  this.tituloModal = 'REGISTRAR NUEVO USUARIO DE TALLER';
                   this.nombre = '';
                   this.cantidad = '';
                   this.umedida = '';
@@ -53893,13 +53884,6 @@ var render = function() {
                       domProps: { textContent: _vm._s(tipomanto.umedida) }
                     }),
                     _vm._v(" "),
-                    _c("td", {
-                      staticStyle: { "text-align": "center" },
-                      domProps: {
-                        textContent: _vm._s(tipomanto.porcentajealerta)
-                      }
-                    }),
-                    _vm._v(" "),
                     _c("td", { staticStyle: { "text-align": "center" } }, [
                       tipomanto.condicion
                         ? _c("div", [
@@ -54084,10 +54068,7 @@ var render = function() {
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("TIPO DE MANTENIMIENTO:")]
                       ),
                       _vm._v(" "),
@@ -54123,10 +54104,7 @@ var render = function() {
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("CANTIDAD:")]
                       ),
                       _vm._v(" "),
@@ -54162,10 +54140,7 @@ var render = function() {
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("UNIDAD DE MEDIDA:")]
                       ),
                       _vm._v(" "),
@@ -54212,47 +54187,6 @@ var render = function() {
                             ])
                           ]
                         )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
-                        [_vm._v("% DE ALERTA:")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.porcentajealerta,
-                              expression: "porcentajealerta"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "number",
-                            min: "0",
-                            id: "descripcion",
-                            name: "descripcion",
-                            placeholder: "INGRESE UN PORCENTAJE PARA ALERTA"
-                          },
-                          domProps: { value: _vm.porcentajealerta },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.porcentajealerta = $event.target.value
-                            }
-                          }
-                        })
                       ])
                     ]),
                     _vm._v(" "),
@@ -54400,10 +54334,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticStyle: { "text-align": "center" } }, [
           _vm._v("UNIDAD DE MEDIDA")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticStyle: { "text-align": "center" } }, [
-          _vm._v("% DE ALERTA")
         ]),
         _vm._v(" "),
         _c("th", { staticStyle: { "text-align": "center" } }, [
