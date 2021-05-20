@@ -105,15 +105,13 @@ class MantenimientoController extends Controller
             //----------------
         $ulto_manto->FK_idMtto = $mantenimiento->id;
         $ulto_manto->quedan = $request->cantidad;
-        if($ulto_manto->counter == 5)
-        {
-            $ulto_manto->counter = 1;
-        }
-        else{$ulto_manto->counter =  $ulto_manto->counter +1;}
+        $Vehicle = Vehiculo::findorFail($request->vehiculo);
+        ($Vehicle->type =='PESADO')?$ulto_manto->counter = 1:
+            (($ulto_manto->counter == 6)?$ulto_manto->counter = 1:$ulto_manto->counter =  $ulto_manto->counter +1);
         $ulto_manto->save();
     }
 
-
+    /*
     public function refrescarOdometro(Request $request)
     {
 
@@ -147,5 +145,5 @@ class MantenimientoController extends Controller
         ];
 
     }
-
+    */ //Funcion Sin uso, el antiguo programador se mamo con esta funcion que no tenia razon de existir xd
 }

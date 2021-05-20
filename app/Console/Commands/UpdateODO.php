@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -50,6 +51,18 @@ class UpdateODO extends Command
         $Vehicles = Vehiculo::all();
         $initial_date = new DateTime('2021-05-06');
         $end_date = now();
+        /* Mini Servicio de Actualizacion de Placas y idAVL en base a viejos registros
+        $Old_Data = DB::table('ex')->get();
+        foreach ($Old_Data as $ex ){
+            $VH = Vehiculo::where('Name','=',$ex->Name)->first();
+            if($VH != null ){
+                $VH->idAVL = $ex->idAVL;
+                $VH->Plate = $ex->Plate;
+                $VH->Fleet = $ex->Fleet;
+                $VH->save();
+            }
+        }
+        dd("Done");*/
         $counter = 0;
         Log::channel('ODO')->info('Actualizando Registros para Vehiculos  : '.now());
         foreach($Vehicles as $VH)

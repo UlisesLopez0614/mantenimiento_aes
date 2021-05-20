@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vehiculo extends Model
 {
     //Nombre de la table
-    protected $table = 'tb_vehicles';
+    protected $table = 'vehicles';
 
     //Llave primaria
     protected $primaryKey = 'id';
@@ -21,17 +21,17 @@ class Vehiculo extends Model
         'idAVL', 'Name', 'Plate', 'Fleet', 'kms_inicial'
     ];
 
-    public function setNameAttribute($value) 
+    public function setNameAttribute($value)
     {
         $this->attributes['Name'] = strtoupper($value);
     }
 
-    public function setPlateAttribute($value) 
+    public function setPlateAttribute($value)
     {
         $this->attributes['Plate'] = strtoupper($value);
     }
 
-    public function setFleetAttribute($value) 
+    public function setFleetAttribute($value)
     {
         $this->attributes['Fleet'] = strtoupper($value);
     }
