@@ -5050,6 +5050,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -50824,38 +50829,81 @@ var render = function() {
                                     _vm._v(" "),
                                     principal.counter != null
                                       ? [
-                                          _c(
-                                            "td",
-                                            {
-                                              staticClass: "align-middle",
-                                              staticStyle: {
-                                                "text-align": "center"
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "a",
-                                                {
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.abrirModal(
-                                                        "principal",
-                                                        "registrar",
-                                                        principal
-                                                      )
+                                          principal.type == "PESADO"
+                                            ? [
+                                                _c(
+                                                  "td",
+                                                  {
+                                                    staticClass: "align-middle",
+                                                    staticStyle: {
+                                                      "text-align": "center"
                                                     }
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      principal.counter * 6000
-                                                    ) + " KM"
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          )
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "a",
+                                                      {
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.abrirModal(
+                                                              "principal",
+                                                              "registrar",
+                                                              principal
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            principal.counter *
+                                                              3500
+                                                          ) + " KM"
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            : [
+                                                _c(
+                                                  "td",
+                                                  {
+                                                    staticClass: "align-middle",
+                                                    staticStyle: {
+                                                      "text-align": "center"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "a",
+                                                      {
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.abrirModal(
+                                                              "principal",
+                                                              "registrar",
+                                                              principal
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            principal.counter *
+                                                              6000
+                                                          ) + " KM"
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
                                         ]
                                       : _vm._e(),
                                     _vm._v(" "),

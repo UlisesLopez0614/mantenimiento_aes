@@ -121,7 +121,12 @@
                                             <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
                                         </template>
                                         <template v-if="principal.counter != null ">
-                                            <td style="text-align: center;" class="align-middle"><a @click="abrirModal('principal', 'registrar', principal)">{{principal.counter*6000}} KM</a></td>
+                                            <template v-if="principal.type == 'PESADO' ">
+                                                <td style="text-align: center;" class="align-middle"><a @click="abrirModal('principal', 'registrar', principal)">{{principal.counter*3500}} KM</a></td>
+                                            </template>
+                                            <template v-else>
+                                                <td style="text-align: center;" class="align-middle"><a @click="abrirModal('principal', 'registrar', principal)">{{principal.counter*6000}} KM</a></td>
+                                            </template>
                                         </template>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.date"></td>
