@@ -116,7 +116,7 @@ class MantenimientoController extends Controller
     {
 
         $ulto_manto = Principal::select('tb_principal.*')
-                                ->join('tb_vehicles', 'tb_vehicles.id', '=', 'tb_principal.FK_idVehicle')
+                                ->join('vehicles', 'vehicles.id', '=', 'tb_principal.FK_idVehicle')
                                 ->where('tb_principal.FK_idVehicle', $request->vehiculo)
                                 ->first();
 

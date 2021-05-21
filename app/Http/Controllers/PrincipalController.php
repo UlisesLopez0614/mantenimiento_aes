@@ -72,8 +72,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar == null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto == null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('estado', true)
                                 ->get();
@@ -92,8 +92,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar == null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto == null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->join('tb_talleres', 'tb_talleres.id', '=', 'tb_mtto_history.FK_taller')
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('estado', true)
@@ -112,8 +112,8 @@ class PrincipalController extends Controller
                                     ->paginate(50);
         }elseif($buscar == null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto != null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->join('tb_tipo_mttos', 'tb_tipo_mttos.id', '=', 'tb_mtto_history.FK_tipoMtto')
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
                                 ->where('estado', true)
@@ -133,8 +133,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar != null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto == null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('estado', true)
@@ -154,8 +154,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar != null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto == null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('estado', true)
@@ -175,8 +175,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar != null && $desde == null && $hasta == null && $select_taller == null && $select_tipomanto != null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
                                 ->where('estado', true)
@@ -196,8 +196,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar == null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto == null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('estado', true)
@@ -217,8 +217,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar == null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto != null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
                                 ->where('estado', true)
@@ -238,8 +238,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar == null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto != null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
                                 ->where('estado', true)
@@ -259,8 +259,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar != null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto == null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
@@ -281,8 +281,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar != null && $desde != null && $hasta != null && $select_taller == null && $select_tipomanto != null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
@@ -303,8 +303,8 @@ class PrincipalController extends Controller
 
         }elseif($buscar == null && $desde != null && $hasta != null && $select_taller != null && $select_tipomanto != null){
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
                                 ->where('tb_tipo_mttos.id', $select_tipomanto)
@@ -325,8 +325,8 @@ class PrincipalController extends Controller
 
         }else{
 
-            $vehicles = Vehiculo::select('tb_vehicles.id')
-                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'tb_vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id')
+                                ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->where($criterio, 'like', '%' . $buscar . '%')
                                 ->whereBetween('tb_mtto_history.date', [$desde, $hasta])
                                 ->where('tb_talleres.id', $select_taller)
