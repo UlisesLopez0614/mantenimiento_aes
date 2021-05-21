@@ -26,7 +26,7 @@ class VehicleDetailsController extends Controller
             $desde = $request->desde;
             $hasta = $request->hasta;
             $db = Vehiculo::where('estado', 1)->toSql();
-            $vehicles = Vehiculo::select('tb_vehicles.id')->where('estado', 1)->get();
+            $vehicles = Vehiculo::select('vehicles.id')->where('estado', 1)->get();
 
             $arreglo_vehiculos = array();
 
@@ -152,7 +152,7 @@ class VehicleDetailsController extends Controller
         $criterio = $request->criterio;
         $desde = $request->desde;
         $hasta = $request->hasta;
-        $vehicles = Vehiculo::select('tb_vehicles.id')->where('estado', 1)->get();
+        $vehicles = Vehiculo::select('vehicles.id')->where('estado', 1)->get();
 
         $arreglo_vehiculos = array();
 
@@ -252,7 +252,7 @@ class VehicleDetailsController extends Controller
         $buscar = $request->buscar;
         $desde = $request->desde;
         $hasta = $request->hasta;
-        $vehicles = Vehiculo::select('tb_vehicles.id')->where('estado', 1)->get();
+        $vehicles = Vehiculo::select('vehicles.id')->where('estado', 1)->get();
 
         $arreglo_vehiculos = array();
 
@@ -265,7 +265,7 @@ class VehicleDetailsController extends Controller
                     'tb_detalles_vehicles.vehicle_id','tb_detalles_vehicles.lubricante_id',
                     'tb_lubricantes_history.Date_Out_Fleet','tb_lubricantes_history.Date_In_Workshop','tb_lubricantes_history.Date_Out_Workshop','tb_lubricantes_history.Date_In_Fleet','tb_lubricantes_history.Qty_Qts','tb_lubricantes_history.Qty_Gals','tb_lubricantes_history.Amount','tb_lubricantes_history.Tipo_Reparacion','tb_lubricantes_history.Ciclo_Mto')
                 ->leftJoin('tb_lubricantes_history','tb_lubricantes_history.id', '=', 'tb_detalles_vehicles.lubricante_id')
-                ->leftJoin('tb_vehicles','tb_vehicles.id', '=', 'tb_detalles_vehicles.vehicle_id')
+                ->leftJoin('tb_vehicles','vehicles.id', '=', 'tb_detalles_vehicles.vehicle_id')
                 ->leftJoin('tb_talleres','tb_talleres.id','=', 'tb_lubricantes_history.FK_taller')
                 ->whereBetween('tb_lubricantes_history.Date_Out_Fleet',[$desde,$hasta])
                 ->where('tb_vehicles.Name', 'LIKE','%'.$buscar.'%')
@@ -305,7 +305,7 @@ class VehicleDetailsController extends Controller
                     'tb_detalles_vehicles.vehicle_id','tb_detalles_vehicles.lubricante_id',
                     'tb_lubricantes_history.Date_Out_Fleet','tb_lubricantes_history.Date_In_Workshop','tb_lubricantes_history.Date_Out_Workshop','tb_lubricantes_history.Date_In_Fleet','tb_lubricantes_history.Qty_Qts','tb_lubricantes_history.Qty_Gals','tb_lubricantes_history.Amount','tb_lubricantes_history.Tipo_Reparacion','tb_lubricantes_history.Ciclo_Mto')
                 ->leftJoin('tb_lubricantes_history','tb_lubricantes_history.id', '=', 'tb_detalles_vehicles.lubricante_id')
-                ->leftJoin('tb_vehicles','tb_vehicles.id', '=', 'tb_detalles_vehicles.vehicle_id')
+                ->leftJoin('tb_vehicles','vehicles.id', '=', 'tb_detalles_vehicles.vehicle_id')
                 ->leftJoin('tb_talleres','tb_talleres.id','=', 'tb_lubricantes_history.FK_taller')
                 ->orwhere('tb_vehicles.Name', 'LIKE','%'.$buscar.'%')
                 ->orwhere('tb_vehicles.Plate', 'LIKE','%'.$buscar.'%')
