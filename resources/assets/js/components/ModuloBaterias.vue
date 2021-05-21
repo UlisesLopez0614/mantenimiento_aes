@@ -447,7 +447,7 @@ export default {
 
             }).then(function (response) {
 
-                me.listarPrincipal(1, '', 'Name', '', 'tb_vehicles.kms_inicial', '', '');
+                me.listarPrincipal(1, '', 'Name', '', 'vehicles.kms_inicial', '', '');
                 me.cerrarModal();
                 Swal.fire({
                     position: 'top-end',

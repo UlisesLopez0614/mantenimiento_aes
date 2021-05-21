@@ -261,19 +261,19 @@ class VehicleDetailsController extends Controller
         }
         if($desde != null && $hasta != null){
             $Records = DB::table('tb_detalles_vehicles')
-                ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.Fleet','tb_vehicles.Area','tb_vehicles.type','tb_vehicles.kms_inicial','tb_talleres.nombre',
+                ->select('vehicles.Name','vehicles.Plate','vehicles.Fleet','vehicles.Area','vehicles.type','vehicles.kms_inicial','tb_talleres.nombre',
                     'tb_detalles_vehicles.vehicle_id','tb_detalles_vehicles.lubricante_id',
                     'tb_lubricantes_history.Date_Out_Fleet','tb_lubricantes_history.Date_In_Workshop','tb_lubricantes_history.Date_Out_Workshop','tb_lubricantes_history.Date_In_Fleet','tb_lubricantes_history.Qty_Qts','tb_lubricantes_history.Qty_Gals','tb_lubricantes_history.Amount','tb_lubricantes_history.Tipo_Reparacion','tb_lubricantes_history.Ciclo_Mto')
                 ->leftJoin('tb_lubricantes_history','tb_lubricantes_history.id', '=', 'tb_detalles_vehicles.lubricante_id')
-                ->leftJoin('tb_vehicles','vehicles.id', '=', 'tb_detalles_vehicles.vehicle_id')
+                ->leftJoin('vehicles','vehicles.id', '=', 'tb_detalles_vehicles.vehicle_id')
                 ->leftJoin('tb_talleres','tb_talleres.id','=', 'tb_lubricantes_history.FK_taller')
                 ->whereBetween('tb_lubricantes_history.Date_Out_Fleet',[$desde,$hasta])
-                ->where('tb_vehicles.Name', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.Plate', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.Fleet', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.Area', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.type', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.kms_inicial', 'LIKE','%'.$buscar.'%')
+                ->where('vehicles.Name', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.Plate', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.Fleet', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.Area', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.type', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.kms_inicial', 'LIKE','%'.$buscar.'%')
                 ->orwhere('tb_talleres.nombre', 'LIKE','%'.$buscar.'%')
                 ->paginate(50);
             /*  Consulta de Datos usando Eloquent pero fallan al momento de realizar una busqueda debido al tipo de datos que se manejan
@@ -301,18 +301,18 @@ class VehicleDetailsController extends Controller
         }
         else{
                 $Records = DB::table('tb_detalles_vehicles')
-                ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.Fleet','tb_vehicles.Area','tb_vehicles.type','tb_vehicles.kms_inicial','tb_talleres.nombre',
+                ->select('vehicles.Name','vehicles.Plate','vehicles.Fleet','vehicles.Area','vehicles.type','vehicles.kms_inicial','tb_talleres.nombre',
                     'tb_detalles_vehicles.vehicle_id','tb_detalles_vehicles.lubricante_id',
                     'tb_lubricantes_history.Date_Out_Fleet','tb_lubricantes_history.Date_In_Workshop','tb_lubricantes_history.Date_Out_Workshop','tb_lubricantes_history.Date_In_Fleet','tb_lubricantes_history.Qty_Qts','tb_lubricantes_history.Qty_Gals','tb_lubricantes_history.Amount','tb_lubricantes_history.Tipo_Reparacion','tb_lubricantes_history.Ciclo_Mto')
                 ->leftJoin('tb_lubricantes_history','tb_lubricantes_history.id', '=', 'tb_detalles_vehicles.lubricante_id')
-                ->leftJoin('tb_vehicles','vehicles.id', '=', 'tb_detalles_vehicles.vehicle_id')
+                ->leftJoin('vehicles','vehicles.id', '=', 'tb_detalles_vehicles.vehicle_id')
                 ->leftJoin('tb_talleres','tb_talleres.id','=', 'tb_lubricantes_history.FK_taller')
-                ->orwhere('tb_vehicles.Name', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.Plate', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.Fleet', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.Area', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.type', 'LIKE','%'.$buscar.'%')
-                ->orwhere('tb_vehicles.kms_inicial', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.Name', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.Plate', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.Fleet', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.Area', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.type', 'LIKE','%'.$buscar.'%')
+                ->orwhere('vehicles.kms_inicial', 'LIKE','%'.$buscar.'%')
                 ->orwhere('tb_talleres.nombre', 'LIKE','%'.$buscar.'%')
                 ->paginate(50);
 /*

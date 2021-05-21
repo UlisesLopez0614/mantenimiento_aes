@@ -32,7 +32,7 @@
                             <div class="col-md-10">
                                 <div class="input-group input-daterange">
                                     <select class="form-control col-md-6" v-model="criterio2">
-                                        <option value="tb_vehicles.kms_inicial">ODÓMETRO ACTUAL</option>
+                                        <option value="vehicles.kms_inicial">ODÓMETRO ACTUAL</option>
                                         <option value="tb_mtto_history.kms_goal">ODÓMETRO ALERTA</option>
                                     </select>
                                     <div class="input-group-addon bg-primary">DESDE</div>
@@ -470,7 +470,7 @@
                 },
                 offset : 3,
                 criterio : 'Name',
-                criterio2 : 'tb_vehicles.kms_inicial',
+                criterio2 : 'vehicles.kms_inicial',
                 buscar : '',
                 minimo_desde : '',
                 minimo_hasta : '',
@@ -602,7 +602,7 @@
 
                 }).then(function (response) {
                     if(me.buscar!= undefined)
-                    {me.listarPrincipal(1, '', 'Name', 'tb_vehicles.kms_inicial','', '', '','');}
+                    {me.listarPrincipal(1, '', 'Name', 'vehicles.kms_inicial','', '', '','');}
                     else{me.listarPrincipal(1, me.buscar, me.criterio, me.criterio2, me.desde, me.hasta, me.select_taller ,me.select_tipomanto);}
                     me.cerrarModal();
                     Swal.fire({
