@@ -3627,7 +3627,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -46949,6 +46948,16 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    principal.vehiculo.tbaterias
+                                  )
+                                }
+                              }),
+                              _vm._v(" "),
                               principal.baterias != null
                                 ? [
                                     _c("td", {
@@ -46956,7 +46965,7 @@ var render = function() {
                                       staticStyle: { "text-align": "center" },
                                       domProps: {
                                         textContent: _vm._s(
-                                          principal.baterias.Tipo_Bateria
+                                          principal.baterias.Qty
                                         )
                                       }
                                     }),
@@ -46966,7 +46975,7 @@ var render = function() {
                                       staticStyle: { "text-align": "center" },
                                       domProps: {
                                         textContent: _vm._s(
-                                          principal.baterias.Qty
+                                          principal.baterias.Tipo_Bateria
                                         )
                                       }
                                     }),
@@ -46986,17 +46995,7 @@ var render = function() {
                                       staticStyle: { "text-align": "center" },
                                       domProps: {
                                         textContent: _vm._s(
-                                          principal.baterias.Qty
-                                        )
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      staticClass: "align-middle",
-                                      staticStyle: { "text-align": "center" },
-                                      domProps: {
-                                        textContent: _vm._s(
-                                          principal.baterias.Amount
+                                          "$" + principal.baterias.Amount
                                         )
                                       }
                                     }),
@@ -47857,7 +47856,7 @@ var staticRenderFns = [
           {
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" },
-            attrs: { colspan: "8" }
+            attrs: { colspan: "7" }
           },
           [_vm._v("VEHÍCULO")]
         ),
@@ -47867,7 +47866,7 @@ var staticRenderFns = [
           {
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" },
-            attrs: { colspan: "7" }
+            attrs: { colspan: "8" }
           },
           [_vm._v("DATOS MECANICOS")]
         )
@@ -47943,15 +47942,6 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("TIPO DE BATERIA")]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "align-middle",
-            staticStyle: { "text-align": "center" }
-          },
           [_vm._v("TOTAL DE BATERAS ASIGNADAS")]
         ),
         _vm._v(" "),
@@ -47961,7 +47951,7 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("MECANICO")]
+          [_vm._v("CANTIDAD DE BATERIAS INSTALADAS")]
         ),
         _vm._v(" "),
         _c(
@@ -47970,7 +47960,16 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("CANTIDAD DE BATERIAS INSTALADAS")]
+          [_vm._v("TIPO DE BATERIA")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "align-middle",
+            staticStyle: { "text-align": "center" }
+          },
+          [_vm._v("MECANICO")]
         ),
         _vm._v(" "),
         _c(
@@ -48339,6 +48338,16 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    principal.vehiculo.tllantas
+                                  )
+                                }
+                              }),
+                              _vm._v(" "),
                               principal.llantas != null
                                 ? [
                                     _c("td", {
@@ -48346,27 +48355,17 @@ var render = function() {
                                       staticStyle: { "text-align": "center" },
                                       domProps: {
                                         textContent: _vm._s(
+                                          principal.llantas.Qty
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "align-middle",
+                                      staticStyle: { "text-align": "center" },
+                                      domProps: {
+                                        textContent: _vm._s(
                                           principal.llantas.Tipo_Llanta
-                                        )
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      staticClass: "align-middle",
-                                      staticStyle: { "text-align": "center" },
-                                      domProps: {
-                                        textContent: _vm._s(
-                                          principal.llantas.Qty
-                                        )
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      staticClass: "align-middle",
-                                      staticStyle: { "text-align": "center" },
-                                      domProps: {
-                                        textContent: _vm._s(
-                                          principal.llantas.Qty
                                         )
                                       }
                                     }),
@@ -48422,15 +48421,6 @@ var render = function() {
                                     })
                                   ]
                                 : [
-                                    _c(
-                                      "td",
-                                      {
-                                        staticClass: "align-middle",
-                                        staticStyle: { "text-align": "center" }
-                                      },
-                                      [_vm._v("Sin Asignar")]
-                                    ),
-                                    _vm._v(" "),
                                     _c(
                                       "td",
                                       {
@@ -49174,7 +49164,7 @@ var staticRenderFns = [
           {
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" },
-            attrs: { colspan: "6" }
+            attrs: { colspan: "7" }
           },
           [_vm._v("VEHÍCULO")]
         ),
@@ -49184,7 +49174,7 @@ var staticRenderFns = [
           {
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" },
-            attrs: { colspan: "8" }
+            attrs: { colspan: "7" }
           },
           [_vm._v("DATOS MECANICOS")]
         )
@@ -49260,15 +49250,6 @@ var staticRenderFns = [
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" }
           },
-          [_vm._v("TIPO DE LLANTA")]
-        ),
-        _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "align-middle",
-            staticStyle: { "text-align": "center" }
-          },
           [_vm._v("TOTAL DE LLANTAS ASIGNADAS")]
         ),
         _vm._v(" "),
@@ -49279,6 +49260,15 @@ var staticRenderFns = [
             staticStyle: { "text-align": "center" }
           },
           [_vm._v("CANTIDAD DE LLANTAS INSTALADAS")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "align-middle",
+            staticStyle: { "text-align": "center" }
+          },
+          [_vm._v("TIPO DE LLANTA")]
         ),
         _vm._v(" "),
         _c(

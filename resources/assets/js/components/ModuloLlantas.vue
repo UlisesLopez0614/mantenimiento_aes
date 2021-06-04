@@ -38,8 +38,8 @@
                             <thead>
                             <tr class="bg-primary">
                                 <th style="text-align: center;" class="align-middle"></th>
-                                <th style="text-align: center;" class="align-middle" colspan="6">VEHÍCULO</th>
-                                <th style="text-align: center;" class="align-middle" colspan="8">DATOS MECANICOS</th>
+                                <th style="text-align: center;" class="align-middle" colspan="7">VEHÍCULO</th>
+                                <th style="text-align: center;" class="align-middle" colspan="7">DATOS MECANICOS</th>
 
                             </tr>
                             <tr class="bg-primary">
@@ -50,10 +50,10 @@
                                 <th style="text-align: center;" class="align-middle">AREA</th>
                                 <th style="text-align: center;" class="align-middle">TIPO DE VEHICULO</th>
                                 <th style="text-align: center;" class="align-middle">KM ACTUAL</th>
-
-                                <th style="text-align: center;" class="align-middle">TIPO DE LLANTA</th>
                                 <th style="text-align: center;" class="align-middle">TOTAL DE LLANTAS ASIGNADAS</th>
+
                                 <th style="text-align: center;" class="align-middle">CANTIDAD DE LLANTAS INSTALADAS</th>
+                                <th style="text-align: center;" class="align-middle">TIPO DE LLANTA</th>
                                 <th style="text-align: center;" class="align-middle">MONTO</th>
                                 <th style="text-align: center;" class="align-middle">NUMERO DE AVISO</th>
                                 <th style="text-align: center;" class="align-middle">ORDEN DE TRABAJO</th>
@@ -78,10 +78,10 @@
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Area"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.type"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.kms_inicial"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.tllantas"></td>
                                 <template v-if="principal.llantas != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.llantas.Qty"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.llantas.Tipo_Llanta"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.llantas.Qty"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.llantas.Qty"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="'$' + principal.llantas.Amount"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.llantas.Numero_Aviso"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.llantas.Orden_Trabajo"></td>
@@ -89,7 +89,6 @@
                                     <td style="text-align: center;" class="align-middle" v-text="principal.llantas.Installation_Date"></td>
                                 </template>
                                 <template v-else>
-                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>

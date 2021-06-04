@@ -38,8 +38,8 @@
                             <thead>
                             <tr class="bg-primary">
                                 <th style="text-align: center;" class="align-middle"></th>
-                                <th style="text-align: center;" class="align-middle" colspan="8">VEHÍCULO</th>
-                                <th style="text-align: center;" class="align-middle" colspan="7">DATOS MECANICOS</th>
+                                <th style="text-align: center;" class="align-middle" colspan="7">VEHÍCULO</th>
+                                <th style="text-align: center;" class="align-middle" colspan="8">DATOS MECANICOS</th>
 
                             </tr>
                             <tr class="bg-primary">
@@ -50,11 +50,11 @@
                                 <th style="text-align: center;" class="align-middle">AREA</th>
                                 <th style="text-align: center;" class="align-middle">TIPO DE VEHICULO</th>
                                 <th style="text-align: center;" class="align-middle">KM ACTUAL</th>
-                                <th style="text-align: center;" class="align-middle">TIPO DE BATERIA</th>
                                 <th style="text-align: center;" class="align-middle">TOTAL DE BATERAS ASIGNADAS</th>
 
-                                <th style="text-align: center;" class="align-middle">MECANICO</th>
                                 <th style="text-align: center;" class="align-middle">CANTIDAD DE BATERIAS INSTALADAS</th>
+                                <th style="text-align: center;" class="align-middle">TIPO DE BATERIA</th>
+                                <th style="text-align: center;" class="align-middle">MECANICO</th>
                                 <th style="text-align: center;" class="align-middle">MONTO</th>
                                 <th style="text-align: center;" class="align-middle">NUMERO DE AVISO</th>
                                 <th style="text-align: center;" class="align-middle">ORDEN DE TRABAJO</th>
@@ -79,12 +79,12 @@
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Area"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.type"></td>
                                 <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.kms_inicial"></td>
+                                <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.tbaterias"></td>
                                 <template v-if="principal.baterias != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.baterias.Qty"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.baterias.Tipo_Bateria"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.baterias.Qty"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.baterias.mecanico"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.baterias.Qty"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="principal.baterias.Amount"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="'$' + principal.baterias.Amount"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.baterias.Numero_Aviso"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.baterias.Orden_Trabajo"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.baterias.Disposicion_Final"></td>
