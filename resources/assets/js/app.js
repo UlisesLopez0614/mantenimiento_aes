@@ -40,6 +40,7 @@ Vue.component('reporte-mantenimientos', require('./components/ReporteMantenimien
 
 //Componentes de Taller
 Vue.component('listado-taler', require('./components/Talleres/MantenimientosPendientes').default);
+Vue.component('historial-taler', require('./components/Talleres/HistorialMantenimientos.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

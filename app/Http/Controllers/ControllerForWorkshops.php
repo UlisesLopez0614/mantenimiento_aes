@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Lubricantes_History;
+use App\Mantenimiento;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -101,5 +102,40 @@ class ControllerForWorkshops extends Controller
             Log::info("Request : " + $request);
         }
 
+    }
+
+    public function get_history_records(Request $request)
+    {
+        $query = $request->q;
+        $Taller = Auth::user()->Taller_id;
+        ($request->desde && $request->hasta) ?
+        $Records = DB::table('tb_lubricantes_history')
+            ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.type','tb_lubricantes_history.*')
+            ->join('tb_vehicles','tb_vehicles.id','=','tb_lubricantes_history.vehicle_id')
+            ->whereBetween('Date_In_Workshop', [$request->desde, $request->hasta])
+            :
+        $Records = DB::table('tb_lubricantes_history')
+            ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.type','tb_lubricantes_history.*')
+            ->join('tb_vehicles','tb_vehicles.id','=','tb_lubricantes_history.vehicle_id')
+            ->where('FK_taller',$Taller)
+            ->where('tb_vehicles.Name','LIKE','%'.$query.'%')
+            ->orwhere('tb_vehicles.Plate','LIKE','%'.$query.'%')
+            ->orwhere('tb_vehicles.type','LIKE','%'.$query.'%')
+            ->orwhere('tb_vehicles.type','LIKE','%'.$query.'%');
+        ($request->desde && $request->hasta) ? $Records->whereBetween('Date_In_Workshop', [$request->desde, $request->hasta]) : $Records;
+
+        $Records = $Records->orderBy('Date_In_Workshop','DESC')->paginate(50);
+        return [
+            'pagination' => [
+                'total'         => $Records->total(),
+                'current_page'  => $Records->currentPage(),
+                'per_page'      => $Records->perPage(),
+                'last_page'     => $Records->lastPage(),
+                'from'          => $Records->firstItem(),
+                'to'            => $Records->lastItem(),
+            ],
+            'records' => $Records
+
+        ];
     }
 }

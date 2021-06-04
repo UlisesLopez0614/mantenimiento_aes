@@ -10,19 +10,20 @@
     <meta name="keyword" content="Modulo de Mantenimiento de AES">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="img/favicon.png">
-    <title>Módulo Talleres - AES</title>
+    <title>Módulo Mantenimiento - AES</title>
     <!-- Icons -->
     <!-- Main styles for this application -->
     <link href="css/plantilla.css" rel="stylesheet">
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden pace-done pace-done sidebar-hidden" style="margin-bottom: 328px;">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 <div id="app">
 
     @include('plantilla.talleres.header')
 
     <div class="app-body">
 
+        @include('plantilla.talleres.sidebar')
 
         @yield('contenido')
 

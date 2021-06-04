@@ -83,9 +83,20 @@ Route::middleware(['admins'])->group(function () {
 
     Route::get('/vehiculos/historial', 'MantenimientoController@refrescarOdometro');
 
-    Route::get('/reportes/consolidado', 'ReporteriaController@consolidado');
-    Route::get('/reportes/consolidadoDescargar', 'ReporteriaController@consolidadoDescargar');
-
+    Route::prefix('reportes')->group(function () {
+        Route::prefix('consolidado')->group(function () {
+            Route::get('/General', 'ReporteriaController@consolidado');
+            Route::get('/Lubricantes', 'ReporteriaController@consolidadoLubricantes');
+            Route::get('/Baterias', 'ReporteriaController@consolidadoBaterias');
+            Route::get('/Llantas', 'ReporteriaController@consolidadoLlantas');
+        });
+        Route::prefix('Descargar_consolidado')->group(function () {
+            Route::get('/General', 'ReporteriaController@consolidadoDescargar');
+            Route::get('/Lubricantes', 'ReporteriaController@DescargarReporteLubricantes');
+            Route::get('/Baterias', 'ReporteriaController@DescargarReporteBaterias');
+            Route::get('/Llantas', 'ReporteriaController@DescargarReporteLlantas');
+        });
+    });
 });
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('principal');
@@ -100,5 +111,6 @@ Route::middleware(['workshops'])->group(function () {
     Route::prefix('listado-taller')->group(function () {
         Route::get('/', 'ControllerForWorkshops@getListadoMantenimientos');
         Route::post('/register','ControllerForWorkshops@registerMantenimiento');
+        Route::get('/history','ControllerForWorkshops@get_history_records');
     });
 });

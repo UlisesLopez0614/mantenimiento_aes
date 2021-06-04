@@ -93,25 +93,8 @@
 
     <template v-if="menu==12">
         <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
-    </template>
+    </template>-->
 
-    <!--keep-alive include="acceso-users">
-        <template v-if="menu==13">
-            <acceso-users></acceso-users>
-        </template>
-    </keep-alive>
-
-    <template v-if="menu==14">
-        <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
-    </template>
-
-    <template v-if="menu==15">
-        <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
-    </template-->
-
-    <template v-if="menu==16">
-        <h1>ESTO ES UNA PRUEBA NADA MAS, NO TE ASUSTES HAHAHAHAHAHAHAHAHAHA</h1>
-    </template>
 
     <template v-if="menu==17">
         <reporte-mantenimientos></reporte-mantenimientos>
