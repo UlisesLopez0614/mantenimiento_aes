@@ -52837,7 +52837,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h4", { staticClass: "modal-title" }, [
-        _vm._v("DETALLE DE COSTOS POR ITEM")
+        _vm._v("ACTIVIDADES DE MANTENIMIENTO")
       ]),
       _vm._v(" "),
       _c(
