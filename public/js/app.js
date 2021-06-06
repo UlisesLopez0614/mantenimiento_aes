@@ -5054,6 +5054,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5111,7 +5136,13 @@ __webpack_require__.r(__webpack_exports__);
       desde: '',
       hasta: '',
       fechaMaxima: '',
-      fechaActual: ''
+      fechaActual: '',
+      modal_checklist: 0,
+      CHECKILIST: [],
+      CHECKLIST1: ['Lavado de Motor.', 'Cambio de Aceite de Motor.', 'Cambio de Filtro de Aceite.', 'Limpieza o cambio de Filtro de Aire.', 'Revisar o cambiar filtro de Combustible.', 'Engrase General.', 'Revisión de Trampa de Agua.', 'Chequear Refrigerante a Radiador.', 'Verificar Electrolito de Batería; Limpieza de Terminales.', 'Verificar Fajas y cambiar si es necesario.', 'Verificar Juego libre de pedal de Embrague y Freno.', 'Revisión de Estado de Fricciones 25% 50% 75% (limpiar).', 'Revisión de Estado de Pastilla 25% 50% 75% (limpiar).', 'Verificar Fuga de Bomba de Frenos.', ' Clutch y Niveles fluidos.', 'Chequear presiones y Calibrar llantas según tabla.', 'Verificación de Luces.', ' reparar si es necesario.', 'Comprobar Régimen de Carga en batería.', 'Revisión de Crucetas; Dirección; Cardan; toma fuerza.', 'Revisar ; proveer Aceite a caja y corona.', 'Rev. Tuberías de Combustible y escape.', 'Calibración de Válvulas de motor.', 'Verificar mangueras del sistema de enfriamiento.', 'Verificar recorrido del freno de estacionamiento (regular).', 'Verificar tuberías de Frenos.', ' Conexiones y clutch.', 'Verificar juego libre de Dirección.', ' terminales y barra tensora.', 'Verificar Suspensión delantera y trasera.', 'Limpieza de radiador.', 'Verificar estado de tapicería en vehículo y tapizar si es necesario.', 'Revisión de cinturones de seguridad'],
+      CHECKLIST2: ['Lavado de Motor.', 'Cambio de Aceite de Motor.', 'Cambio de Filtro de Aceite.', 'Limpieza o cambio de Filtro de Aire.', 'Revisar o cambiar filtro de Combustible.', 'Engrase General.', 'Revisión de Trampa de Agua.', 'Chequear Refrigerante a Radiador.', 'Verificar Electrolito de Batería; Limpieza de Terminales.', 'Verificar Fajas y cambiar si es necesario.', 'Verificar Juego libre de pedal de Embrague y Freno.', 'Revisión de Estado de Fricciones 25% 50% 75% (limpiar).', 'Revisión de Estado de Pastilla 25% 50% 75% (limpiar).', 'Verificar Fuga de Bomba de Frenos.', ' Clutch y Niveles fluidos.', 'Chequear presiones y Calibrar llantas según tabla.', 'Verificación de Luces.', ' reparar si es necesario.', 'Comprobar Régimen de Carga en batería.', 'Revisión de Crucetas; Dirección; Cardan; toma fuerza.', 'Revisar ; proveer Aceite a caja y corona.', 'Rev. Tuberías de Combustible y escape.', 'Calibración de Válvulas de motor.', 'Verificar mangueras del sistema de enfriamiento.', 'Verificar recorrido del freno de estacionamiento (regular).', 'Verificar tuberías de Frenos.', ' Conexiones y clutch.', 'Verificar juego libre de Dirección.', ' terminales y barra tensora.', 'Verificar Suspensión delantera y trasera.', 'Limpieza de radiador.', 'Verificar estado de tapicería en vehículo y tapizar si es necesario.', 'Revisión de cinturones de seguridad', 'Reapriete general de chasis, carrocería, suspensión, dirección y frenos.'],
+      CHECKLIST3: ['Lavado de Motor.', 'Cambio de Aceite de Motor.', 'Cambio de Filtro de Aceite.', 'Limpieza o cambio de Filtro de Aire.', 'Revisar o cambiar filtro de Combustible.', 'Engrase General.', 'Revisión de Trampa de Agua.', 'Chequear Refrigerante a Radiador.', 'Verificar Electrolito de Batería; Limpieza de Terminales.', 'Verificar Fajas y cambiar si es necesario.', 'Verificar Juego libre de pedal de Embrague y Freno.', 'Revisión de Estado de Fricciones 25% 50% 75% (limpiar).', 'Revisión de Estado de Pastilla 25% 50% 75% (limpiar).', 'Verificar Fuga de Bomba de Frenos.', ' Clutch y Niveles fluidos.', 'Chequear presiones y Calibrar llantas según tabla.', 'Verificación de Luces.', ' reparar si es necesario.', 'Comprobar Régimen de Carga en batería.', 'Revisión de Crucetas; Dirección; Cardan; toma fuerza.', 'Revisar ; proveer Aceite a caja y corona.', 'Rev. Tuberías de Combustible y escape.', 'Calibración de Válvulas de motor.', 'Verificar mangueras del sistema de enfriamiento.', 'Verificar recorrido del freno de estacionamiento (regular).', 'Verificar tuberías de Frenos.', ' Conexiones y clutch.', 'Verificar juego libre de Dirección.', ' terminales y barra tensora.', 'Verificar Suspensión delantera y trasera.', 'Limpieza de radiador.', 'Verificar estado de tapicería en vehículo y tapizar si es necesario.', 'Revisión de cinturones de seguridad', 'Reapriete general de chasis, carrocería, suspensión, dirección y frenos.', 'Revisión de baleros y Seguro de flecha (24,000 kms).', 'Lubricar cojinetes de Bufa, cambio de grasa (24,000 Kms).'],
+      CHECKLIST4: ['Lavado de Motor.', 'Cambio de Aceite de Motor.', 'Cambio de Filtro de Aceite.', 'Limpieza o cambio de Filtro de Aire.', 'Revisar o cambiar filtro de Combustible.', 'Engrase General.', 'Revisión de Trampa de Agua.', 'Chequear Refrigerante a Radiador.', 'Verificar Electrolito de Batería; Limpieza de Terminales.', 'Verificar Fajas y cambiar si es necesario.', 'Verificar Juego libre de pedal de Embrague y Freno.', 'Revisión de Estado de Fricciones 25% 50% 75% (limpiar).', 'Revisión de Estado de Pastilla 25% 50% 75% (limpiar).', 'Verificar Fuga de Bomba de Frenos.', ' Clutch y Niveles fluidos.', 'Chequear presiones y Calibrar llantas según tabla.', 'Verificación de Luces.', ' reparar si es necesario.', 'Comprobar Régimen de Carga en batería.', 'Revisión de Crucetas; Dirección; Cardan; toma fuerza.', 'Revisar ; proveer Aceite a caja y corona.', 'Rev. Tuberías de Combustible y escape.', 'Calibración de Válvulas de motor.', 'Verificar mangueras del sistema de enfriamiento.', 'Verificar recorrido del freno de estacionamiento (regular).', 'Verificar tuberías de Frenos.', ' Conexiones y clutch.', 'Verificar juego libre de Dirección.', ' terminales y barra tensora.', 'Verificar Suspensión delantera y trasera.', 'Limpieza de radiador.', 'Verificar estado de tapicería en vehículo y tapizar si es necesario.', 'Revisión de cinturones de seguridad', 'Reapriete general de chasis, carrocería, suspensión, dirección y frenos.', 'Revisión de Soporte de Motor y Caja.', 'Apretar tuercas, pernos en el chasis, carrocería.', 'Cambio de termostato, sondeo de radiador y cambio de refrigerante (72,00KM)', 'Limpieza y Calibración de Inyectores (84000 Kms).', 'Cambio de Aceite de Caja y Corona (36000 Kms) para región Oriente.', 'Cambio de fluidos de Frenos (36000 Kms) para región Oriente.', 'Limpieza de calipers y bombas laterales de frenos (36000 kms si es necesario) para región Oriente.', 'Cambio de fluidos de Frenos (36000 Kms) para región Oriente.', 'Limpieza de calipers y bombas laterales de frenos (36000 kms si es necesario) para región Oriente.']
     };
   },
   computed: {
@@ -5275,6 +5306,50 @@ __webpack_require__.r(__webpack_exports__);
 
       this.fecha = yyyy + '-' + mm + '-' + dd;
       this.hora = hh + ':' + min;
+    },
+    show_checklist: function show_checklist(cicle) {
+      this.modal_checklist = 1;
+
+      switch (cicle) {
+        case 1:
+          {
+            this.CHECKILIST = this.CHECKLIST1;
+            break;
+          }
+
+        case 2:
+          {
+            this.CHECKILIST = this.CHECKLIST2;
+            break;
+          }
+
+        case 3:
+          {
+            this.CHECKILIST = this.CHECKLIST1;
+            break;
+          }
+
+        case 4:
+          {
+            this.CHECKILIST = this.CHECKLIST3;
+            break;
+          }
+
+        case 5:
+          {
+            this.CHECKILIST = this.CHECKLIST1;
+            break;
+          }
+
+        case 6:
+          {
+            this.CHECKILIST = this.CHECKLIST4;
+            break;
+          }
+      }
+    },
+    close_checklist: function close_checklist() {
+      this.modal_checklist = 0;
     },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -51622,10 +51697,8 @@ var render = function() {
                                                           click: function(
                                                             $event
                                                           ) {
-                                                            return _vm.abrirModal(
-                                                              "principal",
-                                                              "registrar",
-                                                              principal
+                                                            return _vm.show_checklist(
+                                                              principal.counter
                                                             )
                                                           }
                                                         }
@@ -51659,10 +51732,8 @@ var render = function() {
                                                           click: function(
                                                             $event
                                                           ) {
-                                                            return _vm.abrirModal(
-                                                              "principal",
-                                                              "registrar",
-                                                              principal
+                                                            return _vm.show_checklist(
+                                                              principal.counter
                                                             )
                                                           }
                                                         }
@@ -51867,52 +51938,34 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-2" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("NOMBRE:")]
-                      ),
+                      _c("label", { staticClass: "form-control-label" }, [
+                        _vm._v("NOMBRE:")
+                      ]),
                       _vm._v(" "),
                       _c("label", {
                         staticClass: "form-control-label",
-                        attrs: { for: "text-input" },
                         domProps: { textContent: _vm._s(_vm.nombre) }
                       })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-2" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("PLACA:")]
-                      ),
+                      _c("label", { staticClass: "form-control-label" }, [
+                        _vm._v("PLACA:")
+                      ]),
                       _vm._v(" "),
                       _c("label", {
                         staticClass: "form-control-label",
-                        attrs: { for: "text-input" },
                         domProps: { textContent: _vm._s(_vm.placa) }
                       })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-6" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("FLOTA:")]
-                      ),
+                      _c("label", { staticClass: "form-control-label" }, [
+                        _vm._v("FLOTA:")
+                      ]),
                       _vm._v(" "),
                       _c("label", {
                         staticClass: "form-control-label",
-                        attrs: { for: "text-input" },
                         domProps: { textContent: _vm._s(_vm.flota) }
                       })
                     ])
@@ -52108,10 +52161,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("HORA:")]
                       ),
                       _vm._v(" "),
@@ -52143,34 +52193,26 @@ var render = function() {
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("VEHÍCULO:")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-3" }, [
                         _c("label", {
                           staticClass: "col-md-9 form-control-label",
-                          attrs: { for: "text-input" },
                           domProps: { textContent: _vm._s(_vm.nombre) }
                         })
                       ]),
                       _vm._v(" "),
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("ODO HW INICIAL:")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-3" }, [
                         _c("label", {
                           staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" },
                           domProps: { textContent: _vm._s(_vm.odohwinicial) }
                         })
                       ])
@@ -52179,10 +52221,7 @@ var render = function() {
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("TALLER (*):")]
                       ),
                       _vm._v(" "),
@@ -52238,10 +52277,7 @@ var render = function() {
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("TIPO MANTENIMIENTO (*):")]
                       ),
                       _vm._v(" "),
@@ -52305,44 +52341,33 @@ var render = function() {
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-2 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
+                        { staticClass: "col-md-2 form-control-label" },
                         [_vm._v("CANTIDAD:")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-2" }, [
                         _c("label", {
                           staticClass: "col-md-2 form-control-label",
-                          attrs: { for: "text-input" },
                           domProps: { textContent: _vm._s(_vm.cantidad) }
                         })
                       ]),
                       _vm._v(" "),
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-2 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
+                        { staticClass: "col-md-2 form-control-label" },
                         [_vm._v("UNIDAD DE MEDIDA:")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-2" }, [
                         _c("label", {
                           staticClass: "col-md-2 form-control-label",
-                          attrs: { for: "text-input" },
                           domProps: { textContent: _vm._s(_vm.umedida) }
                         })
                       ]),
                       _vm._v(" "),
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-2 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
+                        { staticClass: "col-md-2 form-control-label" },
                         [_vm._v("TIPO MANTENIMIENTO:")]
                       ),
                       _vm._v(" "),
@@ -52352,10 +52377,7 @@ var render = function() {
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
+                        { staticClass: "col-md-3 form-control-label" },
                         [_vm._v("COSTO MANTENIMIENTO (*):")]
                       ),
                       _vm._v(" "),
@@ -52518,6 +52540,70 @@ var render = function() {
                     }
                   },
                   [_vm._v("GUARDAR")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        class: { mostrar: _vm.modal_checklist },
+        staticStyle: { display: "none" },
+        attrs: {
+          id: "modal_CH",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-primary",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(7),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "ul",
+                    { staticClass: "demo", attrs: { id: "v-for-object" } },
+                    _vm._l(_vm.CHECKILIST, function(value) {
+                      return _c("li", [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(value) +
+                            "\n                            "
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        return _vm.close_checklist()
+                      }
+                    }
+                  },
+                  [_vm._v("CERRAR")]
                 )
               ])
             ])
@@ -52731,27 +52817,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      {
-        staticClass: "col-md-3 form-control-label",
-        attrs: { for: "text-input" }
-      },
-      [_c("b", [_vm._v("FECHA:")])]
-    )
+    return _c("label", { staticClass: "col-md-3 form-control-label" }, [
+      _c("b", [_vm._v("FECHA:")])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-2" }, [
+      _c("label", { staticClass: "col-md-2 form-control-label" }, [
+        _vm._v("A1")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _vm._v("DETALLE DE COSTOS POR ITEM")
+      ]),
+      _vm._v(" "),
       _c(
-        "label",
+        "button",
         {
-          staticClass: "col-md-2 form-control-label",
-          attrs: { for: "text-input" }
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
         },
-        [_vm._v("A1")]
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }

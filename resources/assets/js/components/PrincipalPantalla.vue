@@ -122,10 +122,10 @@
                                         </template>
                                         <template v-if="principal.counter != null ">
                                             <template v-if="principal.type == 'PESADO' ">
-                                                <td style="text-align: center;" class="align-middle"><a @click="abrirModal('principal', 'registrar', principal)">{{principal.counter*3500}} KM</a></td>
+                                                <td style="text-align: center;" class="align-middle"><a @click="show_checklist(principal.counter)">{{principal.counter*3500}} KM</a></td>
                                             </template>
                                             <template v-else>
-                                                <td style="text-align: center;" class="align-middle"><a @click="abrirModal('principal', 'registrar', principal)">{{principal.counter*6000}} KM</a></td>
+                                                <td style="text-align: center;" class="align-middle"><a @click="show_checklist( principal.counter)">{{principal.counter*6000}} KM</a></td>
                                             </template>
                                         </template>
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.taller.nombre"></td>
@@ -163,16 +163,16 @@
                                 <button @click="cambiar2" class="btn btn-primary"><i class="fa fa-back"></i> VOLVER</button>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-control-label" for="text-input">NOMBRE:</label>
-                                <label class="form-control-label" for="text-input" v-text="nombre"></label>
+                                <label class="form-control-label" >NOMBRE:</label>
+                                <label class="form-control-label"  v-text="nombre"></label>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-control-label" for="text-input">PLACA:</label>
-                                <label class="form-control-label" for="text-input" v-text="placa"></label>
+                                <label class="form-control-label" >PLACA:</label>
+                                <label class="form-control-label"  v-text="placa"></label>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-control-label" for="text-input">FLOTA:</label>
-                                <label class="form-control-label" for="text-input" v-text="flota"></label>
+                                <label class="form-control-label" >FLOTA:</label>
+                                <label class="form-control-label"  v-text="flota"></label>
                             </div>
                         </div>
                         <table class="table table-responsive table-bordered table-striped table-sm">
@@ -228,37 +228,37 @@
                                 <div class="col-md-4"></div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input"><b>FECHA:</b></label>
+                                <label class="col-md-3 form-control-label" ><b>FECHA:</b></label>
                                 <div class="col-md-3">
                                     <input type="date" v-model="fecha" :min="fecha_minima" class="form-control">
                                 </div>
-                                <label class="col-md-3 form-control-label" for="text-input">HORA:</label>
+                                <label class="col-md-3 form-control-label" >HORA:</label>
                                 <div class="col-md-3">
                                     <input type="time" v-model="hora" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">VEHÍCULO:</label>
+                                <label class="col-md-3 form-control-label" >VEHÍCULO:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-9 form-control-label" for="text-input" v-text="nombre"></label>
+                                    <label class="col-md-9 form-control-label"  v-text="nombre"></label>
                                 </div>
-                                <label class="col-md-3 form-control-label" for="text-input">ODO HW INICIAL:</label>
+                                <label class="col-md-3 form-control-label" >ODO HW INICIAL:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="odohwinicial"></label>
+                                    <label class="col-md-3 form-control-label"  v-text="odohwinicial"></label>
                                 </div>
                             </div>
                             <!--<div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">ODO SW INICIAL:</label>
+                                <label class="col-md-3 form-control-label" >ODO SW INICIAL:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="odoswinicial"></label>
+                                    <label class="col-md-3 form-control-label"  v-text="odoswinicial"></label>
                                 </div>
-                                <label class="col-md-3 form-control-label" for="text-input">ODO HW INICIAL:</label>
+                                <label class="col-md-3 form-control-label" >ODO HW INICIAL:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label" for="text-input" v-text="odohwinicial"></label>
+                                    <label class="col-md-3 form-control-label"  v-text="odohwinicial"></label>
                                 </div>
                             </div>-->
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TALLER (*):</label>
+                                <label class="col-md-3 form-control-label" >TALLER (*):</label>
                                 <div class="col-md-9">
                                     <select class="form-control" v-model="taller1">
                                         <option value="">SELECCIONE UN TALLER</option>
@@ -267,7 +267,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">TIPO MANTENIMIENTO (*):</label>
+                                <label class="col-md-3 form-control-label" >TIPO MANTENIMIENTO (*):</label>
                                 <div class="col-md-9">
                                     <select class="form-control" v-model="tipomanto1" @change="obtenerInfoTipomanto(tipomanto1)">
                                         <option value="">SELECCIONE UN TIPO DE MANTENIMIENTO</option>
@@ -276,21 +276,21 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-2 form-control-label" for="text-input">CANTIDAD:</label>
+                                <label class="col-md-2 form-control-label" >CANTIDAD:</label>
                                 <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label" for="text-input" v-text="cantidad"></label>
+                                    <label class="col-md-2 form-control-label"  v-text="cantidad"></label>
                                 </div>
-                                <label class="col-md-2 form-control-label" for="text-input">UNIDAD DE MEDIDA:</label>
+                                <label class="col-md-2 form-control-label" >UNIDAD DE MEDIDA:</label>
                                 <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label" for="text-input" v-text="umedida"></label>
+                                    <label class="col-md-2 form-control-label"  v-text="umedida"></label>
                                 </div>
-                                <label class="col-md-2 form-control-label" for="text-input">TIPO MANTENIMIENTO:</label>
+                                <label class="col-md-2 form-control-label" >TIPO MANTENIMIENTO:</label>
                                 <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label" for="text-input">A1</label>
+                                    <label class="col-md-2 form-control-label" >A1</label>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">COSTO MANTENIMIENTO (*):</label>
+                                <label class="col-md-3 form-control-label" >COSTO MANTENIMIENTO (*):</label>
                                 <div class="col-md-9">
                                     <input type="number" step="0.01" v-model="costo" class="form-control" placeholder="INGRESE EL COSTO DEL MANTENIMIENTO">
                                 </div>
@@ -338,45 +338,45 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">ESTADO:</label>
+                            <label class="col-md-3 form-control-label" >ESTADO:</label>
                             <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <label class="col-md-3 form-control-label" ></label>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">TALLER NOMBRE:</label>
+                            <label class="col-md-3 form-control-label" >TALLER NOMBRE:</label>
                             <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <label class="col-md-3 form-control-label" ></label>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">ENVIO ALERTAS:</label>
+                            <label class="col-md-3 form-control-label" >ENVIO ALERTAS:</label>
                             <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <label class="col-md-3 form-control-label" ></label>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">OBSERVACIONES:</label>
+                            <label class="col-md-3 form-control-label" >OBSERVACIONES:</label>
                             <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <label class="col-md-3 form-control-label" ></label>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">INICIO MANTO:</label>
+                            <label class="col-md-3 form-control-label" >INICIO MANTO:</label>
                             <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <label class="col-md-3 form-control-label" ></label>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">FECHA MOD:</label>
+                            <label class="col-md-3 form-control-label" >FECHA MOD:</label>
                             <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <label class="col-md-3 form-control-label" ></label>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">HORA MOD:</label>
+                            <label class="col-md-3 form-control-label" >HORA MOD:</label>
                             <div class="col-md-9">
-                                <label class="col-md-3 form-control-label" for="text-input"></label>
+                                <label class="col-md-3 form-control-label" ></label>
                             </div>
                         </div>
                     </div>
@@ -386,7 +386,6 @@
                 </div-->
                 <!-- /.modal-content -->
             <!--/div-->
-            <!-- /.modal-dialog -->
         <!--/div-->
         <!-- Fin del modal Eliminar -->
         <!-- Inicio del modal Detalle -->
@@ -414,6 +413,32 @@
             <!-- /.modal-dialog -->
         <!--/div-->
         <!-- Fin del modal Eliminar -->
+
+        <div class="modal fade" id="modal_CH" tabindex="-1" :class="{'mostrar' : modal_checklist}" role="dialog" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-primary" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">DETALLE DE COSTOS POR ITEM</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <ul id="v-for-object" class="demo">
+                                <li v-for="value in CHECKILIST">
+                                    {{ value }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" @click="close_checklist()" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <!-- /Fin del contenido principal -->
 </template>
@@ -480,7 +505,15 @@
                 desde : '',
                 hasta : '',
                 fechaMaxima : '',
-                fechaActual : ''
+                fechaActual : '',
+
+
+                modal_checklist : 0,
+                CHECKILIST : [],
+                CHECKLIST1 : ['Lavado de Motor.','Cambio de Aceite de Motor.','Cambio de Filtro de Aceite.','Limpieza o cambio de Filtro de Aire.','Revisar o cambiar filtro de Combustible.','Engrase General.','Revisión de Trampa de Agua.','Chequear Refrigerante a Radiador.','Verificar Electrolito de Batería; Limpieza de Terminales.','Verificar Fajas y cambiar si es necesario.','Verificar Juego libre de pedal de Embrague y Freno.','Revisión de Estado de Fricciones 25% 50% 75% (limpiar).','Revisión de Estado de Pastilla 25% 50% 75% (limpiar).','Verificar Fuga de Bomba de Frenos.',' Clutch y Niveles fluidos.','Chequear presiones y Calibrar llantas según tabla.','Verificación de Luces.',' reparar si es necesario.','Comprobar Régimen de Carga en batería.','Revisión de Crucetas; Dirección; Cardan; toma fuerza.','Revisar ; proveer Aceite a caja y corona.','Rev. Tuberías de Combustible y escape.','Calibración de Válvulas de motor.','Verificar mangueras del sistema de enfriamiento.','Verificar recorrido del freno de estacionamiento (regular).','Verificar tuberías de Frenos.',' Conexiones y clutch.','Verificar juego libre de Dirección.',' terminales y barra tensora.','Verificar Suspensión delantera y trasera.','Limpieza de radiador.','Verificar estado de tapicería en vehículo y tapizar si es necesario.','Revisión de cinturones de seguridad'],
+                CHECKLIST2 : ['Lavado de Motor.','Cambio de Aceite de Motor.','Cambio de Filtro de Aceite.','Limpieza o cambio de Filtro de Aire.','Revisar o cambiar filtro de Combustible.','Engrase General.','Revisión de Trampa de Agua.','Chequear Refrigerante a Radiador.','Verificar Electrolito de Batería; Limpieza de Terminales.','Verificar Fajas y cambiar si es necesario.','Verificar Juego libre de pedal de Embrague y Freno.','Revisión de Estado de Fricciones 25% 50% 75% (limpiar).','Revisión de Estado de Pastilla 25% 50% 75% (limpiar).','Verificar Fuga de Bomba de Frenos.',' Clutch y Niveles fluidos.','Chequear presiones y Calibrar llantas según tabla.','Verificación de Luces.',' reparar si es necesario.','Comprobar Régimen de Carga en batería.','Revisión de Crucetas; Dirección; Cardan; toma fuerza.','Revisar ; proveer Aceite a caja y corona.','Rev. Tuberías de Combustible y escape.','Calibración de Válvulas de motor.','Verificar mangueras del sistema de enfriamiento.','Verificar recorrido del freno de estacionamiento (regular).','Verificar tuberías de Frenos.',' Conexiones y clutch.','Verificar juego libre de Dirección.',' terminales y barra tensora.','Verificar Suspensión delantera y trasera.','Limpieza de radiador.','Verificar estado de tapicería en vehículo y tapizar si es necesario.','Revisión de cinturones de seguridad','Reapriete general de chasis, carrocería, suspensión, dirección y frenos.'],
+                CHECKLIST3 : ['Lavado de Motor.','Cambio de Aceite de Motor.','Cambio de Filtro de Aceite.','Limpieza o cambio de Filtro de Aire.','Revisar o cambiar filtro de Combustible.','Engrase General.','Revisión de Trampa de Agua.','Chequear Refrigerante a Radiador.','Verificar Electrolito de Batería; Limpieza de Terminales.','Verificar Fajas y cambiar si es necesario.','Verificar Juego libre de pedal de Embrague y Freno.','Revisión de Estado de Fricciones 25% 50% 75% (limpiar).','Revisión de Estado de Pastilla 25% 50% 75% (limpiar).','Verificar Fuga de Bomba de Frenos.',' Clutch y Niveles fluidos.','Chequear presiones y Calibrar llantas según tabla.','Verificación de Luces.',' reparar si es necesario.','Comprobar Régimen de Carga en batería.','Revisión de Crucetas; Dirección; Cardan; toma fuerza.','Revisar ; proveer Aceite a caja y corona.','Rev. Tuberías de Combustible y escape.','Calibración de Válvulas de motor.','Verificar mangueras del sistema de enfriamiento.','Verificar recorrido del freno de estacionamiento (regular).','Verificar tuberías de Frenos.',' Conexiones y clutch.','Verificar juego libre de Dirección.',' terminales y barra tensora.','Verificar Suspensión delantera y trasera.','Limpieza de radiador.','Verificar estado de tapicería en vehículo y tapizar si es necesario.','Revisión de cinturones de seguridad','Reapriete general de chasis, carrocería, suspensión, dirección y frenos.','Revisión de baleros y Seguro de flecha (24,000 kms).','Lubricar cojinetes de Bufa, cambio de grasa (24,000 Kms).'],
+                CHECKLIST4 : ['Lavado de Motor.','Cambio de Aceite de Motor.','Cambio de Filtro de Aceite.','Limpieza o cambio de Filtro de Aire.','Revisar o cambiar filtro de Combustible.','Engrase General.','Revisión de Trampa de Agua.','Chequear Refrigerante a Radiador.','Verificar Electrolito de Batería; Limpieza de Terminales.','Verificar Fajas y cambiar si es necesario.','Verificar Juego libre de pedal de Embrague y Freno.','Revisión de Estado de Fricciones 25% 50% 75% (limpiar).','Revisión de Estado de Pastilla 25% 50% 75% (limpiar).','Verificar Fuga de Bomba de Frenos.',' Clutch y Niveles fluidos.','Chequear presiones y Calibrar llantas según tabla.','Verificación de Luces.',' reparar si es necesario.','Comprobar Régimen de Carga en batería.','Revisión de Crucetas; Dirección; Cardan; toma fuerza.','Revisar ; proveer Aceite a caja y corona.','Rev. Tuberías de Combustible y escape.','Calibración de Válvulas de motor.','Verificar mangueras del sistema de enfriamiento.','Verificar recorrido del freno de estacionamiento (regular).','Verificar tuberías de Frenos.',' Conexiones y clutch.','Verificar juego libre de Dirección.',' terminales y barra tensora.','Verificar Suspensión delantera y trasera.','Limpieza de radiador.','Verificar estado de tapicería en vehículo y tapizar si es necesario.','Revisión de cinturones de seguridad','Reapriete general de chasis, carrocería, suspensión, dirección y frenos.','Revisión de Soporte de Motor y Caja.','Apretar tuercas, pernos en el chasis, carrocería.','Cambio de termostato, sondeo de radiador y cambio de refrigerante (72,00KM)','Limpieza y Calibración de Inyectores (84000 Kms).','Cambio de Aceite de Caja y Corona (36000 Kms) para región Oriente.','Cambio de fluidos de Frenos (36000 Kms) para región Oriente.','Limpieza de calipers y bombas laterales de frenos (36000 kms si es necesario) para región Oriente.','Cambio de fluidos de Frenos (36000 Kms) para región Oriente.','Limpieza de calipers y bombas laterales de frenos (36000 kms si es necesario) para región Oriente.'],
 
             }
 
@@ -702,6 +735,40 @@
                 this.fecha = yyyy + '-' + mm + '-' + dd;
                 this.hora = hh + ':' + min;
 
+            },
+
+            show_checklist(cicle){
+                this.modal_checklist = 1;
+                switch (cicle){
+                   case 1:{
+                       this.CHECKILIST = this.CHECKLIST1;
+                       break;
+                   }
+                   case 2:{
+                       this.CHECKILIST = this.CHECKLIST2;
+                       break;
+                   }
+                   case 3:{
+                       this.CHECKILIST = this.CHECKLIST1;
+                       break;
+                   }
+                   case 4:{
+                       this.CHECKILIST = this.CHECKLIST3;
+                       break;
+                   }
+                   case 5:{
+                       this.CHECKILIST = this.CHECKLIST1;
+                       break;
+                   }
+                   case 6:{
+                       this.CHECKILIST = this.CHECKLIST4;
+                       break;
+                   }
+                }
+            },
+
+            close_checklist(){
+                this.modal_checklist =0;
             },
 
             abrirModal(modelo, accion, data = []){
