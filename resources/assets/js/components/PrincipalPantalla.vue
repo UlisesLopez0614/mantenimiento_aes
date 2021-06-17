@@ -121,7 +121,7 @@
                                             <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_goal - principal.vehiculo.kms_inicial"></td>
                                         </template>
                                         <template v-if="principal.counter != null ">
-                                            <template v-if="principal.type == 'PESADO' ">
+                                            <template v-if="principal.vehiculo.type == 'PESADO' ">
                                                 <td style="text-align: center;" class="align-middle"><a @click="show_checklist(principal.counter)">{{principal.counter*3500}} KM</a></td>
                                             </template>
                                             <template v-else>
@@ -419,9 +419,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">ACTIVIDADES DE MANTENIMIENTO</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" @click="close_checklist()" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
+
                     </div>
                     <div class="modal-body">
                         <div class="form-group row">
