@@ -99,7 +99,6 @@
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                     <td style="text-align: center;" class="align-middle">Sin Asignar</td>
-                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                 </template>
                             </tr>
                             </tbody>
