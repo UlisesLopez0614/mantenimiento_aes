@@ -56,18 +56,8 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group input-daterange">
-                                    <div class="input-group-addon bg-primary">TIPO MANTO</div>
-                                    <select class="form-control col-md-8" v-model="select_tipomanto" @change="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">
-                                        <option value="">TODOS</option>
-                                        <option v-for="nombreTipomanto in arrayTipomanto" :key="nombreTipomanto.id" :value="nombreTipomanto.id" v-text="nombreTipomanto.nombre"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group input-daterange">
                                     <div class="input-group-addon bg-primary">TALLER</div>
                                     <select class="form-control col-md-8" v-model="select_taller" @change="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">
-                                        <option value="">TODOS</option>
                                         <option v-for="nombreTaller in arrayTaller" :key="nombreTaller.id" :value="nombreTaller.id" v-text="nombreTaller.nombre"></option>
                                     </select>
                                 </div>
@@ -77,7 +67,7 @@
                             <thead>
                                 <tr class="bg-primary">
                                     <th style="text-align: center;" class="align-middle"></th>
-                                    <th style="text-align: center;" class="align-middle" colspan="4">VEHÍCULO</th>
+                                    <th style="text-align: center;" class="align-middle" colspan="5">VEHÍCULO</th>
                                     <th style="text-align: center;" class="align-middle" colspan="6">MANTENIMIENTO</th>
                                 </tr>
                                 <tr class="bg-primary">
@@ -85,6 +75,7 @@
                                     <th style="text-align: center;" class="align-middle">NOMBRE</th>
                                     <th style="text-align: center;" class="align-middle">PLACA</th>
                                     <th style="text-align: center;" class="align-middle">FLOTA</th>
+                                    <th style="text-align: center;" class="align-middle">AREA</th>
                                     <th style="text-align: center;" class="align-middle">KM ACTUAL</th>
                                     <th style="text-align: center;" class="align-middle">ANTERIOR</th>
                                     <th style="text-align: center;" class="align-middle">PROXIMO</th>
@@ -107,6 +98,7 @@
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Name"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Plate"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Fleet"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.Area"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="principal.vehiculo.kms_inicial"></td>
                                     <template v-if="principal.mantenimiento != null">
                                         <td style="text-align: center;" class="align-middle" v-text="principal.mantenimiento.kms_ini"></td>
@@ -220,43 +212,15 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <div class="col-md-4"></div>
-                                <!---
-                                <div class="col-md-4">
-                                    <button type="button" class="btn btn-primary" @click="refrescarOdometro(vehiculo, fecha)"><i class="icon-refresh"></i>  &nbsp; REFRESCAR ODÓMETRO</button>
-                                </div>-->
-                                <div class="col-md-4"></div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" ><b>FECHA:</b></label>
-                                <div class="col-md-3">
-                                    <input type="date" v-model="fecha" :min="fecha_minima" class="form-control">
-                                </div>
-                                <label class="col-md-3 form-control-label" >HORA:</label>
-                                <div class="col-md-3">
-                                    <input type="time" v-model="hora" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-md-3 form-control-label" >VEHÍCULO:</label>
                                 <div class="col-md-3">
-                                    <label class="col-md-9 form-control-label"  v-text="nombre"></label>
+                                    <label class="col-md-9 form-control-label" v-text="nombre"></label>
                                 </div>
                                 <label class="col-md-3 form-control-label" >ODO HW INICIAL:</label>
                                 <div class="col-md-3">
                                     <label class="col-md-3 form-control-label"  v-text="odohwinicial"></label>
                                 </div>
                             </div>
-                            <!--<div class="form-group row">
-                                <label class="col-md-3 form-control-label" >ODO SW INICIAL:</label>
-                                <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label"  v-text="odoswinicial"></label>
-                                </div>
-                                <label class="col-md-3 form-control-label" >ODO HW INICIAL:</label>
-                                <div class="col-md-3">
-                                    <label class="col-md-3 form-control-label"  v-text="odohwinicial"></label>
-                                </div>
-                            </div>-->
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" >TALLER (*):</label>
                                 <div class="col-md-9">
@@ -264,29 +228,6 @@
                                         <option value="">SELECCIONE UN TALLER</option>
                                         <option v-for="taller in arrayTaller" :key="taller.id" :value="taller.id" v-text="taller.nombre"></option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" >TIPO MANTENIMIENTO (*):</label>
-                                <div class="col-md-9">
-                                    <select class="form-control" v-model="tipomanto1" @change="obtenerInfoTipomanto(tipomanto1)">
-                                        <option value="">SELECCIONE UN TIPO DE MANTENIMIENTO</option>
-                                        <option v-for="tipomanto in arrayTipomanto" :key="tipomanto.id" :value="tipomanto.id" v-text="tipomanto.nombre"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 form-control-label" >CANTIDAD:</label>
-                                <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label"  v-text="cantidad"></label>
-                                </div>
-                                <label class="col-md-2 form-control-label" >UNIDAD DE MEDIDA:</label>
-                                <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label"  v-text="umedida"></label>
-                                </div>
-                                <label class="col-md-2 form-control-label" >TIPO MANTENIMIENTO:</label>
-                                <div class="col-md-2">
-                                    <label class="col-md-2 form-control-label" >A1</label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -570,12 +511,7 @@
                     me.pagination = respuesta.pagination;
                     console.log(respuesta);
                 })
-                .catch(function (error) {
-
-                    console.log(error);
-
-                })
-
+                .catch(function (error) {console.log(error);})
             },
 
             listarHistorial(vehiculo, buscar, criterio){
@@ -588,12 +524,7 @@
                     me.arrayHistorial = respuesta.mantenimientos;
                     console.log(respuesta);
                 })
-                .catch(function (error) {
-
-                    console.log(error);
-
-                })
-
+                .catch(function (error) {console.log(error);})
             },
 
             cambiarPagina(page, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto){
@@ -658,13 +589,9 @@
                 this.errorMantenimiento = 0;
                 this.errorMostrarMsjMantenimiento = [];
 
-                if(!this.odohwinicial) this.errorMostrarMsjMantenimiento.push("DEBE REFRESCAR EL ODOMETRO PARA REGISTRAR EL MANTENIMIENTO.");
                 if(!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
-                if(!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
                 if(!this.costo) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN COSTO DE MANTENIMIENTO.")
-                if(!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE.");
                 if(this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
-
                 return this.errorMantenimiento;
 
             },
@@ -673,19 +600,12 @@
 
                 let me = this;
                 var url = '/talleres/selectTaller';
-
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayTaller = respuesta.talleres;
                     console.log(response);
-
                 })
-                .catch(function (error) {
-
-                    console.log(error);
-
-                })
-
+                .catch(function (error) {console.log(error);})
             },
 
             selectTipomanto(){

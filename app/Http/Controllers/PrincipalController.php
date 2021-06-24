@@ -92,7 +92,7 @@ class PrincipalController extends Controller
 
         }elseif($buscar == null && $desde == null && $hasta == null && $select_taller != null && $select_tipomanto == null){
 
-            $vehicles = Vehiculo::select('vehicles.id')
+            $vehicles = Vehiculo::select('vehicles.id','tb_talleres.id AS taller')
                                 ->join('tb_mtto_history', 'tb_mtto_history.FK_idVehicle', '=', 'vehicles.id')
                                 ->join('tb_talleres', 'tb_talleres.id', '=', 'tb_mtto_history.FK_taller')
                                 ->where('tb_talleres.id', $select_taller)

@@ -5021,65 +5021,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5251,11 +5192,8 @@ __webpack_require__.r(__webpack_exports__);
     validarMantenimiento: function validarMantenimiento() {
       this.errorMantenimiento = 0;
       this.errorMostrarMsjMantenimiento = [];
-      if (!this.odohwinicial) this.errorMostrarMsjMantenimiento.push("DEBE REFRESCAR EL ODOMETRO PARA REGISTRAR EL MANTENIMIENTO.");
       if (!this.taller1 || this.taller1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TALLER PARA EL MANTENIMIENTO.");
-      if (!this.tipomanto1 || this.tipomanto1 == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN TIPO DE MANTENIMIENTO PARA EL MANTENIMIENTO.");
       if (!this.costo) this.errorMostrarMsjMantenimiento.push("DEBE INGRESAR UN COSTO DE MANTENIMIENTO.");
-      if (!this.porcentajealerta || this.porcentajealerta == "0") this.errorMostrarMsjMantenimiento.push("DEBE SELECCIONAR UN PORCENTAJE DE ALERTA POR VENCERSE.");
       if (this.errorMostrarMsjMantenimiento.length) this.errorMantenimiento = 1;
       return this.errorMantenimiento;
     },
@@ -51350,84 +51288,6 @@ var render = function() {
                           _c(
                             "div",
                             { staticClass: "input-group-addon bg-primary" },
-                            [_vm._v("TIPO MANTO")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.select_tipomanto,
-                                  expression: "select_tipomanto"
-                                }
-                              ],
-                              staticClass: "form-control col-md-8",
-                              on: {
-                                change: [
-                                  function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.select_tipomanto = $event.target
-                                      .multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  },
-                                  function($event) {
-                                    return _vm.listarPrincipal(
-                                      1,
-                                      _vm.buscar,
-                                      _vm.criterio,
-                                      _vm.criterio2,
-                                      _vm.desde,
-                                      _vm.hasta,
-                                      _vm.select_taller,
-                                      _vm.select_tipomanto
-                                    )
-                                  }
-                                ]
-                              }
-                            },
-                            [
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("TODOS")
-                              ]),
-                              _vm._v(" "),
-                              _vm._l(_vm.arrayTipomanto, function(
-                                nombreTipomanto
-                              ) {
-                                return _c("option", {
-                                  key: nombreTipomanto.id,
-                                  domProps: {
-                                    value: nombreTipomanto.id,
-                                    textContent: _vm._s(nombreTipomanto.nombre)
-                                  }
-                                })
-                              })
-                            ],
-                            2
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c(
-                        "div",
-                        { staticClass: "input-group input-daterange" },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "input-group-addon bg-primary" },
                             [_vm._v("TALLER")]
                           ),
                           _vm._v(" "),
@@ -51474,22 +51334,16 @@ var render = function() {
                                 ]
                               }
                             },
-                            [
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("TODOS")
-                              ]),
-                              _vm._v(" "),
-                              _vm._l(_vm.arrayTaller, function(nombreTaller) {
-                                return _c("option", {
-                                  key: nombreTaller.id,
-                                  domProps: {
-                                    value: nombreTaller.id,
-                                    textContent: _vm._s(nombreTaller.nombre)
-                                  }
-                                })
+                            _vm._l(_vm.arrayTaller, function(nombreTaller) {
+                              return _c("option", {
+                                key: nombreTaller.id,
+                                domProps: {
+                                  value: nombreTaller.id,
+                                  textContent: _vm._s(nombreTaller.nombre)
+                                }
                               })
-                            ],
-                            2
+                            }),
+                            0
                           )
                         ]
                       )
@@ -51582,6 +51436,14 @@ var render = function() {
                                 staticStyle: { "text-align": "center" },
                                 domProps: {
                                   textContent: _vm._s(principal.vehiculo.Fleet)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "align-middle",
+                                staticStyle: { "text-align": "center" },
+                                domProps: {
+                                  textContent: _vm._s(principal.vehiculo.Area)
                                 }
                               }),
                               _vm._v(" "),
@@ -52131,66 +51993,6 @@ var render = function() {
                     }
                   },
                   [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(5),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.fecha,
-                              expression: "fecha"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "date", min: _vm.fecha_minima },
-                          domProps: { value: _vm.fecha },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.fecha = $event.target.value
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        { staticClass: "col-md-3 form-control-label" },
-                        [_vm._v("HORA:")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.hora,
-                              expression: "hora"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "time" },
-                          domProps: { value: _vm.hora },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.hora = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
@@ -52273,106 +52075,6 @@ var render = function() {
                           2
                         )
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        { staticClass: "col-md-3 form-control-label" },
-                        [_vm._v("TIPO MANTENIMIENTO (*):")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.tipomanto1,
-                                expression: "tipomanto1"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.tipomanto1 = $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                },
-                                function($event) {
-                                  return _vm.obtenerInfoTipomanto(
-                                    _vm.tipomanto1
-                                  )
-                                }
-                              ]
-                            }
-                          },
-                          [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("SELECCIONE UN TIPO DE MANTENIMIENTO")
-                            ]),
-                            _vm._v(" "),
-                            _vm._l(_vm.arrayTipomanto, function(tipomanto) {
-                              return _c("option", {
-                                key: tipomanto.id,
-                                domProps: {
-                                  value: tipomanto.id,
-                                  textContent: _vm._s(tipomanto.nombre)
-                                }
-                              })
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        { staticClass: "col-md-2 form-control-label" },
-                        [_vm._v("CANTIDAD:")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("label", {
-                          staticClass: "col-md-2 form-control-label",
-                          domProps: { textContent: _vm._s(_vm.cantidad) }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        { staticClass: "col-md-2 form-control-label" },
-                        [_vm._v("UNIDAD DE MEDIDA:")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("label", {
-                          staticClass: "col-md-2 form-control-label",
-                          domProps: { textContent: _vm._s(_vm.umedida) }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        { staticClass: "col-md-2 form-control-label" },
-                        [_vm._v("TIPO MANTENIMIENTO:")]
-                      ),
-                      _vm._v(" "),
-                      _vm._m(6)
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
@@ -52680,7 +52382,7 @@ var staticRenderFns = [
           {
             staticClass: "align-middle",
             staticStyle: { "text-align": "center" },
-            attrs: { colspan: "4" }
+            attrs: { colspan: "5" }
           },
           [_vm._v("VEHÍCULO")]
         ),
@@ -52731,6 +52433,15 @@ var staticRenderFns = [
             staticStyle: { "text-align": "center" }
           },
           [_vm._v("FLOTA")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "align-middle",
+            staticStyle: { "text-align": "center" }
+          },
+          [_vm._v("AREA")]
         ),
         _vm._v(" "),
         _c(
@@ -52827,34 +52538,6 @@ var staticRenderFns = [
         _c("th", { staticStyle: { "text-align": "center" } }, [
           _vm._v("ASIGNADO")
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "col-md-4" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "col-md-3 form-control-label" }, [
-      _c("b", [_vm._v("FECHA:")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2" }, [
-      _c("label", { staticClass: "col-md-2 form-control-label" }, [
-        _vm._v("A1")
       ])
     ])
   }

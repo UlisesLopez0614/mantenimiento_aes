@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Mantenimiento;
@@ -79,30 +80,30 @@ class MantenimientoController extends Controller
         }else{
 
             $estado_alerta = 'ROJA';
-
         }
-            //Se crea un nuevo record de mantenimiento
-            $mantenimiento = new Mantenimiento();
-            $mantenimiento->FK_idVehicle = $request->vehiculo;
-            $mantenimiento->FK_taller = $request->taller;
-            $mantenimiento->FK_tipoMtto = $request->tipomanto;
-            $mantenimiento->kms_ini = $request->odohwinicial;
-            $mantenimiento->kms_goal = $kms_goal;
-            $mantenimiento->date = $request->fecha;
-            $mantenimiento->time = $request->hora;
-            $mantenimiento->correo = $request->correoalerta;
-            $mantenimiento->correo_supervisor = $request->correoalertagrave;
-            $mantenimiento->mtto_count = $ulto_manto->counter;
-            $mantenimiento->costo = $request->costo;
-            $mantenimiento->alerta_naranja = $request->alertanaranja;
-            $mantenimiento->alerta_roja = $request->alertaroja;
-            $mantenimiento->alerta_prox_vencer = $request->alertaproxima;
-            $mantenimiento->recordatorio_diario_vencido = $request->recordatorioven;
-            $mantenimiento->recordatorio_diario_por_vencerse = $request->recordatorioporven;
-            $mantenimiento->porcentaje_alerta_por_vencerse = $request->porcentajealerta;
-            $mantenimiento->estado_alerta = $estado_alerta;
-            $mantenimiento->save();
-            //----------------
+
+        //Se crea un nuevo record de mantenimiento
+        $mantenimiento = new Mantenimiento();
+        $mantenimiento->FK_idVehicle = $request->vehiculo;
+        $mantenimiento->FK_taller = $request->taller;
+        $mantenimiento->FK_tipoMtto = $request->tipomanto;
+        $mantenimiento->kms_ini = $request->odohwinicial;
+        $mantenimiento->kms_goal = $kms_goal;
+        $mantenimiento->date = date(Carbon::parse(now())->formatLocalized('%Y-%m-%d'));
+        $mantenimiento->time = date(Carbon::parse(now())->formatLocalized('%H:%M:%S'));
+        $mantenimiento->correo = $request->correoalerta;
+        $mantenimiento->correo_supervisor = $request->correoalertagrave;
+        $mantenimiento->mtto_count = $ulto_manto->counter;
+        $mantenimiento->costo = $request->costo;
+        $mantenimiento->alerta_naranja = $request->alertanaranja;
+        $mantenimiento->alerta_roja = $request->alertaroja;
+        $mantenimiento->alerta_prox_vencer = $request->alertaproxima;
+        $mantenimiento->recordatorio_diario_vencido = $request->recordatorioven;
+        $mantenimiento->recordatorio_diario_por_vencerse = $request->recordatorioporven;
+        $mantenimiento->porcentaje_alerta_por_vencerse = $request->porcentajealerta;
+        $mantenimiento->estado_alerta = $estado_alerta;
+        $mantenimiento->save();
+        //----------------
         $ulto_manto->FK_idMtto = $mantenimiento->id;
         $ulto_manto->quedan = $request->cantidad;
         $Vehicle = Vehiculo::findorFail($request->vehiculo);
