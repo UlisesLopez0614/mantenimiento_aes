@@ -91,11 +91,11 @@
                         <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Reportes</a>
                     </li>
                 </ul>
-            </li-->
+            </li>
             <li class="nav-title">
                 Configuración
             </li>
-            <!--li class="nav-item nav-dropdown">
+            <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> ACCESO</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=13" class="nav-item">
@@ -106,9 +106,9 @@
                     </li>
                 </ul>
             </li-->
-            <li @click="menu=15" class="nav-item">
+            <!--<li @click="menu=15" class="nav-item">
                 <a class="nav-link"><i class="icon-book-open"></i> CONFIGURACIÓN H<span class="badge badge-danger">PDF</span></a>
-            </li>
+            </li>-->
         </ul>
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>
