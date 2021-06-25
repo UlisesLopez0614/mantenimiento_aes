@@ -52,7 +52,11 @@ return [
             'path' => storage_path('logs/ODOS.log'),
             'level' => 'debug',
         ],
-
+        'Vehicles_Updates' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/Vehicles_Updates.log'),
+            'level' => 'debug',
+        ],
         'alerts' => [
             'driver' => 'single',
             'path' => storage_path('logs/alerts.log'),

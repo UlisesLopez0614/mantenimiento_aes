@@ -41,7 +41,7 @@ class UpdateVehiclesInfo extends Command
         try{
             $Vehicles = Vehiculo::all();
             $response = collect(Http::get('http://avlaes.disatelgps.com/ws/?api=Vehicles&sitekey=avlaes&usr=admin&pwd=aes')->json());
-            //Log::channel('ODO')->info('Actualizando Registros para Vehiculos  : ' . now());
+            Log::channel('Vehicles_Updates')->info('Fecha: ' . now());
             foreach ($response as $VH)
             {
                 if($VH != 'EQ A ELIMINAR')
@@ -57,7 +57,8 @@ class UpdateVehiclesInfo extends Command
                 }
             }
         }catch (\Exception $e){
-
+            Log::channel('Vehicles_Updates')->error($e);
+            Log::channel('Vehicles_Updates')->error('Info del Registro : '.$VH);
         }
         return 'Vehiculos Actualizados';
     }
