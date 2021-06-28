@@ -14,16 +14,18 @@
                             <div class="card text-white bg-primary rounded">
                                 <div class="card-header"><strong>SUPERVISORES</strong></div>
                                 <div class="card-body">
-                                    <div class="text-value">1 SUPERVISOR</div>
+                                    <div class="text-value">{{this.KPI.Usuarios_AES}} USUARIOS ADMINISTRADORES</div>
+                                    <br/>
                                 </div>
                             </div>
                         </div>
                         <!-- /.col-->
                         <div class="col-sm-6 col-lg-3">
                             <div class="card text-white bg-success rounded">
-                                <div class="card-header"><strong>U. DE MEDIDA</strong></div>
+                                <div class="card-header"><strong>USUARIOS TALLER</strong></div>
                                 <div class="card-body">
-                                    <div class="text-value">Kilometros</div>
+                                    <div class="text-value">{{this.KPI.Usuarios_Taller}} USUARIOS TALLER</div>
+                                    <br/>
                                 </div>
                             </div>
                         </div>
@@ -32,16 +34,18 @@
                             <div class="card text-white bg-warning rounded">
                                 <div class="card-header"><strong>Cantidad de Talleres</strong></div>
                                 <div class="card-body">
-                                    <p class="card-text">{{this.KPI.Taller_Count}} Talleres Registrados</p>
+                                    <div class="card-text">{{this.KPI.Taller_Count}} Talleres Registrados</div>
+                                    <br/>
                                 </div>
                             </div>
                         </div>
                         <!-- /.col-->
                         <div class="col-sm-6 col-lg-3">
                             <div class="card text-white bg-danger rounded">
-                                <div class="card-header"><strong>ITEMS</strong></div>
+                                <div class="card-header"><strong>U. DE MEDIDA</strong></div>
                                 <div class="card-body">
-                                    <div class="text-value">No hay Items Actualmente</div>
+                                    <div class="text-value">TODOS LOS REGISTROS SE MIDEN EN KILOMETROS</div>
+                                    <br/>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +58,7 @@
                                 <div class="card-header"><strong>TIPOS MANTO</strong></div>
                                 <div class="card-body">
                                     <ul class="list-unstyled">
-                                        <li v-for="t_mtto in Mantenimientos">{{t_mtto}}</li>
+                                        <li v-for="t_mtto in Mantenimientos.Tipos">{{t_mtto}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -78,12 +82,14 @@
                         <div class="col-sm-6 col-lg-3">
                             <div class="card text-white bg-warning rounded">
                                 <div class="card-header d-flex">
-                                    <div class="flex-grow-1"><strong>Vehiculos</strong></div>
-                                    <div class="flex-fill bd-highlight"></div>
-                                    <div class="flex-fill bd-highlight">{{this.KPI.Vehicles_Count}}</div>
+                                    <div class="flex-grow-1"><strong>INFO. VEHICULOS</strong></div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="text-value">{{this.KPI.Fleet_Count}} Flotas Registradas</div>
+                                    <br/>
+                                    <div class="text-value"><strong>{{this.KPI.Fleet_Count}} Flotas Registradas</strong></div>
+                                    <div class="text-value"><strong>{{this.KPI.Vehicles_Count}} Vehiculos Activos</strong></div>
+                                    <br/>
+                                    <br/>
                                 </div>
                             </div>
                         </div>
@@ -91,9 +97,13 @@
                         <!-- /.col-->
                         <div class="col-sm-6 col-lg-3">
                             <div class="card text-white bg-danger rounded">
-                                <div class="card-header"><strong>USUARIOS</strong></div>
+                                <div class="card-header"><strong>MANTENIMIENTOS ATRASADOS</strong></div>
                                 <div class="card-body">
-                                    <div class="text-value">No hay usuarios registrados</div>
+                                    <br/>
+                                    <div class="text-value">{{this.Mantenimientos.Vencidos}} MANTENIMIENTOS ATRASADOS</div>
+                                    <div class="text-value">{{this.Mantenimientos.Proximos}} MANTENIMIENTOS CERCANOS</div>
+                                    <br/>
+                                    <br/>
                                 </div>
                             </div>
                         </div>
@@ -119,9 +129,15 @@
                     Empresas_Count:'',
                     Vehicles_Count:'',
                     Fleet_Count:'',
+                    Usuarios_Taller :'',
+                    Usuarios_AES : ''
                 },
-                Empresas: [],
-                Mantenimientos:[],
+                Mantenimientos:{
+                  Vencidos:'',
+                  Proximos:'',
+                  Tipos : []
+                },
+                Empresas: []
             }
         },
         methods : {
@@ -131,14 +147,18 @@
                 .then(data=>{
                     this.KPI.Taller_Count = data.taller_count;
                     this.Empresas = data.Empresas;
-                    this.Mantenimientos = data.T_Mtto;
+                    this.Mantenimientos.Tipos = data.T_Mtto;
                     this.KPI.Empresas_Count = data.E_Count;
                     this.KPI.Vehicles_Count = data.vehicles_count;
                     this.KPI.Fleet_Count = data.Fleet_Count;
-                console.log(data);
+                    this.KPI.Usuarios_Taller = data.UT;
+                    this.KPI.Usuarios_AES = data.UA;
+                    this.Mantenimientos.Vencidos = data.MV;
+                    this.Mantenimientos.Proximos = data.MP;
                 })
             }
         }
 
     }
 </script>
+

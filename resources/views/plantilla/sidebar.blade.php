@@ -2,7 +2,7 @@
     <nav class="sidebar-nav">
         <ul class="nav">
             <li @click="menu=0" class="nav-item">
-                <a class="nav-link active"><i class="icon-speedometer"></i> ESCRITORIO</a>
+                <a class="nav-link active"><i class="icon-speedometer"></i> DASHBOARD</a>
             </li>
             <li class="nav-title">
                 Mantenimiento
@@ -14,18 +14,18 @@
                         <a class="nav-link" href="#"><i class="icon-wallet"></i>General</a>
                     </li>
                     <li @click="menu=9" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-tint"></i>Lubricantes</a>
+                        <a class="nav-link" href="#"><i class="icon-drop"></i>Lubricantes</a>
                     </li>
                     <li @click="menu=10" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-car-battery"></i>Baterias</a>
+                        <a class="nav-link" href="#"><i class="icon-energy"></i>Baterias</a>
                     </li>
                     <li @click="menu=11" class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-dot-circle"></i>Llantas</a>
+                        <a class="nav-link" href="#"><i class="icon-disc"></i>Llantas</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> CATÁLOGOS</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-list"></i> CATÁLOGOS</a>
                 <ul class="nav-dropdown-items">
                     <!--li @click="menu=2" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-wallet"></i> Supervisores</a>
@@ -34,22 +34,22 @@
                         <a class="nav-link" href="#"><i class="icon-notebook"></i> U. de Medida</a>
                     </li-->
                     <li @click="menu=4" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-wallet"></i> Talleres</a>
+                        <a class="nav-link" href="#"><i class="icon-settings"></i> Talleres</a>
                     </li>
                     <!--li @click="menu=5" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-notebook"></i> Items</a>
-                    </li-->
-                    <li @click="menu=6" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-wallet"></i> Tipos Manto.</a>
                     </li>
+                    <li @click="menu=6" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-speech"></i> Tipos Manto.</a>
+                    </li-->
 
                     <li @click="menu=18" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-user"></i> Usuarios Taller.</a>
+                        <a class="nav-link" href="#"><i class="icon-user-follow"></i> Usuarios Taller.</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> REPORTES</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-docs"></i> REPORTES</a>
                 <ul class="nav-dropdown-items">
                     <!--li @click="menu=16" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Vehiculos</a>

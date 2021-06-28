@@ -2511,6 +2511,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Escritorio-Pantalla',
   mounted: function mounted() {
@@ -2522,10 +2532,16 @@ __webpack_require__.r(__webpack_exports__);
         Taller_Count: '',
         Empresas_Count: '',
         Vehicles_Count: '',
-        Fleet_Count: ''
+        Fleet_Count: '',
+        Usuarios_Taller: '',
+        Usuarios_AES: ''
       },
-      Empresas: [],
-      Mantenimientos: []
+      Mantenimientos: {
+        Vencidos: '',
+        Proximos: '',
+        Tipos: []
+      },
+      Empresas: []
     };
   },
   methods: {
@@ -2537,11 +2553,14 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         _this.KPI.Taller_Count = data.taller_count;
         _this.Empresas = data.Empresas;
-        _this.Mantenimientos = data.T_Mtto;
+        _this.Mantenimientos.Tipos = data.T_Mtto;
         _this.KPI.Empresas_Count = data.E_Count;
         _this.KPI.Vehicles_Count = data.vehicles_count;
         _this.KPI.Fleet_Count = data.Fleet_Count;
-        console.log(data);
+        _this.KPI.Usuarios_Taller = data.UT;
+        _this.KPI.Usuarios_AES = data.UA;
+        _this.Mantenimientos.Vencidos = data.MV;
+        _this.Mantenimientos.Proximos = data.MP;
       });
     }
   }
@@ -46029,20 +46048,51 @@ var render = function() {
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "animated fadeIn" }, [
           _c("div", { staticClass: "row" }, [
-            _vm._m(1),
+            _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
+              _c("div", { staticClass: "card text-white bg-primary rounded" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "text-value" }, [
+                    _vm._v(
+                      _vm._s(this.KPI.Usuarios_AES) +
+                        " USUARIOS ADMINISTRADORES"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+              ])
+            ]),
             _vm._v(" "),
-            _vm._m(2),
+            _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
+              _c("div", { staticClass: "card text-white bg-success rounded" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "text-value" }, [
+                    _vm._v(
+                      _vm._s(this.KPI.Usuarios_Taller) + " USUARIOS TALLER"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
               _c("div", { staticClass: "card text-white bg-warning rounded" }, [
                 _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
-                  _c("p", { staticClass: "card-text" }, [
+                  _c("div", { staticClass: "card-text" }, [
                     _vm._v(
                       _vm._s(this.KPI.Taller_Count) + " Talleres Registrados"
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
                 ])
               ])
             ]),
@@ -46059,7 +46109,7 @@ var render = function() {
                   _c(
                     "ul",
                     { staticClass: "list-unstyled" },
-                    _vm._l(_vm.Mantenimientos, function(t_mtto) {
+                    _vm._l(_vm.Mantenimientos.Tipos, function(t_mtto) {
                       return _c("li", [_vm._v(_vm._s(t_mtto))])
                     }),
                     0
@@ -46095,25 +46145,61 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
               _c("div", { staticClass: "card text-white bg-warning rounded" }, [
-                _c("div", { staticClass: "card-header d-flex" }, [
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "flex-fill bd-highlight" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "flex-fill bd-highlight" }, [
-                    _vm._v(_vm._s(this.KPI.Vehicles_Count))
-                  ])
-                ]),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
+                  _c("br"),
+                  _vm._v(" "),
                   _c("div", { staticClass: "text-value" }, [
-                    _vm._v(_vm._s(this.KPI.Fleet_Count) + " Flotas Registradas")
-                  ])
+                    _c("strong", [
+                      _vm._v(
+                        _vm._s(this.KPI.Fleet_Count) + " Flotas Registradas"
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-value" }, [
+                    _c("strong", [
+                      _vm._v(
+                        _vm._s(this.KPI.Vehicles_Count) + " Vehiculos Activos"
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("br")
                 ])
               ])
             ]),
             _vm._v(" "),
-            _vm._m(8)
+            _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
+              _c("div", { staticClass: "card text-white bg-danger rounded" }, [
+                _vm._m(8),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-value" }, [
+                    _vm._v(
+                      _vm._s(this.Mantenimientos.Vencidos) +
+                        " MANTENIMIENTOS ATRASADOS"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-value" }, [
+                    _vm._v(
+                      _vm._s(this.Mantenimientos.Proximos) +
+                        " MANTENIMIENTOS CERCANOS"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+              ])
+            ])
           ])
         ])
       ])
@@ -46139,32 +46225,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
-      _c("div", { staticClass: "card text-white bg-primary rounded" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("strong", [_vm._v("SUPERVISORES")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "text-value" }, [_vm._v("1 SUPERVISOR")])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("strong", [_vm._v("SUPERVISORES")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
-      _c("div", { staticClass: "card text-white bg-success rounded" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("strong", [_vm._v("U. DE MEDIDA")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "text-value" }, [_vm._v("Kilometros")])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("strong", [_vm._v("USUARIOS TALLER")])
     ])
   },
   function() {
@@ -46182,13 +46252,15 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
       _c("div", { staticClass: "card text-white bg-danger rounded" }, [
         _c("div", { staticClass: "card-header" }, [
-          _c("strong", [_vm._v("ITEMS")])
+          _c("strong", [_vm._v("U. DE MEDIDA")])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "text-value" }, [
-            _vm._v("No hay Items Actualmente")
-          ])
+            _vm._v("TODOS LOS REGISTROS SE MIDEN EN KILOMETROS")
+          ]),
+          _vm._v(" "),
+          _c("br")
         ])
       ])
     ])
@@ -46213,26 +46285,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex-grow-1" }, [
-      _c("strong", [_vm._v("Vehiculos")])
+    return _c("div", { staticClass: "card-header d-flex" }, [
+      _c("div", { staticClass: "flex-grow-1" }, [
+        _c("strong", [_vm._v("INFO. VEHICULOS")])
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6 col-lg-3" }, [
-      _c("div", { staticClass: "card text-white bg-danger rounded" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("strong", [_vm._v("USUARIOS")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "text-value" }, [
-            _vm._v("No hay usuarios registrados")
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("strong", [_vm._v("MANTENIMIENTOS ATRASADOS")])
     ])
   }
 ]
