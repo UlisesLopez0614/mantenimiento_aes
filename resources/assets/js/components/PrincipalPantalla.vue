@@ -18,13 +18,7 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <select class="form-control col-md-3" v-model="criterio">
-                                        <option value="idAVL">ID AVL</option>
-                                        <option value="Name">NOMBRE</option>
-                                        <option value="Plate">PLACA</option>
-                                        <option value="Fleet">FLOTA</option>
-                                    </select>
-                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)" class="form-control" placeholder="Texto a buscar">
+                                    <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar, criterio,  desde, hasta)" class="form-control" placeholder="Placa,Flota,Nombre,Area,Detalles de las baterias...">
                                 </div>
                             </div>
                         </div>
@@ -50,16 +44,6 @@
                                 <input type="date" v-model="desde" @change="cambiarHasta()" :max="fechaMaxima" class="form-control">
                                 <div class="input-group-addon bg-primary">HASTA</div>
                                 <input type="date" v-model="hasta" @change="cambiarDesde()" :max="fechaActual" :min="desde" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="input-group input-daterange">
-                                    <div class="input-group-addon bg-primary">TALLER</div>
-                                    <select class="form-control col-md-8" v-model="select_taller" @change="listarPrincipal(1, buscar, criterio, criterio2, desde, hasta, select_taller, select_tipomanto)">
-                                        <option v-for="nombreTaller in arrayTaller" :key="nombreTaller.id" :value="nombreTaller.id" v-text="nombreTaller.nombre"></option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -172,8 +156,8 @@
                                 <tr class="bg-primary">
                                     <th style="text-align: center;">ESTADO</th>
                                     <th style="text-align: center;">MANTENIMIENTO ASIGNADO</th>
-                                    <th style="text-align: center;">CANTIDAD</th>
-                                    <th style="text-align: center;">UNIDAD DE MEDIDA</th>
+                                    <th style="text-align: center;">TALLER</th>
+                                    <th style="text-align: center;">CICLO DE MNTO</th>
                                     <th style="text-align: center;">COSTO</th>
                                     <th style="text-align: center;">ASIGNADO</th>
                                 </tr>
@@ -182,8 +166,8 @@
                                 <tr v-for="historial in arrayHistorial" :key="historial.id">
                                     <td style="text-align: center;" class="align-middle" v-text="historial.estado_alerta"></td>
                                     <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.nombre"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.cantidad"></td>
-                                    <td style="text-align: center;" class="align-middle" v-text="historial.tipomanto.umedida"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="historial.taller.nombre"></td>
+                                    <td style="text-align: center;" class="align-middle">{{historial.mtto_count*historial.tipomanto.cantidad}} KM</td>
                                     <template v-if="historial.costo == null">
                                         <td style="text-align: center;" class="align-middle" v-text="'$0.00'"></td>
                                     </template>
@@ -509,7 +493,6 @@
                     var respuesta = response.data;
                     me.arrayPrincipal = respuesta.principales.data;
                     me.pagination = respuesta.pagination;
-                    console.log(respuesta);
                 })
                 .catch(function (error) {console.log(error);})
             },
@@ -522,7 +505,6 @@
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayHistorial = respuesta.mantenimientos;
-                    console.log(respuesta);
                 })
                 .catch(function (error) {console.log(error);})
             },

@@ -83,10 +83,11 @@ class MantenimientoController extends Controller
         }
 
         //Se crea un nuevo record de mantenimiento
+        $VH = Vehiculo::findorFail($request->vehiculo);
         $mantenimiento = new Mantenimiento();
         $mantenimiento->FK_idVehicle = $request->vehiculo;
         $mantenimiento->FK_taller = $request->taller;
-        $mantenimiento->FK_tipoMtto = $request->tipomanto;
+        ($VH->type == 'PESADO') ? $mantenimiento->FK_tipoMtto = 2:$mantenimiento->FK_tipoMtto = 1 ;
         $mantenimiento->kms_ini = $request->odohwinicial;
         $mantenimiento->kms_goal = $kms_goal;
         $mantenimiento->date = date(Carbon::parse(now())->formatLocalized('%Y-%m-%d'));

@@ -97,11 +97,11 @@
                         <!-- /.col-->
                         <div class="col-sm-6 col-lg-3">
                             <div class="card text-white bg-danger rounded">
-                                <div class="card-header"><strong>MANTENIMIENTOS ATRASADOS</strong></div>
+                                <div class="card-header"><strong>MANTOS. ATRASADOS</strong></div>
                                 <div class="card-body">
                                     <br/>
-                                    <div class="text-value">{{this.Mantenimientos.Vencidos}} MANTENIMIENTOS ATRASADOS</div>
-                                    <div class="text-value">{{this.Mantenimientos.Proximos}} MANTENIMIENTOS CERCANOS</div>
+                                    <div class="text-value">{{this.Mantenimientos.Vencidos}} MANTOS. ATRASADOS</div>
+                                    <div class="text-value">{{this.Mantenimientos.Proximos}} MANTOS. CERCANOS</div>
                                     <br/>
                                     <br/>
                                 </div>
