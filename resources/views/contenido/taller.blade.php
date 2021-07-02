@@ -2,9 +2,12 @@
 
 @section('contenido')
     <template v-if="menu==0">
-        <listado-taler></listado-taler>
+        <listado-manto-general/>
     </template>
     <template v-if="menu==1">
-        <historial-taler></historial-taler>
+        <listado-taler/>
+    </template>
+    <template v-if="menu==2">
+        <historial-taler/>
     </template>
 @endsection

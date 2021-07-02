@@ -156,9 +156,7 @@ export default {
             },
             offset : 3
         }
-
     },
-
     computed : {
 
         isActived : function(){
@@ -201,7 +199,7 @@ export default {
         listarPrincipal(){
 
             let me = this;
-            var url = '/listado-taller';
+            var url = '/listado-taller/lubricantes';
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayPrincipal = respuesta.records.data;

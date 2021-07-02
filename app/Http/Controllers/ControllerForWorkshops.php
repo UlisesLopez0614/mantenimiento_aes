@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Lubricantes_History;
+
 use App\Mantenimiento;
 use App\User;
+use App\Vehiculo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +16,50 @@ use Illuminate\Support\Facades\Log;
 
 class ControllerForWorkshops extends Controller
 {
+    public function getListadoGeneral(Request $request){
+        if(!$request->ajax()) return redirect('/');
+        $User = User::findorFail(Auth::id());
+
+        $Records = Mantenimiento::select('id','FK_idVehicle','FK_taller','date')
+            ->with(['vehiculo','taller'])
+            ->where('FK_taller',$User->Taller_id)
+            ->where('kms_ini','=',null)
+            ->where('date','=',null)
+            ->where('idUsuario_Taller','=',null)
+            ->paginate(50);
+        return [
+            'pagination' => [
+                'total'         => $Records->total(),
+                'current_page'  => $Records->currentPage(),
+                'per_page'      => $Records->perPage(),
+                'last_page'     => $Records->lastPage(),
+                'from'          => $Records->firstItem(),
+                'to'            => $Records->lastItem(),
+            ],
+            'records' => $Records
+        ];
+    }
+
+    public function validarMantenimiento(Request $request){
+        if(!$request->ajax()) return redirect('/');
+        try
+        {
+            $mantenimiento = Mantenimiento::findorFail($request->slug);
+            $VH = Vehiculo::findOrFail($mantenimiento->FK_idVehicle);
+            $mantenimiento->idUsuario_Taller = Auth::id();
+            $mantenimiento->date = Carbon::now()->format('Y-m-d');
+            $mantenimiento->time = Carbon::now()->format('H:i:s');
+            $mantenimiento->kms_ini = $VH->kms_inicial;
+            ($VH->type=='PESADO')?$mantenimiento->kms_goal = $mantenimiento->kms_ini+3500 : $mantenimiento->kms_goal = $mantenimiento->kms_ini+6000;
+            $mantenimiento->save();
+            return response()->json(['code' => '200']);
+        }catch(Illuminate\Database\QueryException $ex){
+            Log::warning($ex->getMessage());
+            Log::info("Request : " + $request);
+        }
+
+    }
+
     public function getListadoMantenimientos(Request $request){
         if(!$request->ajax()) return redirect('/');
         $User = User::findorFail(Auth::id());
@@ -24,14 +71,11 @@ class ControllerForWorkshops extends Controller
             },'taller'])
             ->where('FK_taller',$User->Taller_id)->where('Date_In_Workshop',null)
             ->paginate(50);
-        For some fukin reason this sh*t does the select stament for the relationship but doesnt return anything on json
-        */
-
+        For some fukin reason this sh*t does the select stament for the relationship but doesnt return anything on json*/
         $Records = Lubricantes_History::select('id','vehicle_id','FK_taller','Date_Out_Fleet')
             ->with(['vehiculo','taller'])
             ->where('FK_taller',$User->Taller_id)->where('Date_In_Workshop',null)
             ->paginate(50);
-
         return [
             'pagination' => [
                 'total'         => $Records->total(),
@@ -42,7 +86,6 @@ class ControllerForWorkshops extends Controller
                 'to'            => $Records->lastItem(),
             ],
             'records' => $Records
-
         ];
     }
 
@@ -83,6 +126,7 @@ class ControllerForWorkshops extends Controller
 
         ];
     }
+
     public function registerWorkShopsUser(Request $request){
         if(!$request->ajax()) return redirect('/');
         try{

@@ -619,18 +619,7 @@ export default {
         abrirModalIngreso(data = []){
             this.idRecord = data.lubricante_id;
             this.fecha_minima_ingreso = data.Date_Out_Workshop;
-            const swalWithBootstrapButtons = Swal.mixin({
-
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-
-                buttonsStyling: false
-
-            });
-
-            swalWithBootstrapButtons.fire({
+            Swal.fire({
 
                 title: 'Porfavor, confirme que el vehiculo esta dentro de las instalaciones',
                 icon: 'warning',
@@ -674,23 +663,14 @@ export default {
         cambiarDesde(){
 
             let me = this;
-            console.log("Almenos llega aca?");
             if(this.desde == '' && this.hasta != ''){
-                console.log("Hasta : "+ this.hasta);
                 this.desde = this.hasta;
-                console.log("Desde: "+ this.desde);
                 this.fechaMaxima = this.hasta;
             }else if(this.hasta == ''){
-                console.log("Hasta : "+ this.hasta);
-                console.log("Desde: "+ this.desde);
                 this.hasta = this.desde;
-                console.log("------------");
                 this.currentDate();
-                console.log("Hasta : "+ this.hasta);
-                console.log("Desde: "+ this.desde);
             }else{
                 this.fechaMaxima = this.hasta;
-                console.log("Desde: "+ this.desde);
             }
             this.listarPrincipal(1, me.buscar, me.criterio, me.desde, me.hasta)
 

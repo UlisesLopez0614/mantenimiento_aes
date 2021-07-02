@@ -39,7 +39,8 @@ Vue.component('acceso-users', require('./components/AccesoUsers.vue').default);
 Vue.component('reporte-mantenimientos', require('./components/ReporteMantenimientos.vue').default);
 
 //Componentes de Taller
-Vue.component('listado-taler', require('./components/Talleres/MantenimientosPendientes').default);
+Vue.component('listado-manto-general', require('./components/Talleres/MantosGeneralesPendientes.vue').default);
+Vue.component('listado-taler', require('./components/Talleres/LubPendientes').default);
 Vue.component('historial-taler', require('./components/Talleres/HistorialMantenimientos.vue').default);
 
 /**

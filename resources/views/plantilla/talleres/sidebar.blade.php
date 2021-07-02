@@ -5,12 +5,15 @@
                 MANTENIMIENTOS
             </li>
             <li @click="menu=0" class="nav-item">
-                <a class="nav-link active"><i class="icon-speedometer"></i> MANTENIMIENTOS PENDIENTES</a>
+                <a class="nav-link active"><i class="icon-speedometer"></i> MANTOS. GENERALES PENDIENTES</a>
             </li>
             <li @click="menu=1" class="nav-item">
-                <a class="nav-link active"><i class="icon-speedometer"></i> HISTORIAL DE MANTENIMIENTOS</a>
+                <a class="nav-link active"><i class="icon-drop"></i> MANTOS. LUBRICANTES PENDIENTES</a>
+            </li>
+            <li @click="menu=2" class="nav-item">
+                <a class="nav-link active"><i class="icon-docs"></i> HISTORIAL DE MANTENIMIENTOS</a>
             </li>
         </ul>
     </nav>
-    <button class="sidebar-minimizer brand-minimizer" type="button"/>
+    <button class="sidebar-minimizer brand-minimizer" />
 </div>
