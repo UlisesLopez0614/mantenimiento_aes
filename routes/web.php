@@ -110,10 +110,16 @@ Route::middleware(['workshops'])->group(function () {
     })->name('workshops');
 
     Route::prefix('listado-taller')->group(function () {
-        Route::get('/lubricantes', 'ControllerForWorkshops@getListadoMantenimientos');
-        Route::get('/general', 'ControllerForWorkshops@getListadoGeneral');
         Route::post('/register','ControllerForWorkshops@registerMantenimiento');
-        Route::post('/general/register','ControllerForWorkshops@validarMantenimiento');
         Route::get('/history','ControllerForWorkshops@get_history_records');
+
+        Route::prefix('/lubricantes')->group(function () {
+            Route::get('/', 'ControllerForWorkshops@getListadoMantenimientos');
+            Route::get('/history', 'ControllerForWorkshops@get_oil_records');
+        });
+        Route::prefix('/general')->group(function () {
+            Route::get('/', 'ControllerForWorkshops@getListadoGeneral');
+            Route::post('/register','ControllerForWorkshops@validarMantenimiento');
+        });
     });
 });

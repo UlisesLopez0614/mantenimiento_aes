@@ -2,7 +2,7 @@
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Home</li>
-            <li class="breadcrumb-item active">HISTORIAL DE MATENIMIENTOS GENERALES</li>
+            <li class="breadcrumb-item active">HISTORIAL DE MANTENIMIENTO DE LUBRICANTES</li>
         </ol>
         <div class="container-fluid">
             <div class="card">
@@ -13,7 +13,7 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <div class="input-group">
-                                <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar,  desde, hasta)" class="form-control" placeholder="Nombre Empleado,Placa,Nombre Vehiculo,Tipo de Vehiculo">
+                                <input type="text" v-model="buscar" @keyup="listarPrincipal(1, buscar,  desde, hasta)" class="form-control" placeholder="Placa,Nombre Vehiculo,Tipo de Vehiculo">
                             </div>
                         </div>
                     </div>
@@ -31,18 +31,19 @@
                     <table id="mi-tabla" class="table table-responsive table-bordered table-striped table-sm">
                         <thead>
                         <tr class="bg-primary">
-                            <th style="text-align: center;" class="align-middle" colspan="5">VEHÍCULO</th>
-                            <th style="text-align: center;" class="align-middle" colspan="2">DATOS TALLER</th>
+                            <th style="text-align: center;" class="align-middle" colspan="6">VEHÍCULO</th>
+                            <th style="text-align: center;" class="align-middle" colspan="9">DATOS TALLER</th>
                         </tr>
                         <tr class="bg-primary">
                             <th style="text-align: center;" class="align-middle">EQUIPO</th>
                             <th style="text-align: center;" class="align-middle">PLACA</th>
                             <th style="text-align: center;" class="align-middle">TIPO</th>
 
-                            <th style="text-align: center;" class="align-middle">KM PRE. MANTO.</th>
-                            <th style="text-align: center;" class="align-middle">KM PROX. MANTO .</th>
                             <th style="text-align: center;" class="align-middle">FECHA INGRESO TALLER</th>
-                            <th style="text-align: center;" class="align-middle">VALIDADO POR :</th>
+                            <th style="text-align: center;" class="align-middle">TIPO REPARACION</th>
+                            <th style="text-align: center;" class="align-middle">CANT. CUARTOS</th>
+                            <th style="text-align: center;" class="align-middle">CANT. GALS </th>
+                            <th style="text-align: center;" class="align-middle">FECHA SALIDA TALLER</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -50,13 +51,23 @@
                             <td style="text-align: center;" class="align-middle" v-text="principal.Name"></td>
                             <td style="text-align: center;" class="align-middle" v-text="principal.Plate"></td>
                             <td style="text-align: center;" class="align-middle" v-text="principal.type"></td>
-                            <template v-if="principal.date != null">
-                                <td style="text-align: center;" class="align-middle" v-text="principal.kms_ini"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.kms_goal"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.date"></td>
-                                <td style="text-align: center;" class="align-middle" v-text="principal.nombre_completo"></td>
+                            <template v-if="principal.Date_In_Workshop != null">
+                                <td style="text-align: center;" class="align-middle" v-text="principal.Date_In_Workshop"></td>
+                                <template v-if="principal.Tipo_Reparacion != null">
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.Tipo_Reparacion"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.Qty_Qts"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.Qty_Gals"></td>
+                                    <td style="text-align: center;" class="align-middle" v-text="principal.Date_Out_Workshop"></td>
+                                </template>
+                                <template v-else>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                    <td style="text-align: center;" class="align-middle">Sin Asignar</td>
+                                </template>
                             </template>
                             <template v-else>
+                                <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                 <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                 <td style="text-align: center;" class="align-middle">Sin Asignar</td>
                                 <td style="text-align: center;" class="align-middle">Sin Asignar</td>
@@ -98,6 +109,11 @@ export default {
             fecha:'',
             nombre:'',
             placa : '',
+            idAVL : '',
+            odoswinicial : '',
+            odohwinicial : '',
+            taller1 : '',
+            tipomanto1 : '',
             cantidad : '',
             umedida : '',
             tipoAccion: 0,
@@ -116,6 +132,7 @@ export default {
             minimo_desde : '',
             minimo_hasta : '',
             maximo_desde : '',
+
             desde : '',
             hasta : '',
             fechaMaxima : '',
@@ -167,7 +184,7 @@ export default {
         listarPrincipal(page, buscar,desde, hasta){
 
             let me = this;
-            var url = '/listado-taller/history?page=' + page + '&q=' + buscar + '&desde=' + desde + '&hasta=' + hasta ;
+            var url = '/listado-taller/lubricantes/history?page=' + page + '&q=' + buscar + '&desde=' + desde + '&hasta=' + hasta ;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
                 me.arrayPrincipal = respuesta.records.data;
@@ -179,23 +196,7 @@ export default {
 
         },
 
-        listarHistorial(vehiculo){
 
-            let me = this;
-            var url = '/battery_records?vehiculo=' + vehiculo;
-            console.log("URL : "+url);
-            axios.get(url).then(function (response) {
-                var respuesta = response.data;
-                me.arrayHistorial = respuesta.mantenimientos;
-                console.log(respuesta);
-            })
-                .catch(function (error) {
-
-                    console.log(error);
-
-                })
-
-        },
 
         cambiarPagina(page, buscar,   desde, hasta){
 
@@ -203,54 +204,6 @@ export default {
 
             me.pagination.current_page = page;
             me.listarPrincipal(page, buscar,   desde, hasta);
-
-        },
-
-        registrarMantenimiento(){
-
-            if(this.validarMantenimiento()){
-
-                return;
-
-            }
-
-            let me = this;
-
-            axios.post('/baterias/registrar', {
-
-                'vehiculo': this.vehiculo,
-                'tipo_bateria': this.tipo_bateria,
-                'mecanico' : this.mecanico,
-                'qty_battery' : this.qty_battery,
-                'amount' : this.amount,
-                'numero_aviso' : this.numero_aviso,
-                'orden_trabajo' : this.orden_trabajo,
-                'disposicion_final' : this.disposicion_final,
-                'Installation_Date' : this.fecha,
-
-            }).then(function (response) {
-
-                me.listarPrincipal(1, '', 'Name', '', 'vehicles.kms_inicial', '', '');
-                me.cerrarModal();
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'MANTENIMIENTO REGISTRADO CON ÉXITO!',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-
-            }).catch(function (error) {
-                console.log(error);
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Hubo un error al ingresar los datos, intente de nuevo porfavor!',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-
-            });
 
         },
 

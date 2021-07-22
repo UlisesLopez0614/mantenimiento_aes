@@ -148,24 +148,27 @@ class ControllerForWorkshops extends Controller
 
     }
 
-    public function get_history_records(Request $request)
+    public function get_oil_records(Request $request)
     {
         $query = $request->q;
         $Taller = Auth::user()->Taller_id;
         ($request->desde && $request->hasta) ?
         $Records = DB::table('tb_lubricantes_history')
-            ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.type','tb_lubricantes_history.*')
+            ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.type','tb_lubricantes_history.FK_taller','tb_lubricantes_history.Date_In_Workshop','tb_lubricantes_history.Tipo_Reparacion','tb_lubricantes_history.Qty_Qts','tb_lubricantes_history.Qty_Gals','tb_lubricantes_history.Date_Out_Workshop')
             ->join('tb_vehicles','tb_vehicles.id','=','tb_lubricantes_history.vehicle_id')
+            ->where('FK_taller',$Taller)
             ->whereBetween('Date_In_Workshop', [$request->desde, $request->hasta])
             :
         $Records = DB::table('tb_lubricantes_history')
-            ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.type','tb_lubricantes_history.*')
+            ->select('tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.type','tb_lubricantes_history.FK_taller','tb_lubricantes_history.Date_In_Workshop','tb_lubricantes_history.Tipo_Reparacion','tb_lubricantes_history.Qty_Qts','tb_lubricantes_history.Qty_Gals','tb_lubricantes_history.Date_Out_Workshop')
             ->join('tb_vehicles','tb_vehicles.id','=','tb_lubricantes_history.vehicle_id')
             ->where('FK_taller',$Taller)
-            ->where('tb_vehicles.Name','LIKE','%'.$query.'%')
-            ->orwhere('tb_vehicles.Plate','LIKE','%'.$query.'%')
-            ->orwhere('tb_vehicles.type','LIKE','%'.$query.'%')
-            ->orwhere('tb_vehicles.type','LIKE','%'.$query.'%');
+            ->where(function($q) use ($query){
+                $q->where('tb_vehicles.Name','LIKE','%'.$query.'%');
+                $q->orwhere('tb_vehicles.Plate','LIKE','%'.$query.'%');
+                $q->orwhere('tb_vehicles.type','LIKE','%'.$query.'%');
+                $q->orwhere('tb_vehicles.type','LIKE','%'.$query.'%');
+            });
         ($request->desde && $request->hasta) ? $Records->whereBetween('Date_In_Workshop', [$request->desde, $request->hasta]) : $Records;
 
         $Records = $Records->orderBy('Date_In_Workshop','DESC')->paginate(50);
@@ -182,4 +185,46 @@ class ControllerForWorkshops extends Controller
 
         ];
     }
+
+    public function get_history_records(Request $request)
+    {
+        $query = $request->q;
+        $Taller = Auth::user()->Taller_id;
+        ($request->desde && $request->hasta) ?
+            $Records = DB::table('tb_mtto_history')
+                ->select('tb_users.nombre_completo','tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.type','tb_mtto_history.date','tb_mtto_history.kms_ini','tb_mtto_history.kms_goal')
+                ->join('tb_vehicles','tb_vehicles.id','=','tb_mtto_history.FK_idVehicle')
+                ->join('tb_users','tb_users.id','=','tb_mtto_history.idUsuario_Taller')
+                ->where('FK_taller',$Taller)
+                ->whereBetween('tb_mtto_history.date', [$request->desde, $request->hasta])
+            :
+            $Records = DB::table('tb_mtto_history')
+                ->select('tb_users.nombre_completo','tb_vehicles.Name','tb_vehicles.Plate','tb_vehicles.type','tb_mtto_history.date','tb_mtto_history.kms_ini','tb_mtto_history.kms_goal')
+                ->join('tb_vehicles','tb_vehicles.id','=','tb_mtto_history.FK_idVehicle')
+                ->join('tb_users','tb_users.id','=','tb_mtto_history.idUsuario_Taller')
+                ->where('FK_taller',$Taller)
+                ->where(function($q) use ($query){
+                    $q->where('tb_vehicles.Name','LIKE','%'.$query.'%');
+                    $q->orwhere('tb_vehicles.Plate','LIKE','%'.$query.'%');
+                    $q->orwhere('tb_vehicles.type','LIKE','%'.$query.'%');
+                    $q->orwhere('tb_users.nombre_completo','LIKE','%'.$query.'%');
+                    $q->orwhere('tb_vehicles.type','LIKE','%'.$query.'%');
+                });
+        ($request->desde && $request->hasta) ? $Records->whereBetween('tb_mtto_history.date', [$request->desde, $request->hasta]) : $Records;
+
+        $Records = $Records->orderBy('date','DESC')->paginate(50);
+        return [
+            'pagination' => [
+                'total'         => $Records->total(),
+                'current_page'  => $Records->currentPage(),
+                'per_page'      => $Records->perPage(),
+                'last_page'     => $Records->lastPage(),
+                'from'          => $Records->firstItem(),
+                'to'            => $Records->lastItem(),
+            ],
+            'records' => $Records
+
+        ];
+    }
+
 }

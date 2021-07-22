@@ -11,7 +11,10 @@
                 <a class="nav-link active"><i class="icon-drop"></i> MANTOS. LUBRICANTES PENDIENTES</a>
             </li>
             <li @click="menu=2" class="nav-item">
-                <a class="nav-link active"><i class="icon-docs"></i> HISTORIAL DE MANTENIMIENTOS</a>
+                <a class="nav-link active"><i class="icon-docs"></i> HISTORIAL DE MANTENIMIENTOS GENERALES</a>
+            </li>
+            <li @click="menu=3" class="nav-item">
+                <a class="nav-link active"><i class="icon-docs"></i> HISTORIAL DE CAMBIOS DE LUBRICANTES </a>
             </li>
         </ul>
     </nav>

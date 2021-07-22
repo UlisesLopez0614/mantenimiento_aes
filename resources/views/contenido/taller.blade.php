@@ -8,6 +8,9 @@
         <listado-taler/>
     </template>
     <template v-if="menu==2">
-        <historial-taler/>
+        <historial-taller/>
+    </template>
+    <template v-if="menu==3">
+        <historial-lub/>
     </template>
 @endsection

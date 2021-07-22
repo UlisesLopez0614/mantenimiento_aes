@@ -41,7 +41,8 @@ Vue.component('reporte-mantenimientos', require('./components/ReporteMantenimien
 //Componentes de Taller
 Vue.component('listado-manto-general', require('./components/Talleres/MantosGeneralesPendientes.vue').default);
 Vue.component('listado-taler', require('./components/Talleres/LubPendientes').default);
-Vue.component('historial-taler', require('./components/Talleres/HistorialMantenimientos.vue').default);
+Vue.component('historial-taller', require('./components/Talleres/HistorialMantenimientos.vue').default);
+Vue.component('historial-lub', require('./components/Talleres/HistorialLubricantes.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
