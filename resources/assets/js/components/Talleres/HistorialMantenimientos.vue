@@ -20,7 +20,7 @@
                     <div class="form-group row">
                         <div class="col-md-8">
                             <div class="input-group input-daterange">
-                                <div class="input-group-addon bg-primary">INGRESO AL TALLER</div>
+                                <div class="input-group-addon bg-primary">FECHA FINALIZACION MANTENIMIENTO</div>
                                 <div class="input-group-addon bg-primary">DESDE</div>
                                 <input type="date" v-model="desde" @change="cambiarHasta()" :max="fechaMaxima" class="form-control">
                                 <div class="input-group-addon bg-primary">HASTA</div>

@@ -55124,7 +55124,7 @@ var render = function() {
             _c("div", { staticClass: "col-md-8" }, [
               _c("div", { staticClass: "input-group input-daterange" }, [
                 _c("div", { staticClass: "input-group-addon bg-primary" }, [
-                  _vm._v("INGRESO AL TALLER")
+                  _vm._v("FECHA FINALIZACION MANTENIMIENTO")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group-addon bg-primary" }, [
@@ -55663,7 +55663,7 @@ var render = function() {
             _c("div", { staticClass: "col-md-8" }, [
               _c("div", { staticClass: "input-group input-daterange" }, [
                 _c("div", { staticClass: "input-group-addon bg-primary" }, [
-                  _vm._v("INGRESO AL TALLER")
+                  _vm._v("FECHA FINALIZACION MANTENIMIENTO")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group-addon bg-primary" }, [
